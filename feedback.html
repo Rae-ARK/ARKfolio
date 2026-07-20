@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feedback — Rae ARK</title>
+<meta name="description" content="Send feedback to Rae ARK — on the writing, the website, the paperbacks, or the author.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+<!-- No-JS fallback: guarantees the nav menu is reachable even with scripting disabled -->
+<noscript><style>
+  .nav-toggle { display: none !important; }
+  nav.main-nav { display: flex !important; position: static !important; background: none !important; border: 0 !important; padding: 0 !important; }
+  @media (max-width: 700px) {
+    nav.main-nav { flex-direction: column !important; align-items: flex-start !important; padding: 12px 0 0 !important; }
+  }
+</style></noscript>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand-row">
+      <a href="about.html">
+        <div class="avatar" style="background-image:url('assets/images/profile.png')"></div>
+      </a>
+      <div class="brand">
+        <span class="name"><a href="index.html">Rae ARK <span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></a></span>
+        <span class="sub">嵐久 怜 · WEB NOVELIST</span>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="works.html">Works</a>
+      <a href="store.html">Store</a>
+      <a href="journal.html">Journal</a>
+      <a href="about.html">About</a>
+      <a class="icon-btn" href="https://x.com/Rae7866" target="_blank" rel="noopener" aria-label="Follow on X">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.6L4.4 22H1.3l8.1-9.3L1 2h7l4.9 6z"/></svg>
+      </a>
+    </nav>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:36px;">
+  <div class="wrap">
+    <span class="eyebrow">Get in Touch</span>
+    <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Feedback</h1>
+    <p class="lede">Thoughts on a story, the site, or anything else — this goes straight to my inbox.</p>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="feedback-card">
+
+      <div class="notice-box">
+        Please pick one of the subjects below before sending. Messages sent through this form use your own email app, and ones without a matching subject are easy to miss in a crowded inbox.
+      </div>
+
+      <form id="feedback-form">
+        <div class="form-field">
+          <label for="fb-subject">Subject</label>
+          <select id="fb-subject" required>
+            <option value="Feedback on the writing" selected>Feedback on the writing</option>
+            <option value="Feedback on the website">Feedback on the website</option>
+            <option value="Feedback on a paperback">Feedback on a paperback</option>
+            <option value="Feedback about the author">Feedback about the author</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="fb-name">Your name <span style="text-transform:none;">(optional)</span></label>
+          <input type="text" id="fb-name" placeholder="So I know who to thank">
+        </div>
+
+        <div class="form-field">
+          <label for="fb-message">Message</label>
+          <textarea id="fb-message" required placeholder="Whatever's on your mind..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">Send Feedback</button>
+        <p class="form-hint">Opens in your email app, addressed to horizonarkstudio@gmail.com — nothing is sent from this page directly.</p>
+        <noscript>
+          <p class="form-hint">This form needs JavaScript to build the email. If yours is disabled, <a href="mailto:horizonarkstudio@gmail.com?subject=Feedback%20on%20the%20writing" style="color:var(--accent); font-weight:600;">email me directly</a> instead.</p>
+        </noscript>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-quote">"I hope for people to hold the book in their hands someday, and to sit on the shelves."</p>
+    <p class="footer-attrib">— Rae ARK</p>
+    <div class="footer-imprint">
+      <img src="assets/images/horizon-ark-logo.png" alt="Horizon ARK Studio" onerror="this.style.display='none'">
+      <span>Published under Horizon ARK Studio</span>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Rae ARK</span>
+      <div class="footer-links">
+        <a href="works.html">Works</a>
+        <a href="store.html">Store</a>
+        <a href="journal.html">Journal</a>
+        <a href="about.html">About</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="https://x.com/Rae7866" target="_blank" rel="noopener">X</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
