@@ -73,8 +73,23 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js");
-    });
-}
+const PRECACHE = [
+    "/",
+    "/about.html",
+    "/works.html",
+    "/journal.html",
+    "/feedback.html",
+    "/store.html",
+    "/style.css",
+    "/script.js",
+    "/manifest.json"
+];
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE).then((cache) =>
+      Promise.allSettled(PRECACHE.map((url) => cache.add(url)))
+    )
+  );
+  self.skipWaiting();
+});
