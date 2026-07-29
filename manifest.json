@@ -1,9 +1,10 @@
 {
-  "name": "Your Portfolio",
-  "short_name": "Portfolio",
-  "description": "My personal portfolio",
+  "name": "Rae ARK — Web Novelist",
+  "short_name": "Rae ARK",
+  "description": "Rae ARK writes fantasy and science-fantasy stories about people rebuilding themselves — reincarnation, isekai, and the quiet work of learning how to live again.",
   "start_url": "/",
   "scope": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#111111",
   "theme_color": "#111111",
@@ -13,7 +14,13 @@
       "src": "/assets/images/profile.png",
       "sizes": "1024x1024",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/profile.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

@@ -23,7 +23,7 @@ Thumbs.db
 
 # Cloudflare local state (optional)
 .dev.vars
-.wrangler/
+
 
 # Android/iOS projects (only if you use Capacitor later)
 android/
