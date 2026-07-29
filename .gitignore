@@ -1,0 +1,30 @@
+# Node dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Generated archives
+*.zip
+
+# Cloudflare local state (optional)
+.dev.vars
+.wrangler/
+
+# Android/iOS projects (only if you use Capacitor later)
+android/
+ios/
