@@ -1,4 +1,4 @@
-const CACHE = "portfolio-v2";
+const CACHE = "portfolio-v3";
 
 const PRECACHE = [
     "/",
@@ -17,39 +17,87 @@ const PRECACHE = [
     "/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png"
 ];
 
+// Install
 self.addEventListener("install", (event) => {
     event.waitUntil(
-        caches.open(CACHE).then((cache) =>
-            Promise.allSettled(PRECACHE.map((url) => cache.add(url)))
-        )
+        (async () => {
+            const cache = await caches.open(CACHE);
+            await cache.addAll(PRECACHE);
+        })()
     );
+
     self.skipWaiting();
 });
 
+// Activate
 self.addEventListener("activate", (event) => {
     event.waitUntil(
-        caches.keys().then((keys) =>
-            Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-        )
+        (async () => {
+            const keys = await caches.keys();
+
+            await Promise.all(
+                keys
+                    .filter((key) => key !== CACHE)
+                    .map((key) => caches.delete(key))
+            );
+
+            await self.clients.claim();
+        })()
     );
-    self.clients.claim();
 });
 
+// Fetch
 self.addEventListener("fetch", (event) => {
+
     if (event.request.method !== "GET") return;
 
     event.respondWith(
-        caches.open(CACHE).then(async (cache) => {
+        (async () => {
+
+            const cache = await caches.open(CACHE);
+
+            // Cache First
             const cached = await cache.match(event.request);
 
-            const network = fetch(event.request)
-                .then((response) => {
-                    if (response.ok) cache.put(event.request, response.clone());
-                    return response;
-                })
-                .catch(() => cached);
+            if (cached) {
+                return cached;
+            }
 
-            return cached || network;
-        })
+            try {
+
+                const response = await fetch(event.request);
+
+                // Cache only successful same-origin responses
+                if (
+                    response &&
+                    response.status === 200 &&
+                    response.type === "basic"
+                ) {
+                    cache.put(event.request, response.clone());
+                }
+
+                return response;
+
+            } catch {
+
+                // Offline fallback
+                const fallback = await cache.match(event.request);
+
+                if (fallback) {
+                    return fallback;
+                }
+
+                return new Response("Offline", {
+                    status: 503,
+                    statusText: "Service Unavailable",
+                    headers: {
+                        "Content-Type": "text/plain"
+                    }
+                });
+
+            }
+
+        })()
     );
+
 });
