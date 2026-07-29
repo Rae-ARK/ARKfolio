@@ -1,7 +1,7 @@
 {
-  "name": "Rae's Portfolio",
-  "short_name": "RAP",
-  "description": "Rae's Author Portfolio",
+  "name": "Your Portfolio",
+  "short_name": "Portfolio",
+  "description": "My personal portfolio",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,7 +10,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/profile.png",
+      "src": "/assets/images/profile.png",
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any maskable"
