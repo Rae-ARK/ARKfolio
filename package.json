@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "rae-ark-protfolio-deployment-3",
   "version": "1.0.0",
   "description": "A static author site for web novelist [Rae ARK](https://x.com/Rae7866) — home for three ongoing novels, print editions, and a running journal of the writing process.",
@@ -17,4 +18,25 @@
     "url": "https://github.com/Rae-ARK/My-Portfolio/issues"
   },
   "homepage": "https://github.com/Rae-ARK/My-Portfolio#readme"
+=======
+  "name": "arkfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.4.38",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.11",
+    "vue-tsc": "^2.1.10"
+  }
+>>>>>>> 405de62 (Migrating portfolio in vue 3 framework)
 }
