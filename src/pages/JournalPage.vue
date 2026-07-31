@@ -14,7 +14,7 @@ import { journalEntries } from '@/data/journal'
   <section style="padding-top:0;">
     <div class="wrap container-narrow">
       <div class="timeline">
-        <div class="journal-entry" v-for="entry in journalEntries" :key="entry.date + entry.title">
+        <div class="journal-entry" v-reveal v-for="entry in journalEntries" :key="entry.date + entry.title">
           <div class="journal-card">
             <div class="journal-head">
               <span class="journal-date">{{ entry.date }}</span>

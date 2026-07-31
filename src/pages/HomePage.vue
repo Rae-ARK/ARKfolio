@@ -16,7 +16,7 @@ import WorkCard from '@/components/WorkCard.vue'
     </div>
   </section>
 
-  <section id="works">
+  <section id="works" v-reveal>
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Featured Works</span>
@@ -31,7 +31,7 @@ import WorkCard from '@/components/WorkCard.vue'
 
   <div class="section-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
 
-  <section class="alt-bg">
+  <section class="alt-bg" v-reveal>
     <div class="wrap container-narrow">
       <div class="section-head">
         <span class="eyebrow">Currently Writing</span>
@@ -51,7 +51,7 @@ import WorkCard from '@/components/WorkCard.vue'
 
   <div class="section-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
 
-  <section>
+  <section v-reveal>
     <div class="wrap pull-quote">
       <blockquote>"I believe stories deserve endings. Some of mine span years; others are written short and focused, on purpose — so I can keep learning how to bring a narrative to a close I actually believe in."</blockquote>
       <cite>— Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists</cite>
@@ -60,7 +60,7 @@ import WorkCard from '@/components/WorkCard.vue'
 
   <div class="section-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
 
-  <section class="alt-bg">
+  <section class="alt-bg" v-reveal>
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Where to Read</span>

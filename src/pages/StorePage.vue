@@ -13,7 +13,7 @@ import { storeBooks, notYetInPrintNote } from '@/data/store'
 
   <section style="padding-top:36px;">
     <div class="wrap container-narrow">
-      <div class="store-book" v-for="book in storeBooks" :key="book.title">
+      <div class="store-book" v-reveal v-for="book in storeBooks" :key="book.title">
         <div class="work-thumb" :class="book.thumbClass"></div>
         <div>
           <span class="eyebrow" style="margin-bottom:0.3em;">{{ book.edition }}</span>
@@ -35,7 +35,7 @@ import { storeBooks, notYetInPrintNote } from '@/data/store'
 
   <section style="padding-top:0;">
     <div class="wrap container-narrow">
-      <div class="store-empty">{{ notYetInPrintNote }}</div>
+      <div class="store-empty" v-reveal>{{ notYetInPrintNote }}</div>
     </div>
   </section>
 </template>

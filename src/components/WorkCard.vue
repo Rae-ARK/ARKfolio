@@ -5,7 +5,7 @@ defineProps<{ work: Work }>()
 </script>
 
 <template>
-  <article class="work-card">
+  <article class="work-card" v-reveal>
     <div class="cover" :class="work.coverClass">
       <span class="status-ribbon" :class="{ mature: work.mature }">{{ work.kind }} &middot; {{ work.status }}</span>
     </div>

@@ -27,7 +27,7 @@ function hideOnError(event: Event) {
     </div>
   </section>
 
-  <section style="padding-top:0;">
+  <section style="padding-top:0;" v-reveal>
     <div class="wrap about-grid">
       <div>
         <p style="font-size:1.08rem; color:var(--ink);">I write character-driven fantasy and science fantasy about people rebuilding themselves. Whether through reincarnation, another world, or just difficult circumstances, my stories explore regret, curiosity, responsibility, and the slow process of learning how to live.</p>

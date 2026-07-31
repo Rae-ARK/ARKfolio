@@ -12,7 +12,7 @@ import { works } from '@/data/works'
   </section>
 
   <template v-for="(work, i) in works" :key="work.slug">
-    <section :id="work.slug" :style="i === 0 ? 'padding-top:24px;' : 'padding-top:0;'">
+    <section :id="work.slug" v-reveal :style="i === 0 ? 'padding-top:24px;' : 'padding-top:0;'">
       <div class="wrap container-narrow">
         <span class="eyebrow">{{ work.kind }} &middot; {{ work.status }}</span>
         <div class="work-heading-row">

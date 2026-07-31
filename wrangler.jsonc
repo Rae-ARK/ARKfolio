@@ -1,8 +1,22 @@
 {
   "$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+  // Must match the Worker name you're already deploying to (was "rae-ark"
+  // on the old static-site config) — otherwise `wrangler deploy` creates a
+  // brand-new, separate Worker instead of updating the existing one, and
+  // any custom domain/route bound to "rae-ark" keeps serving the old site.
   "name": "rae-ark",
-  "compatibility_date": "2026-07-20",
+  "compatibility_date": "2026-07-31",
   "assets": {
-    "directory": "."
+    // Vite's build output — see `npm run build`. (Old config pointed at
+    // "." because that site had no build step and served the repo root.)
+    "directory": "./dist",
+    // Client-side routing (vue-router, history mode): any path that
+    // doesn't match a built file falls back to index.html instead of 404ing.
+    // The old multi-page site didn't need this — each page was its own
+    // .html file, so there was nothing to fall back to.
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
   }
 }

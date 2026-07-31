@@ -27,6 +27,41 @@
   --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
   --maxw: 1080px;
+  --grain-opacity: 0.5;
+}
+
+/* Dark theme — same tokens, ink-well palette instead of warm paper.
+   Toggled via [data-theme] on <html>; see useTheme.ts. */
+[data-theme="dark"] {
+  --paper: #17160f;
+  --paper-alt: #201e15;
+  --ink: #ede7d8;
+  --ink-soft: #b7ae99;
+  --ink-faint: #7d765f;
+  --accent: #5fae9a;
+  --accent-dark: #3d7d6c;
+  --accent-tint: #1c2b26;
+  --brass: #d6ac5c;
+  --brass-dark: #ad8434;
+  --warn: #e0a0a0;
+  --warn-tint: #3a2323;
+  --line: #34311f;
+  --paper-rgb: 23, 22, 15;
+  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 16px 34px -20px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 28px 60px -24px rgba(0, 0, 0, 0.75);
+  --grain-opacity: 0.28;
+}
+
+/* Smooth crossfade between themes instead of an abrupt flip. */
+body,
+header.site-header,
+.icon-btn,
+.work-card,
+.status-panel,
+.feedback-card,
+footer.site-footer {
+  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
 }
 
 * {
@@ -56,7 +91,8 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
+  opacity: var(--grain-opacity);
+  transition: opacity 0.22s ease;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.13  0 0 0 0 0.12  0 0 0 0 0.10  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -1152,5 +1188,27 @@ footer.site-footer {
 @media (min-width: 701px) {
   .nav-toggle {
     display: none;
+  }
+}
+
+/* ---------------------- Scroll reveal (v-reveal directive) ---------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: none;
+    opacity: 1;
+    transform: none;
   }
 }
