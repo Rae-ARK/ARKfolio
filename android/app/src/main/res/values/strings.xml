@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Rae ARK</string>
+    <string name="title_activity_main">Rae ARK</string>
+    <string name="package_name">com.raeark.arkfolio</string>
+    <string name="custom_url_scheme">com.raeark.arkfolio</string>
+</resources>

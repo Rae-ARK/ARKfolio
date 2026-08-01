@@ -28,6 +28,7 @@
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
   --maxw: 1080px;
   --grain-opacity: 0.5;
+  --card-bg: #ffffff;
 }
 
 /* Dark theme — same tokens, ink-well palette instead of warm paper.
@@ -51,6 +52,7 @@
   --shadow-md: 0 16px 34px -20px rgba(0, 0, 0, 0.7);
   --shadow-lg: 0 28px 60px -24px rgba(0, 0, 0, 0.75);
   --grain-opacity: 0.28;
+  --card-bg: #262319;
 }
 
 /* Smooth crossfade between themes instead of an abrupt flip. */
@@ -59,6 +61,9 @@ header.site-header,
 .icon-btn,
 .work-card,
 .status-panel,
+.read-card,
+.journal-card,
+.about-side,
 .feedback-card,
 footer.site-footer {
   transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease;
@@ -81,6 +86,11 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  /* Kill the Android WebView's rubber-band/glow overscroll so the app edges
+     feel like a native surface rather than a scrolled web page. */
+  overscroll-behavior-y: none;
+  /* Native apps don't flash a grey highlight rect on every tap. */
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* subtle paper grain so flat colour fields don't read sterile */
@@ -109,7 +119,8 @@ a {
 .wrap {
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: 0 32px;
+  padding-left: max(32px, env(safe-area-inset-left));
+  padding-right: max(32px, env(safe-area-inset-right));
   position: relative;
   z-index: 1;
 }
@@ -177,6 +188,9 @@ header.site-header {
   background: rgba(var(--paper-rgb), 0.9);
   backdrop-filter: saturate(140%) blur(8px);
   border-bottom: 1px solid var(--line);
+  /* Android 16+ enforces edge-to-edge and won't let the app paint a status
+     bar background anymore, so the header itself absorbs that space. */
+  padding-top: env(safe-area-inset-top, 0px);
 }
 
 .site-header .wrap {
@@ -276,31 +290,54 @@ nav.main-nav a.active::after {
   background: var(--accent);
 }
 
-/* Redesigned X / social button — icon chip, not a stretched text pill */
+/* Icon buttons (X / GitHub / theme toggle) — grouped, not loose circles
+   floating in the same rhythm as the text nav links. */
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 6px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+}
 
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   border: 1px solid var(--line);
-  color: var(--ink);
-  background: #fff;
-  transition: all 0.18s ease;
+  color: var(--ink-soft);
+  background: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
-.icon-btn:hover {
+/* Hover only applies on devices that actually have a mouse — otherwise a
+   tap on a touchscreen leaves the button visually "stuck" inverted until
+   something else is tapped, which is what was reading as broken. */
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+}
+
+/* Touch/click devices get instant, self-resetting feedback instead. */
+.icon-btn:active {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--paper);
-  transform: translateY(-1px);
+  transform: scale(0.92);
 }
 
 .icon-btn svg {
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
 }
 
 .nav-toggle {
@@ -367,6 +404,14 @@ nav.main-nav a.active::after {
   flex-wrap: wrap;
 }
 
+.btn,
+.icon-btn,
+nav.main-nav a,
+.nav-toggle {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -386,10 +431,17 @@ nav.main-nav a.active::after {
   box-shadow: var(--shadow-sm);
 }
 
-.btn-primary:hover {
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--accent-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-primary:active {
   background: var(--accent-dark);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-1px);
+  transform: scale(0.98);
 }
 
 .btn-ghost {
@@ -397,7 +449,14 @@ nav.main-nav a.active::after {
   color: var(--ink);
 }
 
-.btn-ghost:hover {
+@media (hover: hover) and (pointer: fine) {
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.btn-ghost:active {
   background: var(--ink);
   color: var(--paper);
 }
@@ -448,7 +507,7 @@ section.alt-bg {
 }
 
 .work-card {
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
@@ -458,9 +517,16 @@ section.alt-bg {
   transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.work-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .work-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+}
+
+.work-card:active {
+  box-shadow: var(--shadow-sm);
+  transform: scale(0.99);
 }
 
 /* Cover: real artwork via background-image, with a colour fallback
@@ -615,7 +681,7 @@ section.alt-bg {
 /* ---------------------- Currently writing ---------------------- */
 
 .status-panel {
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 8px 32px;
@@ -710,7 +776,7 @@ section.alt-bg {
 
 .read-card {
   border: 1px solid var(--line);
-  background: #fff;
+  background: var(--card-bg);
   border-radius: 8px;
   padding: 24px 28px;
   min-width: 200px;
@@ -719,9 +785,16 @@ section.alt-bg {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.read-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+@media (hover: hover) and (pointer: fine) {
+  .read-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.read-card:active {
+  box-shadow: var(--shadow-sm);
+  transform: scale(0.99);
 }
 
 .read-card .k {
@@ -793,7 +866,7 @@ section.alt-bg {
 }
 
 .journal-card {
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 26px 28px;
@@ -815,6 +888,43 @@ section.alt-bg {
   color: var(--brass-dark);
 }
 
+/* ---------------------- Legal (Privacy / Terms) ---------------------- */
+
+.legal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 32px 34px 8px;
+  box-shadow: var(--shadow-sm);
+}
+
+.legal-card h3 {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  margin: 28px 0 10px;
+  color: var(--ink);
+}
+
+.legal-card h3:first-child {
+  margin-top: 0;
+}
+
+.legal-card p {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.legal-card a {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .legal-card {
+    padding: 24px 20px 4px;
+  }
+}
+
 /* ---------------------- About ---------------------- */
 
 .about-grid {
@@ -831,7 +941,7 @@ section.alt-bg {
 }
 
 .about-side {
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 30px;
@@ -878,6 +988,26 @@ section.alt-bg {
   letter-spacing: 0.08em;
   color: var(--ink-faint);
   text-transform: uppercase;
+}
+
+.source-credit {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--ink-faint);
+  font-size: 0.74rem;
+  transition: color 0.15s ease;
+}
+
+.source-credit svg {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.source-credit:hover {
+  color: var(--accent);
 }
 
 .not-expect {
@@ -957,11 +1087,19 @@ section.alt-bg {
   box-shadow: var(--shadow-sm);
 }
 
-.retailer-btn:hover {
+@media (hover: hover) and (pointer: fine) {
+  .retailer-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.retailer-btn:active {
   background: var(--accent);
   color: #fff;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: scale(0.98);
 }
 
 .retailer-btn .arrow {
@@ -986,7 +1124,7 @@ section.alt-bg {
 /* ---------------------- Feedback page ---------------------- */
 
 .feedback-card {
-  background: #fff;
+  background: var(--card-bg);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 36px;
@@ -1062,7 +1200,7 @@ section.alt-bg {
 
 footer.site-footer {
   border-top: 1px solid var(--line);
-  padding: 60px 0 36px;
+  padding: 60px 0 max(36px, env(safe-area-inset-bottom));
   background: var(--paper-alt);
 }
 
@@ -1140,7 +1278,8 @@ footer.site-footer {
 
 @media (max-width: 700px) {
   .wrap {
-    padding: 0 20px;
+    padding-left: max(20px, env(safe-area-inset-left));
+    padding-right: max(20px, env(safe-area-inset-right));
   }
 
   section {
@@ -1175,8 +1314,13 @@ footer.site-footer {
     width: 100%;
   }
 
-  nav.main-nav .icon-btn {
-    margin-top: 8px;
+  nav.main-nav .nav-icons {
+    margin: 10px 0 2px;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    width: 100%;
   }
 
   .site-header .wrap {

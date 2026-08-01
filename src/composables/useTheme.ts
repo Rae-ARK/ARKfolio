@@ -24,6 +24,9 @@ watch(
       // Storage can be unavailable (private browsing, disabled cookies) —
       // theme still works for the session, it just won't persist.
     }
+    // Lazy import: keeps this composable usable in plain web builds without
+    // pulling in Capacitor plugin code unless it's actually needed.
+    import('@/native/nativeShell').then(({ onThemeChange }) => onThemeChange(value))
   },
   { immediate: false }
 )

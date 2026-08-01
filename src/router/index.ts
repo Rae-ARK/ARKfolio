@@ -67,6 +67,24 @@ const routes = [
       description: "Send feedback on Rae ARK's stories, paperbacks, or this site directly via email.",
     },
   },
+  {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import('@/pages/PrivacyPolicyPage.vue'),
+    meta: {
+      title: 'Privacy Policy — Rae ARK',
+      description: 'How the Rae ARK site and Android app handle data and permissions.',
+    },
+  },
+  {
+    path: '/terms',
+    name: 'terms',
+    component: () => import('@/pages/TermsPage.vue'),
+    meta: {
+      title: 'Terms & Conditions — Rae ARK',
+      description: 'Terms of use for the Rae ARK site and Android app.',
+    },
+  },
 ]
 
 const router = createRouter({

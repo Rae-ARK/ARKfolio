@@ -25,6 +25,15 @@ Thumbs.db
 .dev.vars
 
 
-# Android/iOS projects (only if you use Capacitor later)
-android/
+# Android native project (Capacitor) — the project itself is tracked,
+# only its generated/build output and local machine config are ignored.
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/captures/
+android/*.iml
+android/.idea/
+
+# iOS (not added yet — Stage 4/Tauri covers desktop instead)
 ios/

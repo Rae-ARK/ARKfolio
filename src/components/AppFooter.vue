@@ -25,6 +25,8 @@
           <router-link to="/journal">Journal</router-link>
           <router-link to="/about">About</router-link>
           <router-link to="/feedback">Feedback</router-link>
+          <router-link to="/privacy">Privacy</router-link>
+          <router-link to="/terms">Terms</router-link>
 
           <a
             href="https://x.com/Rae7866"
@@ -32,6 +34,13 @@
             rel="noopener"
           >
             X
+          </a>
+          <a
+            href="https://github.com/Rae-ARK/My-Portfolio"
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
           </a>
         </div>
       </div>

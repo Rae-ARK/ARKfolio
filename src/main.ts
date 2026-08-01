@@ -2,12 +2,20 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { vReveal } from './composables/useScrollReveal'
+import { useTheme } from './composables/useTheme'
 import './styles/main.css'
 
 const app = createApp(App)
 app.use(router)
 app.directive('reveal', vReveal)
 app.mount('#app')
+
+// Stage 3: on Android this wires the hardware back button, status bar icon
+// color, splash screen hide, and Custom Tab links. No-op on the web build.
+import('./native/nativeShell').then(({ initNativeShell }) => {
+  const { theme } = useTheme()
+  initNativeShell(router, theme.value)
+})
 
 // Register the service worker for offline support + installability.
 // Skipped in dev so `npm run dev` never serves stale cached files.
