@@ -1,54 +1,96 @@
-# ARKfolio — Stage 1 (MVP)
+# ARKfolio
 
-Vue 3 + Vite + TypeScript port of the original static site
-([Rae-ARK/My-Portfolio](https://github.com/Rae-ARK/My-Portfolio)). This
-stage is deliberately just parity — same look, same content, same pages,
-now as components instead of six copy-pasted HTML files.
+Vue 3 + Vite + TypeScript author site for Rae ARK, shipped three ways:
+as a website, as an installable PWA, and as a native Android app via
+Capacitor.
+
+**Repo:** [Rae-ARK/My-Portfolio](https://github.com/Rae-ARK/My-Portfolio)
 
 ## What's here
 
-- Router with the original 6 pages: Home, Works, Store, Journal, About, Feedback
-- Content (works, journal entries, store listings) lives in `src/data/*.ts` —
-  edit those files to update the site, no HTML hunting required
-- `src/styles/main.css` is your original `style.css`, relocated as-is
-  (class names unchanged, so nothing needed rewriting)
-- Mobile nav + active-link highlighting now driven by Vue/vue-router
-  instead of manual DOM classList code
-- Feedback form's mailto-link logic ported into `src/composables/useFeedbackForm.ts`
+- Router with 8 pages: Home, Works, Store, Journal, About, Feedback,
+  Privacy, Terms
+- Content (works, journal entries, store listings) lives in `src/data/*.ts`
+  — edit those files to update the site, no HTML hunting required
+- Light/dark theme toggle (`src/composables/useTheme.ts`), persisted
+  per-device
+- PWA: offline-capable via a service worker, installable, manifest +
+  icons in `public/`
+- `src/native/nativeShell.ts` — everything that makes the Android build
+  feel native rather than "a website in a box": hardware back button
+  wired to app navigation, status bar icon color synced to the theme,
+  safe-area-aware layout for edge-to-edge Android, external links
+  (Royal Road, Scribble Hub, X) opening in Chrome Custom Tabs instead of
+  hijacking the app's own WebView. All of it is a no-op on the web build.
 
-## Before you run it
+## Local development
 
-1. **Install dependencies** (this sandbox has no network access, so this
-   step has to happen on your machine):
-   ```
-   npm install
-   ```
-2. **Copy your images** into `public/assets/images/`:
-   - `profile.png`
-   - `horizon-ark-logo.png`
-   - `Enigmatic Pathways Mystic Circuits vol 1.png`
-   - `Summoned By Mistake, I Decided To Learn How To Live Arc 1.png`
-   - `The Shadow I Cast Over Two Beautiful Girls Act 1.png`
-   (Same filenames as your old `assets/images/` folder — just drag the
-   whole folder into `public/assets/images/`.)
-3. **Run it**:
-   ```
-   npm run dev
-   ```
+```bash
+npm install
+npm run dev        # http://localhost:5173, hot reload
+```
 
-## Not in Stage 1 (on purpose)
+```bash
+npm run build       # type-checks (vue-tsc) + builds to dist/
+npm run preview      # serve the production build locally
+```
 
-- No PWA / service worker yet — added in Stage 2 along with a proper
-  fix for the `install` listener that had drifted into `script.js`
-- No dark theme toggle yet — Stage 2
-- No reveal-on-scroll animation yet — Stage 2 (trivial to add back,
-  skipped for now to keep this stage boring and verifiable)
-- No Capacitor / Android wrapper yet — Stage 3, once this web app is
-  confirmed working and matches the old site
+## Deploying the site
 
-## Staged plan (recap)
+Hosted on Cloudflare Workers (static assets + SPA fallback, see
+`wrangler.jsonc`).
 
-1. **MVP (this)** — Vue 3 web app, full parity, no extras
-2. **Polish** — PWA/offline caching, dark mode, scroll reveal, SEO meta
-3. **Android** — Capacitor wrap, touch/safe-area tuning, icon/splash, APK
-4. **Later** — Tauri desktop build, any native extras you actually want
+```bash
+npm run deploy       # builds, then `wrangler deploy`
+```
+
+There's also a `.github/workflows/deploy.yml` for push-to-deploy — it's
+manual-trigger only until `CLOUDFLARE_API_TOKEN` is added under this
+repo's *Settings → Secrets and variables → Actions*. Once that's set,
+switch its `on:` block from `workflow_dispatch` to
+`push: branches: [main]`.
+
+## Android app
+
+Wrapped with [Capacitor](https://capacitorjs.com/). The `android/`
+directory is a real, checked-in Android Studio project — open it
+directly if you want the IDE, or use the npm scripts below.
+
+```bash
+npm run android:sync    # build web app, copy into the Android project
+npm run android:open    # ...then open Android Studio
+npm run android:build   # ...then build a debug APK via Gradle
+```
+
+The debug APK also builds automatically in CI on every push to `main` —
+see `.github/workflows/android-build.yml` and the **Actions** tab on
+GitHub for a downloadable artifact, no local Android SDK required.
+
+App id: `com.raeark.arkfolio`. Icons/splash live under
+`android/app/src/main/res/`; brand colors are defined in
+`android/app/src/main/res/values/colors.xml`.
+
+## Project structure
+
+```
+src/
+  components/   AppHeader, AppFooter, WorkCard, ...
+  composables/  useTheme, useScrollReveal, useFeedbackForm
+  data/         works.ts, journal.ts, store.ts — edit these to update content
+  native/       nativeShell.ts — Capacitor/Android-only behavior
+  pages/        one .vue file per route
+  router/       route table + per-page <title>/meta
+  styles/       main.css — warm-paper / ink-teal / brass design system
+```
+
+## Notes for whoever's touching this next
+
+- `node_modules/` and `dist/` are gitignored — don't re-add them; both
+  regenerate from `npm install` / `npm run build`.
+- The Android SDK build in CI targets `compileSdk 36` (Android 16),
+  which enforces edge-to-edge display and no longer honors
+  `StatusBar.setBackgroundColor` / `overlaysWebView` — layout relies on
+  `env(safe-area-inset-*)` CSS instead (see `src/styles/main.css`).
+- Legal pages (`/privacy`, `/terms`) exist mainly because the Play Store
+  requires a privacy policy link for any app requesting permissions —
+  update the contact email in `PrivacyPolicyPage.vue` if it changes.
