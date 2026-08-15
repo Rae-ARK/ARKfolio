@@ -17,6 +17,12 @@ import('./native/nativeShell').then(({ initNativeShell }) => {
   initNativeShell(router, theme.value)
 })
 
+// Linux/Windows/macOS desktop build: wires up the Neutralino window shell
+// (title, show, clean exit on close). No-op on the web/Android build.
+import('./native/neutralinoShell').then(({ initNeutralinoShell }) => {
+  initNeutralinoShell()
+})
+
 // Register the service worker for offline support + installability.
 // Skipped in dev so `npm run dev` never serves stale cached files.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

@@ -47,5 +47,13 @@ android/captures/
 android/*.iml
 android/.idea/
 
-# iOS (not added yet — Stage 4/Tauri covers desktop instead)
+# Neutralino downloaded binaries + local runtime files (fetched by
+# `npx neu update`, rebuilt by `npx neu build` — not meant for git)
+bin/
+resources.neu
+neutralinojs.log
+.tmp/
+dist/deb-build/
+dist/deb/
+
 ios/

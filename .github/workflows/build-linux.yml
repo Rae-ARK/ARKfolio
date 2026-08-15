@@ -1,0 +1,55 @@
+name: Build Linux .deb
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+jobs:
+  build-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web app
+        run: npm run build
+
+      - name: Fetch Neutralino binaries + client library
+        run: npx neu update
+
+      - name: Build Neutralino app (embedded resources, release)
+        run: npx neu build --release --embed-resources
+
+      - name: Package .deb
+        run: |
+          chmod +x scripts/build-deb.sh
+          ./scripts/build-deb.sh
+
+      - name: Sanity-check the package
+        run: |
+          dpkg-deb --info dist/deb/*.deb
+          dpkg-deb --contents dist/deb/*.deb
+
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arkfolio-deb
+          path: dist/deb/*.deb
+          if-no-files-found: error
+
+      - name: Attach .deb to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/deb/*.deb
