@@ -1,4 +1,4 @@
-name: Build Linux .deb
+name: Build desktop binaries (Linux, Windows, macOS)
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build-deb:
+  build-desktop:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -43,6 +43,17 @@ jobs:
           dpkg-deb --info dist/deb/*.deb
           dpkg-deb --contents dist/deb/*.deb
 
+      - name: Stage Windows + macOS binaries under friendly names
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          mkdir -p dist/desktop
+          cp dist/arkfolio/arkfolio-win_x64.exe        "dist/desktop/ArkFolio-${VERSION}-windows-x64.exe"
+          cp dist/arkfolio/arkfolio-mac_universal       "dist/desktop/ArkFolio-${VERSION}-macos-universal"
+          cp dist/arkfolio/arkfolio-mac_x64             "dist/desktop/ArkFolio-${VERSION}-macos-intel"
+          cp dist/arkfolio/arkfolio-mac_arm64            "dist/desktop/ArkFolio-${VERSION}-macos-applesilicon"
+          cp dist/arkfolio/arkfolio-linux_x64            "dist/desktop/ArkFolio-${VERSION}-linux-x64"
+          chmod +x dist/desktop/ArkFolio-*
+
       - name: Upload .deb artifact
         uses: actions/upload-artifact@v4
         with:
@@ -50,8 +61,17 @@ jobs:
           path: dist/deb/*.deb
           if-no-files-found: error
 
-      - name: Attach .deb to GitHub Release
+      - name: Upload Windows + macOS + Linux binary artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: arkfolio-desktop-binaries
+          path: dist/desktop/*
+          if-no-files-found: error
+
+      - name: Attach all desktop binaries to GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/deb/*.deb
+          files: |
+            dist/deb/*.deb
+            dist/desktop/*
