@@ -55,5 +55,12 @@ neutralinojs.log
 .tmp/
 dist/deb-build/
 dist/deb/
+dist/apk/
+
+# Android release signing key — generated locally by
+# scripts/generate-keystore.sh, never committed.
+android/release-keystore.jks
+*.jks
+*.keystore
 
 ios/
