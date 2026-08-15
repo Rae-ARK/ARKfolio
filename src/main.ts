@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import { vReveal } from './composables/useScrollReveal'
 import { useTheme } from './composables/useTheme'
+import './styles/fonts.css'
 import './styles/main.css'
 
 const app = createApp(App)

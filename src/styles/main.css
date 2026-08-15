@@ -23,7 +23,7 @@
   --shadow-sm: 0 2px 8px -2px rgba(32,30,25,0.12);
   --shadow-md: 0 16px 34px -20px rgba(32,30,25,0.4);
   --shadow-lg: 0 28px 60px -24px rgba(32,30,25,0.45);
-  --serif: 'Fraunces', Georgia, serif;
+  --serif: 'Fraunces Variable', 'Fraunces', Georgia, serif;
   --sans: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
   --maxw: 1080px;
@@ -191,6 +191,17 @@ header.site-header {
   /* Android 16+ enforces edge-to-edge and won't let the app paint a status
      bar background anymore, so the header itself absorbs that space. */
   padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Neutralino desktop shell (WebKitGTK on Linux, WebView2 on Windows): a
+   backdrop-filter blur under a sticky, full-width header forces a full
+   recomposite on every scroll frame and is a major source of jank on these
+   engines. Swap it for a slightly more opaque flat background instead —
+   visually close, no per-frame blur cost. Chromium/Safari (web + Android)
+   keep the real blur since it's cheap there. */
+[data-shell='neutralino'] header.site-header {
+  background: rgba(var(--paper-rgb), 0.97);
+  backdrop-filter: none;
 }
 
 .site-header .wrap {
