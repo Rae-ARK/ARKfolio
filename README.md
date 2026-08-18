@@ -69,9 +69,28 @@ npm run android:open    # ...then open Android Studio
 npm run android:build   # ...then build a debug APK via Gradle
 ```
 
-The debug APK also builds automatically in CI on every push to `main` —
-see `.github/workflows/android-build.yml` and the **Actions** tab on
-GitHub for a downloadable artifact, no local Android SDK required.
+The debug APK also builds automatically in CI on every push to
+`svelte5-website` — see `.github/workflows/android-build.yml` and the
+**Actions** tab on GitHub for a downloadable artifact, no local Android
+SDK required.
+
+Tagged releases (`v*`) additionally build a *signed* release APK and
+attach both APKs to the GitHub Release, alongside the desktop binaries.
+Signing is self-managed (no Play Store) via a keystore you generate
+once locally:
+
+```bash
+scripts/generate-keystore.sh
+```
+
+Follow the script's printed instructions to add the four
+`ANDROID_KEYSTORE_BASE64` / `ANDROID_KEYSTORE_PASSWORD` /
+`ANDROID_KEY_ALIAS` / `ANDROID_KEY_PASSWORD` repo secrets before pushing
+a tag — without them, the tagged CI run fails loudly at the "Decode
+release keystore" step (rather than silently skipping straight to an
+unsigned "release" APK), so no APK gets attached to that release at all
+until the secrets are set. Never commit the resulting `.jks` file — it's
+gitignored by default.
 
 App id: `com.raeark.arkfolio`. Icons/splash live under
 `android/app/src/main/res/`; brand colors are defined in

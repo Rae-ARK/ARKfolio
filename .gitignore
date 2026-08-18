@@ -43,3 +43,10 @@ dist/deb-build/
 dist/deb/
 dist/desktop/
 dist/arkfolio/
+dist/android/
+
+# Android release signing key — generated locally by
+# scripts/generate-keystore.sh, never committed.
+android/release-keystore.jks
+*.jks
+*.keystore
