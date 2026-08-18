@@ -76,13 +76,10 @@ jobs:
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
 
-      - name: Stage APK under a versioned name
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          mkdir -p dist/android
-          cp android/app/build/outputs/apk/debug/app-debug.apk \
-            "dist/android/ArkFolio-${VERSION}-android-debug.apk"
+      # The debug APK above is uploaded as a CI artifact only (for
+      # verifying the build works) — it is never staged into dist/android,
+      # so it can't end up attached to a GitHub Release. Only the signed
+      # release APK below is published with tagged releases.
 
       # Signed release build only runs for tagged releases (v*), since it
       # needs the keystore secrets and there's no reason to sign every
