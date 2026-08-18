@@ -77,6 +77,35 @@ App id: `com.raeark.arkfolio`. Icons/splash live under
 `android/app/src/main/res/`; brand colors are defined in
 `android/app/src/main/res/values/colors.xml`.
 
+## Desktop app (Linux, Windows, macOS)
+
+Wrapped with [NeutralinoJS](https://neutralino.js.org/). Unlike the
+Android/Capacitor wrap, there's no checked-in native project — Neutralino
+fetches its own binaries and generates its build output on demand.
+
+```bash
+npm run linux:dev     # build web app, launch it in a Neutralino window
+npm run linux:build    # ...then produce release binaries for Linux/Windows/macOS
+npm run linux:deb      # ...then package the Linux binary into a .deb
+```
+
+`npm run linux:build` needs `npx neu update` to have fetched the
+Neutralino binaries + client library first (the `linux:build` script
+does this for you). Binaries land under `dist/arkfolio/` — that's
+Neutralino's own output directory, unrelated to this project's `build/`
+web output.
+
+Desktop binaries for all three platforms build automatically in CI on
+every pushed `v*` tag (or on demand) — see
+`.github/workflows/build-desktop.yml` and the **Actions** tab on GitHub
+for downloadable artifacts, no local Neutralino CLI required. Tagged
+runs also attach every binary to the matching GitHub Release.
+
+App id: `com.rae.arkfolio`. Window config, icon, and allowed native APIs
+are in `neutralino.config.json`; the `.deb` packaging skeleton (desktop
+entry, control metadata) lives under `packaging/debian/` and
+`scripts/build-deb.sh`.
+
 ## Project structure
 
 ```text
@@ -84,7 +113,7 @@ src/
   lib/
     components/   AppHeader, AppFooter, WorkCard, ...
     data/         works.ts, journal.ts, store.ts — edit these to update content
-    native/       nativeShell.ts — Capacitor/Android-only behavior
+    native/       nativeShell.ts (Capacitor/Android), neutralinoShell.ts (desktop)
     styles/       main.css — warm-paper / ink-teal / brass design system
   routes/
     +layout.svelte
@@ -158,6 +187,28 @@ It handles:
 
 The native shell is initialized from the SvelteKit root layout using the
 appropriate client-side lifecycle hook.
+
+## Native desktop behavior
+
+`src/lib/native/neutralinoShell.ts` contains behavior specific to the
+Neutralino desktop build.
+
+It handles:
+
+* Window title + show-on-ready
+* Clean process exit when the window is closed
+* External links opened via the OS's default browser instead of the
+  embedded WebKitGTK/WebView2 window
+* A `data-shell="neutralino"` attribute on `<html>` that `main.css` uses
+  to drop `backdrop-filter` blur under the sticky header — WebKitGTK
+  recomposites that blur on every scroll frame, which is the main
+  source of desktop-only jank
+* Native-only behavior guarded so the web/Android build remains
+  unaffected
+
+Wired from the same root layout as the Android native shell, alongside
+it rather than instead of it — both are no-ops outside their own
+platform.
 
 ## Notes for whoever's touching this next
 

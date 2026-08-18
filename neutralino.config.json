@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
+  "applicationId": "com.rae.arkfolio",
+  "version": "0.0.1",
+  "defaultMode": "window",
+  "port": 0,
+  "documentRoot": "/build/",
+  "url": "/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "tokenSecurity": "one-time",
+  "logging": {
+    "enabled": true,
+    "writeToLogFile": true
+  },
+  "nativeAllowList": [
+    "app.*",
+    "os.*",
+    "filesystem.*",
+    "storage.*",
+    "events.*",
+    "window.*"
+  ],
+  "modes": {
+    "window": {
+      "title": "ArkFolio",
+      "width": 1200,
+      "height": 800,
+      "minWidth": 480,
+      "minHeight": 400,
+      "fullScreen": false,
+      "alwaysOnTop": false,
+      "icon": "/build/icons/icon-192.png",
+      "enableInspector": false,
+      "borderless": false,
+      "maximize": false,
+      "hidden": false,
+      "resizable": true,
+      "exitProcessOnClose": true
+    }
+  },
+  "cli": {
+    "binaryName": "arkfolio",
+    "resourcesPath": "/build/",
+    "extensionsPath": "/extensions/",
+    "clientLibrary": "/build/neutralino.js",
+    "binaryVersion": "6.3.0",
+    "clientVersion": "6.0.0"
+  }
+}

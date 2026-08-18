@@ -43,6 +43,11 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
+		<!-- Neutralino desktop shell client library. A harmless no-op script
+		     tag on the web/Android build — window.Neutralino only actually
+		     connects when the page is served by the Neutralino runtime
+		     itself (which injects window.NL_PORT etc). -->
+		<script src="/neutralino.js"></script>
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

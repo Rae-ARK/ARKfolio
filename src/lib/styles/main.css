@@ -193,6 +193,17 @@ header.site-header {
   padding-top: env(safe-area-inset-top, 0px);
 }
 
+/* Neutralino desktop shell (WebKitGTK on Linux, WebView2 on Windows): a
+   backdrop-filter blur under a sticky, full-width header forces a full
+   recomposite on every scroll frame and is a major source of jank on these
+   engines. Swap it for a slightly more opaque flat background instead —
+   visually close, no per-frame blur cost. Chromium/Safari (web + Android)
+   keep the real blur since it's cheap there. */
+[data-shell='neutralino'] header.site-header {
+  background: rgba(var(--paper-rgb), 0.97);
+  backdrop-filter: none;
+}
+
 .site-header .wrap {
   display: flex;
   align-items: center;

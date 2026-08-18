@@ -23,10 +23,15 @@
 		"format": "prettier --write .",
 		"android:sync": "npm run build && npx cap sync android",
 		"android:open": "npm run android:sync && npx cap open android",
-		"android:build": "npm run android:sync && cd android && ./gradlew assembleDebug"
+		"android:build": "npm run android:sync && cd android && ./gradlew assembleDebug",
+		"linux:dev": "npm run build && npx neu run",
+		"linux:build": "npm run build && npx neu update && npx neu build --release --embed-resources",
+		"linux:deb": "npm run linux:build && bash scripts/build-deb.sh"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
+		"@neutralinojs/lib": "^6.9.0",
+		"@neutralinojs/neu": "^11.7.2",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.63.0",
 		"@sveltejs/vite-plugin-svelte": "^7.1.2",

@@ -32,3 +32,14 @@ android/local.properties
 android/captures/
 android/*.iml
 android/.idea/
+
+# Neutralino downloaded binaries + local runtime files (fetched by
+# `npx neu update`, rebuilt by `npx neu build` — not meant for git)
+bin/
+resources.neu
+neutralinojs.log
+.tmp/
+dist/deb-build/
+dist/deb/
+dist/desktop/
+dist/arkfolio/

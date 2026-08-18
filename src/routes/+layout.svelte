@@ -16,6 +16,15 @@
 			initNativeShell(theme);
 		});
 	});
+
+	// Stage 8: on Linux/Windows/macOS (Neutralino) this wires the window
+	// title/show, clean exit on close, and OS-browser external links. No-op
+	// on the web/Android build.
+	onMount(() => {
+		import('$lib/native/neutralinoShell').then(({ initNeutralinoShell }) => {
+			initNeutralinoShell();
+		});
+	});
 </script>
 
 <svelte:head>
