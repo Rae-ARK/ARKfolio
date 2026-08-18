@@ -24,10 +24,9 @@ function applyTheme(value: Theme) {
 		// theme still works for the session, it just won't persist.
 	}
 
-	// TODO(nativeShell port): the Vue version lazy-imports native/nativeShell
-	// here to sync the Android status bar color on theme change. Wire this
-	// back in once nativeShell.ts is ported — see docs/reference migration
-	// scope, step 6.
+	// Lazy import: keeps this composable usable in plain web builds without
+	// pulling in Capacitor plugin code unless it's actually needed.
+	import('$lib/native/nativeShell').then(({ onThemeChange }) => onThemeChange(value));
 }
 
 export function useTheme() {
