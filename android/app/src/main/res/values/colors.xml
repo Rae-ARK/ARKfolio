@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Matches the accent / accent-dark / brass CSS variables in
+         src/lib/styles/main.css so the OS task switcher, ripples, and any
+         system chrome stay on-brand instead of Capacitor's default
+         blue/green template colors. -->
+    <color name="colorPrimary">#2c5c4f</color>
+    <color name="colorPrimaryDark">#1d3e35</color>
+    <color name="colorAccent">#ad8434</color>
+</resources>

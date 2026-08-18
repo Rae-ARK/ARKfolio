@@ -22,3 +22,13 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# Android native project (Capacitor) — the project itself is tracked,
+# only its generated/build output and local machine config are ignored.
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/captures/
+android/*.iml
+android/.idea/
