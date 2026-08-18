@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { works, currentlyWriting } from '$lib/data/works';
 	import WorkCard from '$lib/components/WorkCard.svelte';
+	import { reveal } from '$lib/composables/useScrollReveal';
 </script>
 
 <svelte:head>
@@ -22,7 +23,7 @@
 	</div>
 </section>
 
-<section id="works">
+<section id="works" use:reveal>
 	<div class="wrap">
 		<div class="section-head">
 			<span class="eyebrow">Featured Works</span>
@@ -46,7 +47,7 @@
 	>
 </div>
 
-<section class="alt-bg">
+<section class="alt-bg" use:reveal>
 	<div class="wrap container-narrow">
 		<div class="section-head">
 			<span class="eyebrow">Currently Writing</span>
@@ -72,7 +73,7 @@
 	>
 </div>
 
-<section>
+<section use:reveal>
 	<div class="wrap pull-quote">
 		<blockquote>
 			"I believe stories deserve endings. Some of mine span years; others are written short and
@@ -89,7 +90,7 @@
 	>
 </div>
 
-<section class="alt-bg">
+<section class="alt-bg" use:reveal>
 	<div class="wrap">
 		<div class="section-head">
 			<span class="eyebrow">Where to Read</span>

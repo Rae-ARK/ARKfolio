@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { reveal } from '$lib/composables/useScrollReveal';
+
 	const readLinks = [
 		{
 			site: 'Royal Road',
@@ -50,7 +52,7 @@
 	</div>
 </section>
 
-<section style="padding-top:0;">
+<section style="padding-top:0;" use:reveal>
 	<div class="wrap about-grid">
 		<div>
 			<p style="font-size:1.08rem; color:var(--ink);">

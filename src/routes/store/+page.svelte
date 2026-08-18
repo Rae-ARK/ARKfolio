@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { storeBooks, notYetInPrintNote } from '$lib/data/store';
+	import { reveal } from '$lib/composables/useScrollReveal';
 </script>
 
 <svelte:head>
@@ -20,7 +21,7 @@
 <section style="padding-top:36px;">
 	<div class="wrap container-narrow">
 		{#each storeBooks as book (book.title)}
-			<div class="store-book">
+			<div class="store-book" use:reveal>
 				<div class="work-thumb {book.thumbClass}"></div>
 				<div>
 					<span class="eyebrow" style="margin-bottom:0.3em;">{book.edition}</span>
@@ -51,6 +52,6 @@
 
 <section style="padding-top:0;">
 	<div class="wrap container-narrow">
-		<div class="store-empty">{notYetInPrintNote}</div>
+		<div class="store-empty" use:reveal>{notYetInPrintNote}</div>
 	</div>
 </section>

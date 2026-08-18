@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { journalEntries } from '$lib/data/journal';
+	import { reveal } from '$lib/composables/useScrollReveal';
 </script>
 
 <svelte:head>
@@ -21,7 +22,7 @@
 	<div class="wrap container-narrow">
 		<div class="timeline">
 			{#each journalEntries as entry (entry.date + entry.title)}
-				<div class="journal-entry">
+				<div class="journal-entry" use:reveal>
 					<div class="journal-card">
 						<div class="journal-head">
 							<span class="journal-date">{entry.date}</span>

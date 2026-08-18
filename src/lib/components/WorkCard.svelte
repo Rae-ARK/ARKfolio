@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { Work } from '$lib/data/works';
+	import { reveal } from '$lib/composables/useScrollReveal';
 
 	let { work }: { work: Work } = $props();
 </script>
 
-<article class="work-card">
+<article class="work-card" use:reveal>
 	<div class="cover {work.coverClass}">
 		<span class="status-ribbon" class:mature={work.mature}>{work.kind} &middot; {work.status}</span>
 	</div>

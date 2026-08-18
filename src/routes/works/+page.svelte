@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { works } from '$lib/data/works';
+	import { reveal } from '$lib/composables/useScrollReveal';
 </script>
 
 <svelte:head>
@@ -18,7 +19,7 @@
 </section>
 
 {#each works as work, i (work.slug)}
-	<section id={work.slug} style={i === 0 ? 'padding-top:24px;' : 'padding-top:0;'}>
+	<section id={work.slug} use:reveal style={i === 0 ? 'padding-top:24px;' : 'padding-top:0;'}>
 		<div class="wrap container-narrow">
 			<span class="eyebrow">{work.kind} &middot; {work.status}</span>
 			<div class="work-heading-row">

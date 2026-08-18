@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { reveal } from '$lib/composables/useScrollReveal';
+
 	const LAST_UPDATED = 'July 2026';
 </script>
 
@@ -14,7 +16,7 @@
 	</div>
 </section>
 
-<section style="padding-top:0;">
+<section style="padding-top:0;" use:reveal>
 	<div class="wrap container-narrow">
 		<div class="legal-card">
 			<p>
