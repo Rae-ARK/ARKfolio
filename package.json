@@ -1,7 +1,7 @@
 {
 	"name": "rae-ark-portfolio-svelte-5",
 	"private": true,
-	"version": "0.0.1",
+	"version": "0.2.0",
 	"type": "module",
 	"dependencies": {
 		"@capacitor/android": "^8.4.2",

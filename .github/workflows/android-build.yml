@@ -4,9 +4,15 @@ name: Android debug build
 # demand). Google's Maven repos aren't reachable from a sandboxed dev
 # environment, so this is the first real end-to-end proof the Capacitor/
 # Gradle setup added in Stage 7 actually produces a working APK.
+#
+# Also runs on v* tags, alongside build-desktop.yml, so a tagged release
+# gets the APK attached next to the Linux/Windows/macOS binaries instead
+# of only being reachable as a CI run artifact.
 on:
   push:
     branches: [svelte5-website]
+    tags:
+      - 'v*'
     paths:
       - 'src/**'
       - 'static/**'
@@ -20,6 +26,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -66,3 +74,17 @@ jobs:
           name: arkfolio-debug-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      - name: Stage APK under a versioned name
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          mkdir -p dist/android
+          cp android/app/build/outputs/apk/debug/app-debug.apk \
+            "dist/android/ArkFolio-${VERSION}-android-debug.apk"
+
+      - name: Attach APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/android/*.apk
