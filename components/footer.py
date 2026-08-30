@@ -5,7 +5,7 @@ The original's `@error="hideImage"` (hide the Horizon ARK logo if it
 left as a plain `Image`, noted here rather than silently dropped.
 """
 
-from arklight import Footer, Container, Text, Image, Link
+from arklight import Footer, Container, Text, Span, Image, Link
 
 FOOTER_QUOTE = (
     "\u201cI hope for people to hold the book in their hands someday, "
@@ -23,7 +23,7 @@ def footer():
                     src="/assets/images/horizon-ark-logo.png",
                     alt="Horizon ARK Studio",
                 ),
-                Text("Published under Horizon ARK Studio"),
+                Span("Published under Horizon ARK Studio"),
                 class_name="footer-imprint",
             ),
             Container(

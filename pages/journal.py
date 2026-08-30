@@ -1,6 +1,6 @@
 """Journal page, ported from ARKfolio's JournalPage.vue."""
 
-from arklight import Page, Section, Container, Span, Heading, Text
+from arklight import Page, Section, Container, Span, Heading, Text, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -27,7 +27,9 @@ def _entry(entry: dict):
 
 def journal():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/journal"),
         Section(
             Container(
                 Span("From the Writing Desk", class_name="eyebrow"),
@@ -48,6 +50,9 @@ def journal():
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Journal \u2014 Rae ARK",
         description=(
             "A running journal of Rae ARK\u2019s writing process \u2014 the breaks, the "

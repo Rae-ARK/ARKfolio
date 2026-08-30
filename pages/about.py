@@ -4,7 +4,7 @@
 ARKlight runtime hook -- left as a plain `Image`, same call as footer.py.
 """
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link, Image, List, Item
+from arklight import Page, Section, Container, Span, Heading, Text, Link, Image, List, Item, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -28,7 +28,9 @@ CURRENTLY_WRITING_SHORT = [
 
 def about():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/about"),
         Section(
             Container(
                 Span("About", class_name="eyebrow"),
@@ -125,6 +127,9 @@ def about():
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="About \u2014 Rae ARK",
         description=(
             "Rae ARK writes character-driven fantasy and science fantasy about people "

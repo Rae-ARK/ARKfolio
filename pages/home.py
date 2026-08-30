@@ -7,7 +7,7 @@ site below rather than silently omitted:
   dot clusters -- kept as plain text glyphs for now.
 """
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link, Blockquote, Cite, State
+from arklight import Page, Section, Container, Span, Heading, Text, Link, Blockquote, Cite, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -18,8 +18,9 @@ from content.works import WORKS, CURRENTLY_WRITING
 
 def home():
     return Page(
-        State("theme", "light"),
-        nav(theme_state="theme"),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/"),
         Section(
             Container(
                 Span("Fantasy \u00b7 Science Fantasy \u00b7 Slice of Life", class_name="eyebrow"),
@@ -127,6 +128,9 @@ def home():
             class_name="alt-bg",
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Rae ARK \u2014 Web Novelist",
         description=(
             "Rae ARK writes fantasy and science-fantasy stories about people rebuilding "

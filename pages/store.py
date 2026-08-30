@@ -1,6 +1,6 @@
 """Store page, ported from ARKfolio's StorePage.vue."""
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link
+from arklight import Page, Section, Container, Span, Heading, Text, Link, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -39,7 +39,9 @@ def _book(book: dict):
 
 def store():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/store"),
         Section(
             Container(
                 Span("Paperbacks", class_name="eyebrow"),
@@ -64,6 +66,9 @@ def store():
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Store \u2014 Rae ARK",
         description=(
             "Paperback editions of Rae ARK\u2019s web novels, with links to retailers as "

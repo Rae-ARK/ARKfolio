@@ -23,7 +23,7 @@ Revisit once v0.054 (two-way binding) ships.
 
 from urllib.parse import quote
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link
+from arklight import Page, Section, Container, Span, Heading, Text, Link, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -45,7 +45,9 @@ def _mailto(subject: str) -> str:
 
 def feedback():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/feedback"),
         Section(
             Container(
                 Span("Get in Touch", class_name="eyebrow"),
@@ -82,6 +84,9 @@ def feedback():
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Feedback \u2014 Rae ARK",
         description="Send feedback on Rae ARK's stories, paperbacks, or this site directly via email.",
         links=PAGE_STYLESHEET_LINKS,

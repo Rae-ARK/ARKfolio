@@ -1,6 +1,6 @@
 """Privacy Policy page, ported from ARKfolio's PrivacyPolicyPage.vue."""
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link
+from arklight import Page, Section, Container, Span, Heading, Text, Link, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -12,7 +12,9 @@ CONTACT_EMAIL = "contact@rae-ark.example"
 
 def privacy():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/privacy"),
         Section(
             Container(
                 Span("Legal", class_name="eyebrow"),
@@ -71,20 +73,24 @@ def privacy():
                     Heading("Changes to this policy", level=3),
                     Text(
                         "If this policy changes, the update will be posted here with a new "
-                        "\u201clast updated\u201d date."
+                        "\"last updated\" date."
                     ),
                     Heading("Contact", level=3),
-                    Text(
-                        "Questions about this policy can be sent via the Feedback page, or to "
-                        f"{CONTACT_EMAIL}."
+                    Container(
+                        Span("Questions about this policy can be sent via the "),
+                        Link("Feedback", href="/feedback"),
+                        Span(f" page, or to {CONTACT_EMAIL}."),
+                        class_name="inline-text",
                     ),
-                    Link("Go to the Feedback page \u2192", href="/feedback"),
                     class_name="legal-card",
                 ),
                 class_name="wrap container-narrow",
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Privacy Policy \u2014 Rae ARK",
         description="How the Rae ARK site and Android app handle data and permissions.",
         links=PAGE_STYLESHEET_LINKS,

@@ -6,7 +6,7 @@ template block. `v-reveal` scroll-in animation has no ARKlight
 equivalent yet -- omitted.
 """
 
-from arklight import Page, Section, Container, Span, Heading, Text, Strong, Link
+from arklight import Page, Section, Container, Span, Heading, Text, Strong, Link, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -73,7 +73,9 @@ def works():
             sections.append(section_divider())
 
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/works"),
         Section(
             Container(
                 Span("The Works", class_name="eyebrow"),
@@ -89,6 +91,9 @@ def works():
         ),
         *sections,
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Works \u2014 Rae ARK",
         description=(
             "Full synopses for Rae ARK\u2019s three ongoing web novels \u2014 Enigmatic "

@@ -79,8 +79,19 @@ def register_styles(site):
     """Call once on the `Site` instance in `site.py`, before build."""
 
     # -- Design tokens + dark theme ---------------------------------
+    # vue3 toggles dark mode via `[data-theme="dark"]` on <html> (see
+    # useTheme.ts) -- an *attribute* selector. ARKlight's only reactive
+    # binding primitive is `Bind.when(...)` (see api.py), which toggles
+    # a plain CSS *class*, never an attribute value, and there's no way
+    # to reach the <body>/<html> tag itself from page content (it's
+    # rendered directly by `page_render.py`, not from an ARKNode) --
+    # see components/nav.py's docstring for the matching note on the
+    # theme-toggle button. So this port uses a `.dark` class instead,
+    # applied via `bind_class=Bind.when("theme", "dark")` on each
+    # page's outermost `.page-shell` wrapper (see pages/*.py). Custom
+    # properties still cascade normally to every descendant from there.
     site.style_selector(":root", LIGHT_TOKENS)
-    site.style_selector('[data-theme="dark"]', DARK_TOKENS)
+    site.style_selector(".dark", DARK_TOKENS)
 
     # -- Base reset / typography -------------------------------------
     # `*  { box-sizing: border-box }` already ships in ARKlight's own
@@ -244,6 +255,45 @@ def register_styles(site):
             "&:hover": {"color": "var(--ink)"},
         },
     )
+    # Active-page indicator: vue3 gets this for free from
+    # `router-link`'s `active-class`; this static multi-page build has
+    # no router, so `nav()` (components/nav.py) instead compares each
+    # link's `href` against a `current_route` passed in from the page
+    # and adds this class itself at build time.
+    site.style_selector(
+        "nav.main-nav a.active",
+        {"color": "var(--ink)"},
+    )
+    site.style_selector(
+        "nav.main-nav a.active::after",
+        {
+            "content": '""',
+            "position": "absolute",
+            "left": "0",
+            "right": "0",
+            "bottom": "-2px",
+            "height": "2px",
+            "background": "var(--accent)",
+            "border-radius": "1px",
+        },
+    )
+    # Visually hidden but still announced by screen readers -- used to
+    # keep real text content on icon-only controls below instead of
+    # relying on `aria-label` alone.
+    site.style_selector(
+        ".sr-only",
+        {
+            "position": "absolute",
+            "width": "1px",
+            "height": "1px",
+            "padding": "0",
+            "margin": "-1px",
+            "overflow": "hidden",
+            "clip": "rect(0, 0, 0, 0)",
+            "white-space": "nowrap",
+            "border": "0",
+        },
+    )
     site.style_selector(
         ".nav-icons",
         {
@@ -267,14 +317,72 @@ def register_styles(site):
             "border-radius": "50%",
             "border": "1px solid var(--line)",
             "color": "var(--ink-soft)",
-            "background": "transparent",
+            "background-color": "transparent",
+            "background-repeat": "no-repeat",
+            "background-position": "center",
+            "background-size": "18px 18px",
             "transition": "background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease",
+            # `Link`'s schema won't allow a nested `.sr-only` `Span` (see
+            # components/nav.py), so the real fallback text stays as
+            # the element's own text content -- `aria-label` already
+            # takes over as the accessible name regardless, and this
+            # just keeps it out of view for sighted users so the
+            # `background-image` icon is the only thing that shows.
+            "font-size": "0",
+            "line-height": "0",
         },
     )
     site.style_selector(
         ".icon-btn:active",
-        {"background": "var(--ink)", "border-color": "var(--ink)", "color": "var(--paper)", "transform": "scale(0.92)"},
+        {"background-color": "var(--ink)", "border-color": "var(--ink)", "transform": "scale(0.92)"},
     )
+    # ARKlight has no `Svg`/`Icon` element in its component grammar
+    # today (see components/nav.py's docstring) -- there's no way to
+    # emit raw SVG through the framework. Short-term workaround: keep
+    # real (screen-reader-only) text as each button's actual content
+    # for accessibility, and paint the icon as a CSS `background-image`
+    # data-URI instead of relying on element content, matching the
+    # exact glyphs vue3's inline `<svg>`s use (AppHeader.vue) so this
+    # still looks identical once ARKlight gains real SVG support and
+    # these rules can be deleted.
+    ICON_X = (
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+        "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M18.9 2H22l-7.6 "
+        "8.7L23 22h-6.9l-5.4-6.6L4.4 22H1.3l8.1-9.3L1 2h7l4.9 6z'/%3E%3C/svg%3E\")"
+    )
+    ICON_GITHUB = (
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+        "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M12 2C6.48 2 2 "
+        "6.58 2 12.17c0 4.47 2.87 8.26 6.84 9.6.5.1.68-.22.68-.5v-1.94c-2.78 "
+        ".62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.9-.63.07-.62"
+        ".07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.55 2.36 1.1 2.93.84.09-.66"
+        ".35-1.1.64-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03"
+        "-2.75-.1-.26-.45-1.31.1-2.74 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 "
+        "5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.48.1 2.74.64.72 1.03 "
+        "1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 "
+        ".28.18.6.69.5A10.19 10.19 0 0 0 22 12.17C22 6.58 17.52 2 12 2Z'/%3E"
+        "%3C/svg%3E\")"
+    )
+    ICON_SUN = (
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+        "viewBox='0 0 24 24' fill='none' stroke='%23635b4c' stroke-width='2' "
+        "stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' "
+        "cy='12' r='4.5'/%3E%3Cpath d='M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 "
+        "1.8M17.6 17.6l1.8 1.8M2.5 12h2.5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 "
+        "6.4l1.8-1.8'/%3E%3C/svg%3E\")"
+    )
+    ICON_MOON = (
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+        "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M20.6 15.3A8.5 "
+        "8.5 0 1 1 8.7 3.4a7 7 0 0 0 11.9 11.9Z'/%3E%3C/svg%3E\")"
+    )
+    site.style_selector(".icon-btn.icon-x", {"background-image": ICON_X})
+    site.style_selector(".icon-btn.icon-github", {"background-image": ICON_GITHUB})
+    # Light mode starts on the sun glyph (click to go dark, same as
+    # vue3's `v-else` branch when `theme !== 'dark'`); `.dark` flips it
+    # to the moon, matching AppHeader.vue's `v-if="theme === 'dark'"`.
+    site.style_selector(".icon-btn.theme-toggle", {"background-image": ICON_SUN})
+    site.style_selector(".icon-btn.theme-toggle.dark", {"background-image": ICON_MOON})
     site.style_selector(
         ".nav-toggle",
         {
@@ -385,6 +493,16 @@ def register_styles(site):
     )
     site.style_selector(".footer-links", {"display": "flex", "gap": "20px", "flex-wrap": "wrap"})
     site.style_selector(".footer-links a", {"&:hover": {"color": "var(--accent)"}})
+
+    # -- Legal-page inline contact link -------------------------------
+    # `Text(...)` is schema-restricted to text-only children (see
+    # arklight/ir/schema.py), so a `Link` can't be nested inside a run
+    # of paragraph text the way vue3's template does it inline. A
+    # `Container` has no such restriction, so pages/privacy.py and
+    # pages/terms.py use one in place of that final `Text(...)`, styled
+    # to flow as an inline run instead of its default block `<div>`.
+    site.style_selector(".inline-text", {"display": "inline", "margin": "0 0 1em", "color": "var(--ink-soft)"})
+    site.style_selector(".inline-text a", {"color": "var(--accent)", "text-decoration": "underline"})
 
     # -- Mobile nav (matches assets/site.css's surviving @media block
     #    for widths still handled there; the .nav-toggle/.main-nav.open

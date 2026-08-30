@@ -1,6 +1,6 @@
 """Terms & Conditions page, ported from ARKfolio's TermsPage.vue."""
 
-from arklight import Page, Section, Container, Span, Heading, Text, Link
+from arklight import Page, Section, Container, Span, Heading, Text, Link, State, Bind
 
 from components.nav import nav
 from components.footer import footer
@@ -11,7 +11,9 @@ LAST_UPDATED = "July 2026"
 
 def terms():
     return Page(
-        nav(),
+        State("theme", False),
+        Container(
+        nav(theme_state="theme", current_route="/terms"),
         Section(
             Container(
                 Span("Legal", class_name="eyebrow"),
@@ -48,14 +50,14 @@ def terms():
                     ),
                     Heading("No warranty", level=3),
                     Text(
-                        "This site and app are provided \u201cas is.\u201d Every reasonable "
+                        "This site and app are provided \"as is.\" Every reasonable "
                         "effort is made to keep content accurate and the app functioning, but "
                         "no guarantee is made that it will be uninterrupted, error-free, or "
                         "available at all times."
                     ),
                     Heading("Age and content notices", level=3),
                     Text(
-                        "Some works are tagged \u201cMature Content\u201d on the Works page "
+                        "Some works are tagged \"Mature Content\" on the Works page "
                         "and carry appropriate content warnings there. Please check those "
                         "tags before reading if that matters to you."
                     ),
@@ -63,17 +65,24 @@ def terms():
                     Text(
                         "These terms may be updated occasionally; continued use after a "
                         "change means you accept the updated terms. Material changes will "
-                        "update the \u201clast updated\u201d date above."
+                        "update the \"last updated\" date above."
                     ),
                     Heading("Contact", level=3),
-                    Text("Questions about these terms can be sent via the Feedback page."),
-                    Link("Go to the Feedback page \u2192", href="/feedback"),
+                    Container(
+                        Span("Questions about these terms can be sent via the "),
+                        Link("Feedback", href="/feedback"),
+                        Span(" page."),
+                        class_name="inline-text",
+                    ),
                     class_name="legal-card",
                 ),
                 class_name="wrap container-narrow",
             ),
         ),
         footer(),
+        bind_class=Bind.when("theme", "dark"),
+        class_name="page-shell",
+        ),
         title="Terms & Conditions \u2014 Rae ARK",
         description="Terms of use for the Rae ARK site and Android app.",
         links=PAGE_STYLESHEET_LINKS,
