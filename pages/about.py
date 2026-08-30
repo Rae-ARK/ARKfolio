@@ -8,7 +8,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, Image,
 
 from components.nav import nav
 from components.footer import footer
-from components.common import section_divider, PAGE_STYLESHEET_LINKS
+from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 
 READ_LINKS = [
     {"site": "Royal Road", "title": "Enigmatic Pathways Mystic Circuits", "url": "https://www.royalroad.com/fiction/114101/enigmatic-pathways-mystic-circuits/"},
@@ -135,5 +135,6 @@ def about():
             "Rae ARK writes character-driven fantasy and science fantasy about people "
             "rebuilding themselves. Read about the author and the stories behind the stories."
         ),
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

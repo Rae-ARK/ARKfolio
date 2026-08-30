@@ -4,7 +4,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, State,
 
 from components.nav import nav
 from components.footer import footer
-from components.common import section_divider, PAGE_STYLESHEET_LINKS
+from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 from content.store import STORE_BOOKS, NOT_YET_IN_PRINT_NOTE
 
 
@@ -74,5 +74,6 @@ def store():
             "Paperback editions of Rae ARK\u2019s web novels, with links to retailers as "
             "titles go to print."
         ),
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

@@ -12,7 +12,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, Blockq
 from components.nav import nav
 from components.footer import footer
 from components.work_card import work_card
-from components.common import section_divider, PAGE_STYLESHEET_LINKS
+from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 from content.works import WORKS, CURRENTLY_WRITING
 
 
@@ -137,5 +137,6 @@ def home():
             "themselves \u2014 reincarnation, isekai, and the quiet work of learning how to "
             "live again."
         ),
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

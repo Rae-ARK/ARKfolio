@@ -285,13 +285,20 @@ def register_styles(site):
         ".brand .name",
         {"font-family": "var(--serif)", "font-weight": "700", "font-size": "1.3rem", "letter-spacing": "0.01em"},
     )
+    # Replaces vue3's `.brand .name a { display: flex; align-items:
+    # baseline; gap: 8px; }` -- there, the flex row was the `<a>`
+    # itself (name text + nested asterism). Here the asterism can't
+    # nest inside the name `Link` (text-only children, see nav.py's
+    # `_asterism()`), so `.name-row` is a `Container` wrapping the
+    # `Link` and the asterism as siblings and takes over the flex row.
+    site.style_selector(".name-row", {"display": "flex", "align-items": "baseline", "gap": "8px"})
     site.style_selector(
         ".brand .sub",
         {"font-family": "var(--mono)", "font-size": "0.64rem", "letter-spacing": "0.11em", "color": "var(--ink-faint)", "margin-top": "2px"},
     )
     site.style_selector(
         "nav.main-nav",
-        {"display": "flex", "align-items": "center", "gap": "28px", "flex": "1", "justify-content": "space-between"},
+        {"display": "flex", "align-items": "center", "gap": "26px"},
     )
     site.style_selector(
         "nav.main-nav a:not(.icon-btn)",
@@ -426,11 +433,15 @@ def register_styles(site):
     )
     site.style_selector(".icon-btn.icon-x", {"background-image": ICON_X})
     site.style_selector(".icon-btn.icon-github", {"background-image": ICON_GITHUB})
-    # Light mode starts on the sun glyph (click to go dark, same as
-    # vue3's `v-else` branch when `theme !== 'dark'`); `.dark` flips it
-    # to the moon, matching AppHeader.vue's `v-if="theme === 'dark'"`.
-    site.style_selector(".icon-btn.theme-toggle", {"background-image": ICON_SUN})
-    site.style_selector(".icon-btn.theme-toggle.dark", {"background-image": ICON_MOON})
+    # Light mode (default, `theme !== 'dark'`) starts on the moon glyph
+    # -- matching AppHeader.vue's `v-else` branch, which renders the
+    # crescent path -- so the icon shows what clicking it switches
+    # *to* (dark), not the mode currently active. `.dark` flips it to
+    # the sun, matching `v-if="theme === 'dark'"`'s circle+rays glyph.
+    # (These two were swapped in an earlier port -- ICON_SUN and
+    # ICON_MOON landed on the wrong selectors relative to vue3.)
+    site.style_selector(".icon-btn.theme-toggle", {"background-image": ICON_MOON})
+    site.style_selector(".icon-btn.theme-toggle.dark", {"background-image": ICON_SUN})
     site.style_selector(
         ".nav-toggle",
         {

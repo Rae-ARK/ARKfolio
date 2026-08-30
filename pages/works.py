@@ -10,7 +10,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Strong, Link
 
 from components.nav import nav
 from components.footer import footer
-from components.common import section_divider, PAGE_STYLESHEET_LINKS
+from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 from content.works import WORKS
 
 
@@ -100,5 +100,6 @@ def works():
             "Pathways Mystic Circuits, Summoned by Mistake I Decided to Learn How to Live, and "
             "The Shadow I Cast Over Two Beautiful Flowers."
         ),
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

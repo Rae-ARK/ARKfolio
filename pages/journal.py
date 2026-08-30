@@ -4,7 +4,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, State, Bind
 
 from components.nav import nav
 from components.footer import footer
-from components.common import PAGE_STYLESHEET_LINKS
+from components.common import PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 from content.journal import JOURNAL_ENTRIES
 
 
@@ -58,5 +58,6 @@ def journal():
             "A running journal of Rae ARK\u2019s writing process \u2014 the breaks, the "
             "doubts, the small wins \u2014 as it actually happens."
         ),
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

@@ -39,3 +39,9 @@ PAGE_STYLESHEET_LINKS = [
     },
     {"rel": "stylesheet", "href": "assets/site.css"},
 ]
+
+# Site favicon: reuse the author's avatar image rather than a separate
+# icon asset. `Page(favicon=...)` is resolved as a root-relative asset
+# path by arklight/backend/html/head_meta.py, the same way nav.py's
+# avatar `Image` references it.
+PAGE_FAVICON = "/assets/images/profile.png"

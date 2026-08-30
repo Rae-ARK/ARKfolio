@@ -32,10 +32,33 @@ Ported from ARKfolio's AppHeader.vue. Things that don't carry over
   `arklight/ir/schema.py`), so an `Image` can't be nested inside one
   the way the original's `<router-link to="/about"><div class="avatar">
   ...</router-link>` does. The avatar is a plain, non-clickable `Image`
-  here; only the site name text links to `/about`/`/` as before.
+  here; only the site name text links to `/` as before (see
+  `_asterism()` above for the matching workaround on the three-dot
+  motif next to it, which has the same text-only-children problem).
 """
 
 from arklight import Header, Nav, Link, Container, Image, Span, Button, Action, Bind
+
+
+def _asterism():
+    """The site's signature motif (\u2042) next to the wordmark.
+
+    Ported from AppHeader.vue's `<span class="asterism"><span
+    class="dot">x3</span></span>`, nested *inside* the `<router-link
+    to="/">` there. `Link` (like `Span`) is schema-restricted to
+    text-only children (see `arklight/ir/schema.py`), so it can't hold
+    this the way the original does -- it's rendered as a sibling of
+    the name `Link` below instead. The trade-off (same one already
+    made for the icon buttons and avatar elsewhere in this file): the
+    three dots sit right next to the link visually but aren't
+    themselves part of its click target.
+    """
+    return Container(
+        Span(class_name="dot"),
+        Span(class_name="dot"),
+        Span(class_name="dot"),
+        class_name="asterism",
+    )
 
 SITE_TITLE = "Rae ARK"
 SITE_SUBTITLE = "\u5d50\u4e45 \u601c \u00b7 WEB NOVELIST"
@@ -106,7 +129,11 @@ def nav(theme_state: str | None = None, current_route: str | None = None):
             Container(
                 Image(src="/assets/images/profile.png", alt="Rae ARK", class_name="avatar"),
                 Container(
-                    Span(SITE_TITLE, class_name="name"),
+                    Container(
+                        Link(SITE_TITLE, href="/", class_name="name"),
+                        _asterism(),
+                        class_name="name-row",
+                    ),
                     Span(SITE_SUBTITLE, class_name="sub"),
                     class_name="brand",
                 ),

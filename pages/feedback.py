@@ -27,7 +27,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, State,
 
 from components.nav import nav
 from components.footer import footer
-from components.common import PAGE_STYLESHEET_LINKS
+from components.common import PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 
 RECIPIENT = "horizonarkstudio@gmail.com"
 
@@ -89,5 +89,6 @@ def feedback():
         ),
         title="Feedback \u2014 Rae ARK",
         description="Send feedback on Rae ARK's stories, paperbacks, or this site directly via email.",
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

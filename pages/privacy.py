@@ -4,7 +4,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, State,
 
 from components.nav import nav
 from components.footer import footer
-from components.common import PAGE_STYLESHEET_LINKS
+from components.common import PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 
 LAST_UPDATED = "July 2026"
 CONTACT_EMAIL = "contact@rae-ark.example"
@@ -93,5 +93,6 @@ def privacy():
         ),
         title="Privacy Policy \u2014 Rae ARK",
         description="How the Rae ARK site and Android app handle data and permissions.",
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )

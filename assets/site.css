@@ -18,12 +18,6 @@ footer.site-footer {
   box-sizing: border-box;
 }
 
-.brand .name a {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
 nav.main-nav a.active {
   color: var(--accent);
 }

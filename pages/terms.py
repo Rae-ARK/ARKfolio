@@ -4,7 +4,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, State,
 
 from components.nav import nav
 from components.footer import footer
-from components.common import PAGE_STYLESHEET_LINKS
+from components.common import PAGE_STYLESHEET_LINKS, PAGE_FAVICON
 
 LAST_UPDATED = "July 2026"
 
@@ -85,5 +85,6 @@ def terms():
         ),
         title="Terms & Conditions \u2014 Rae ARK",
         description="Terms of use for the Rae ARK site and Android app.",
+        favicon=PAGE_FAVICON,
         links=PAGE_STYLESHEET_LINKS,
     )
