@@ -38,7 +38,7 @@ LIGHT_TOKENS = {
     "--serif": "'Fraunces', Georgia, serif",
     "--sans": "'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif",
     "--mono": "'IBM Plex Mono', ui-monospace, monospace",
-    "--maxw": "1080px",
+    "--maxw": "100%",
     "--grain-opacity": "0.5",
     "--card-bg": "#ffffff",
 }
@@ -243,7 +243,10 @@ def register_styles(site):
         ".brand .sub",
         {"font-family": "var(--mono)", "font-size": "0.64rem", "letter-spacing": "0.11em", "color": "var(--ink-faint)", "margin-top": "2px"},
     )
-    site.style_selector("nav.main-nav", {"display": "flex", "align-items": "center", "gap": "26px"})
+    site.style_selector(
+        "nav.main-nav",
+        {"display": "flex", "align-items": "center", "gap": "40px", "flex": "1", "justify-content": "flex-end"},
+    )
     site.style_selector(
         "nav.main-nav a:not(.icon-btn)",
         {
@@ -300,8 +303,8 @@ def register_styles(site):
             "display": "flex",
             "align-items": "center",
             "gap": "8px",
-            "margin-left": "6px",
-            "padding-left": "20px",
+            "margin-left": "14px",
+            "padding-left": "28px",
             "border-left": "1px solid var(--line)",
         },
     )
