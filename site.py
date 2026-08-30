@@ -9,7 +9,7 @@ from pages.feedback import feedback
 from pages.privacy import privacy
 from pages.terms import terms
 
-site = Site(name="arkfolio-arklight")
+site = Site(name="arkfolio-arklight", max_width="100%")
 register_styles(site)
 
 
