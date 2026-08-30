@@ -37,5 +37,5 @@ PAGE_STYLESHEET_LINKS = [
             "family=IBM+Plex+Mono:wght@400;500&display=swap"
         ),
     },
-    {"rel": "stylesheet", "href": "/assets/site.css"},
+    {"rel": "stylesheet", "href": "assets/site.css"},
 ]

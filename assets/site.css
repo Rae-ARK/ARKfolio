@@ -149,17 +149,17 @@ nav.main-nav a,
 }
 
 .cover.epmc {
-  background-image: url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png");
+  background-image: url("images/Enigmatic Pathways Mystic Circuits vol 1.png");
   background-color: #2e4a42;
 }
 
 .cover.sbm {
-  background-image: url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
+  background-image: url("images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
   background-color: #3b4a46;
 }
 
 .cover.stbf {
-  background-image: url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
+  background-image: url("images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
   background-color: #6b3a3a;
 }
 
@@ -257,17 +257,17 @@ nav.main-nav a,
 }
 
 .work-thumb.epmc {
-  background-image: url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png");
+  background-image: url("images/Enigmatic Pathways Mystic Circuits vol 1.png");
   background-color: #2e4a42;
 }
 
 .work-thumb.sbm {
-  background-image: url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
+  background-image: url("images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
   background-color: #3b4a46;
 }
 
 .work-thumb.stbf {
-  background-image: url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
+  background-image: url("images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
   background-color: #6b3a3a;
 }
 
