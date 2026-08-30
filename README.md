@@ -48,13 +48,6 @@ in the compiler yet:
   a plain `<form method="post" enctype="text/plain" action="mailto:...">`,
   which composes the email client without needing any reactive JS at
   all. Being validated.
-- **Theme toggle persistence.** `Action.toggle_bool` + `Bind.when(...)`
-  can flip a light/dark class at runtime, but the original's
-  anti-flash inline `<head>` script and `localStorage` persistence
-  don't fit ARKlight's closed component API (no raw-HTML escape
-  hatch as of `v0.048`). Likely path: a small custom `Backend` using
-  the `postprocess(output_files)` hook to inject the snippet at build
-  time, rather than waiting on core support.
 - **PWA / offline / installable.** ARKfolio ships a service worker +
   manifest for offline use and installability. Whether/how this maps
   onto an ARKlight build is still being scoped.
@@ -63,7 +56,18 @@ in the compiler yet:
   output instead of Vite's `dist/` — not yet verified end to end.
 
 Nothing above blocks the content pages; it only affects the feedback
-form, theme persistence, PWA, and the native wrapper hookup.
+form, PWA, and the native wrapper hookup.
+
+**Resolved:** theme toggle persistence. `Action.toggle_bool` +
+`Bind.when(...)` flip the light/dark class at runtime, but ARKlight's
+closed component API still has no raw-HTML escape hatch for the
+anti-flash inline `<head>` script `localStorage` persistence needs
+(no `Script` node, no head-injection kwarg on `Page(...)` as of
+`v0.048`). Instead of waiting on core support, `scripts/build.py`
+attaches a small custom `Backend` (`scripts/theme_persist_backend.py`)
+that uses the compiler's own `postprocess(output_files)` hook to
+inject the snippet into every rendered page, in-process, as part of
+one normal build — see "Building" below.
 
 ## Project structure
 
@@ -83,30 +87,31 @@ wrangler.jsonc   Cloudflare Workers deploy config
 ## Building
 
 ```bash
-pip install -e /path/to/ARKlight   # installs the `arklight` CLI, alpha branch
-arklight build site.py -o ARK      # -> ARK/index.html etc.
-python scripts/postbuild_theme_persist.py ARK   # patches ARK/*.html in place
+pip install -e /path/to/ARKlight   # installs the `arklight` package, alpha branch
+python scripts/build.py            # -> ARK/index.html etc., theme persistence included
 ```
 
-Useful flags: `--verbose` (prints each pipeline stage as it runs),
-`--debug` (full traceback on failure), `--no-open` (skip auto-opening
-the built site).
+`scripts/build.py` is a thin wrapper around ARKlight's own
+`compiler.pipeline.build()` (the same function the `arklight` CLI
+calls) with one addition: it attaches `ThemePersistBackend` from
+`scripts/theme_persist_backend.py` alongside the stock HTML/CSS/JS
+backends, so the theme-persistence `<script>` tags land in every page
+as part of the one build — see "Resolved" under "Known gaps" above.
+The `arklight` CLI itself has no flag to attach an extra backend
+(`arklight build site.py -o ARK` still works, but only runs the stock
+backends and ships a build where the theme resets on every
+navigation), so use `scripts/build.py` for this site rather than the
+bare CLI.
 
-The `postbuild_theme_persist.py` step is required, not optional: until
-ARKlight grows a `postprocess(output_files)`/raw-HTML-escape-hatch hook
-(see "Known gaps" above), theme persistence is implemented entirely as
-a post-build HTML patch, not as anything `arklight build` emits on its
-own. Skipping it silently ships a build where the theme toggle works
-within a page but resets to light on every navigation. It's idempotent
-and safe to re-run against the same `ARK/` directory.
+Useful flags: `-o/--output <dir>` (default `ARK`), `--no-open` (skip
+auto-opening the built site).
 
 ## Deploying
 
 Same Cloudflare Workers target as the original:
 
 ```bash
-arklight build site.py -o ARK
-python scripts/postbuild_theme_persist.py ARK
+python scripts/build.py
 wrangler deploy
 ```
 
