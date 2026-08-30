@@ -1,4 +1,5 @@
 from arklight import Site
+from components.styles import register_styles
 from pages.home import home
 from pages.works import works
 from pages.store import store
@@ -9,6 +10,7 @@ from pages.privacy import privacy
 from pages.terms import terms
 
 site = Site(name="arkfolio-arklight")
+register_styles(site)
 
 
 @site.page("/")

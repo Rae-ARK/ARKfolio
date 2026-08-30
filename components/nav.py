@@ -1,17 +1,18 @@
 """Shared site navigation.
 
-Ported from ARKfolio's AppHeader.vue. Two things from the original
-don't carry over 1:1, both noted in place rather than silently dropped:
+Ported from ARKfolio's AppHeader.vue. Things that don't carry over
+1:1, noted in place rather than silently dropped:
 
-- The mobile hamburger open/close toggle was Vue-local `ref` state
-  scoped to one component instance. ARKlight's `State`/`Action` model
-  is page-level, so a per-page `State("nav_open", False)` would need
-  to be threaded through every single page that calls `nav()` --
-  doable, but deferred until the CSS-only fallback (a checkbox-driven
-  disclosure, zero JS) is confirmed insufficient.
-- The theme toggle button lives here in the original. ARKlight can
-  express the toggle itself (`Action.toggle_bool` + `Bind.when`), but
-  needs a `State("theme", ...)` declared on `Page(...)` -- see
+- The mobile hamburger open/close now uses ARKlight's native `"toggle"`
+  named behavior (`on_click="toggle"`, `behavior_target=...`,
+  `toggle_class=...` -- landed after `v0.048`, see docs/PROGRESS.md's
+  "ARKlight upgrade" entry). No page-level `State` needed, unlike the
+  theme toggle below -- behaviors are stateless/page-independent by
+  design, so this works the same on every page without threading
+  anything through `nav()`'s caller.
+- The theme toggle button lives here in the original. ARKlight
+  expresses that one with `Action.toggle_bool` + `Bind.when`, which
+  *does* need a `State("theme", ...)` declared on `Page(...)` -- see
   `pages/home.py` for how that's wired for the pages that have it.
 - `Link(...)` is schema-restricted to text-only children (see
   `arklight/ir/schema.py`), so an `Image` can't be nested inside one
@@ -20,10 +21,11 @@ don't carry over 1:1, both noted in place rather than silently dropped:
   here; only the site name text links to `/about`/`/` as before.
 """
 
-from arklight import Header, Nav, Link, Container, Image, Span, Action
+from arklight import Header, Nav, Link, Container, Image, Span, Button, Action
 
 SITE_TITLE = "Rae ARK"
 SITE_SUBTITLE = "\u5d50\u4e45 \u601c \u00b7 WEB NOVELIST"
+NAV_ID = "primary-nav"
 
 
 def nav(theme_state: str | None = None):
@@ -73,6 +75,16 @@ def nav(theme_state: str | None = None):
                 ),
                 class_name="brand-row",
             ),
+            Button(
+                "\u2630",
+                on_click="toggle",
+                behavior_target=f"#{NAV_ID}",
+                toggle_class="open",
+                class_name="nav-toggle",
+                aria_label="Toggle navigation menu",
+                aria_controls=NAV_ID,
+                type="button",
+            ),
             Nav(
                 Link("Home", href="/"),
                 Link("Works", href="/works"),
@@ -82,6 +94,7 @@ def nav(theme_state: str | None = None):
                 Container(*icons, class_name="nav-icons"),
                 class_name="main-nav",
                 aria_label="Primary",
+                id=NAV_ID,
             ),
             class_name="wrap",
         ),

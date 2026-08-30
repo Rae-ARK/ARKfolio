@@ -19,10 +19,12 @@ every work session. For the plain version-history record, see
 | Feedback            | PARTIAL     | mailto-per-subject links, not a single composer form — see below |
 | Theme toggle (UI)   | DONE        | `Action.toggle_bool` + `Bind.when` |
 | Theme persistence   | NOT STARTED | needs `localStorage`, no ARKlight hook for it yet |
-| Mobile hamburger nav| NOT STARTED | relies on CSS responsive rules only, no JS toggle |
+| Mobile hamburger nav| DONE        | native `"toggle"` behavior, no `State` needed |
 | PWA / offline       | NOT SCOPED  | see open questions |
 | Android/Capacitor   | NOT STARTED | wrapper still points at the Vue build's `dist/` |
 | CI (`deploy.yml`, `android-build.yml`) | NOT STARTED | still targets the Vue build |
+| Native CSS (design tokens, reset, header/nav, buttons, hero, footer) | DONE | `components/styles.py`, via `site.style_selector()` |
+| Native CSS (work cards, journal, store, about, legal, feedback) | NOT STARTED | still in `assets/site.css` |
 
 ## Design decisions
 
@@ -77,11 +79,18 @@ every work session. For the plain version-history record, see
    `v0.043`) to inject a small fixed snippet into the built HTML
    files directly, entirely at the Python build-script level, still
    without needing core support. Not yet prototyped.
-3. **Mobile hamburger nav.** Original was per-header-instance Vue
-   `ref` state. Needs either page-level `State("nav_open", False)`
-   threaded through `nav()` (straightforward, just not done yet), or
-   a CSS-only checkbox-driven disclosure pattern if we want to avoid
-   the JS dependency entirely.
+3. **Native CSS port, remaining pages.** Work cards, journal timeline,
+   store/retailer grid, about/legal/feedback styling is still in
+   `assets/site.css` rather than `components/styles.py`. Same pattern
+   as the pieces already ported -- next in line by page traffic/
+   visual weight would be work cards (Home + Works) and the footer's
+   sibling `.journal-card`/`.about-side` family.
+4. **Hover-state device gating regression.** `.btn-primary`/
+   `.btn-ghost`'s native `&:hover` isn't gated behind `@media (hover:
+   hover) and (pointer: fine)` the way the original was, risking a
+   "stuck hover" look after a tap on touchscreens. Needs checking
+   whether `style_selector()` supports an `@media`-wrapped variant, or
+   another way to reintroduce the gate natively.
 4. **PWA/offline/installable.** Genuinely unscoped — need to check
    whether ARKlight has (or plans) a service-worker/manifest backend
    at all before deciding how this maps over.
@@ -95,6 +104,33 @@ every work session. For the plain version-history record, see
 ## Session log
 
 Newest first.
+
+### 2026-08-27 (later) — ARKlight upgrade: nav toggle + native CSS
+- Pulled `ARKlight` `alpha` from `v0.048` to `v0.0501`. See
+  `CHANGELOG.md` for the two capabilities this unlocked
+  (`Site.style_selector`, named `"toggle"` behavior).
+- Mobile hamburger nav: done, via the native `"toggle"` behavior.
+  Removed from the open-items list.
+- Native CSS port, first pass: design tokens/dark theme, base
+  reset/typography, asterism motif, header/nav/brand, buttons, hero,
+  footer -- moved from `assets/site.css` into `components/styles.py`
+  (`site.style_selector()` calls), with the ported rules removed from
+  the external file so there's one source of truth per selector.
+  Verified via `grep -c` across both files that no selector is now
+  defined twice.
+- **Regression, not yet fixed:** the original's `.btn-primary`/
+  `.btn-ghost` hover states were gated behind `@media (hover: hover)
+  and (pointer: fine)` to avoid a "stuck hover" look on tap. The
+  native `&:hover` nesting syntax has no device-capability gate to
+  nest inside, so this pass's ported hover rules apply
+  unconditionally. Needs either an `@media`-wrapped
+  `site.style_selector()` call (if that combination is even
+  supported -- not yet checked) or accepting the regression until it
+  is.
+- Remaining page-specific styling (work cards, journal timeline,
+  store/retailer grid, about/legal/feedback) intentionally left in
+  `assets/site.css` for this pass -- lower structural priority than
+  the pieces above, queued as the next native-CSS chunk.
 
 ### 2026-08-27 — Full 8-page port
 - Ported all remaining pages (Works, Store, Journal, About, Feedback,

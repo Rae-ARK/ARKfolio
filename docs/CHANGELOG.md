@@ -5,6 +5,48 @@ list. Dates are UTC.
 
 ## [Unreleased]
 
+### Added (this session -- ARKlight upgrade: nav toggle + native CSS)
+- Pulled `Rae-ARK/ARKlight` `alpha` branch forward from `v0.048` to
+  `v0.0501`. Mostly an internal HTMX-integration refactor, but two
+  additions directly unblocked open items here:
+  - **`Site.style_selector(selector, rules)`** (landed as part of
+    "Added Extra CSS support", commit `a01b3e3`) -- real CSS
+    authoring: combinators, pseudo-classes/elements, attribute
+    selectors, `&`-nesting, plus `Site.keyframes()`/`font_face()`/
+    `container_query()`/`supports()`. A closed grammar (raises
+    `CSSSyntaxError` outside it), not a raw-CSS escape hatch.
+  - **Named `"toggle"` behavior** (`Button(..., on_click="toggle",
+    behavior_target="#id", toggle_class="...")`) -- stateless,
+    page-independent show/hide, no `State(...)` threading needed.
+- `components/nav.py`: mobile hamburger menu wired via the new
+  `"toggle"` behavior (`behavior_target="#primary-nav"`,
+  `toggle_class="open"`, matching `assets/site.css`'s existing
+  `nav.main-nav.open` rule) -- previously on the open-items list as
+  "not yet ported."
+- `components/styles.py` (new): design tokens + dark theme, base
+  reset/typography, the asterism motif, header/nav/brand, buttons,
+  hero, and footer, authored natively via `site.style_selector()` /
+  registered through `register_styles(site)` in `site.py`. Removed
+  the equivalent 52 rule blocks from `assets/site.css` as they were
+  ported, so each selector now has exactly one source of truth
+  (verified: `grep -c ".eyebrow {"` across both files sums to 1, not
+  2).
+
+### Known regression introduced this session
+- The original gated `.btn-primary`/`.icon-btn` hover states behind
+  `@media (hover: hover) and (pointer: fine)` specifically so a tap on
+  a touchscreen doesn't leave the button visually "stuck" inverted.
+  `site.style_selector(...)`'s `&:hover` nesting has no equivalent
+  device-capability gate to nest inside, so the natively-ported
+  `.btn-primary`/`.btn-ghost` hover rules apply unconditionally.
+  `assets/site.css` still carries the original's device-gated
+  `@media` blocks for `.icon-btn:hover` untouched (left alone since it
+  wasn't part of this pass's removal list), so those are unaffected;
+  only `.btn-primary`/`.btn-ghost` hover carries this regression.
+  Flagged in `docs/PROGRESS.md`, not yet fixed.
+
+## [Unreleased] (original migration entry)
+
 ### Added
 - Full 8-route site ported to ARKlight (`arklight` alpha, `v0.048`):
   Home, Works, Store, Journal, About, Feedback, Privacy, Terms.
