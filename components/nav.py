@@ -82,7 +82,7 @@ def nav(theme_state: str | None = None, current_route: str | None = None):
         ),
         Link(
             "GitHub",
-            href="https://github.com/Rae-ARK/ARKfolio",
+            href="https://github.com/Rae-ARK/My-Portfolio",
             target="_blank",
             class_name="icon-btn icon-github",
             aria_label="View source on GitHub",

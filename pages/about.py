@@ -117,7 +117,7 @@ def about():
                     ),
                     Link(
                         "This site's source on GitHub",
-                        href="https://github.com/Rae-ARK/ARKfolio",
+                        href="https://github.com/Rae-ARK/My-Portfolio",
                         target="_blank",
                         class_name="source-credit",
                     ),

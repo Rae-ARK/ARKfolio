@@ -37,7 +37,7 @@ def footer():
                     Link("Privacy", href="/privacy"),
                     Link("Terms", href="/terms"),
                     Link("X", href="https://x.com/Rae7866", target="_blank"),
-                    Link("GitHub", href="https://github.com/Rae-ARK/ARKfolio", target="_blank"),
+                    Link("GitHub", href="https://github.com/Rae-ARK/My-Portfolio", target="_blank"),
                     class_name="footer-links",
                 ),
                 class_name="footer-bottom",
