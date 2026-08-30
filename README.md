@@ -85,17 +85,28 @@ wrangler.jsonc   Cloudflare Workers deploy config
 ```bash
 pip install -e /path/to/ARKlight   # installs the `arklight` CLI, alpha branch
 arklight build site.py -o ARK      # -> ARK/index.html etc.
+python scripts/postbuild_theme_persist.py ARK   # patches ARK/*.html in place
 ```
 
 Useful flags: `--verbose` (prints each pipeline stage as it runs),
 `--debug` (full traceback on failure), `--no-open` (skip auto-opening
 the built site).
 
+The `postbuild_theme_persist.py` step is required, not optional: until
+ARKlight grows a `postprocess(output_files)`/raw-HTML-escape-hatch hook
+(see "Known gaps" above), theme persistence is implemented entirely as
+a post-build HTML patch, not as anything `arklight build` emits on its
+own. Skipping it silently ships a build where the theme toggle works
+within a page but resets to light on every navigation. It's idempotent
+and safe to re-run against the same `ARK/` directory.
+
 ## Deploying
 
 Same Cloudflare Workers target as the original:
 
 ```bash
+arklight build site.py -o ARK
+python scripts/postbuild_theme_persist.py ARK
 wrangler deploy
 ```
 
