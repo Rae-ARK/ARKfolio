@@ -103,6 +103,7 @@ def register_styles(site):
         "body",
         {
             "margin": "0",
+            "padding": "0",
             "background": "var(--paper)",
             "color": "var(--ink)",
             "font-family": "var(--sans)",
@@ -110,6 +111,31 @@ def register_styles(site):
             "line-height": "1.6",
             "position": "relative",
             "overscroll-behavior-y": "none",
+        },
+    )
+    # `.page-shell` is the element ARKlight's `Bind.when("theme", "dark")`
+    # actually toggles the `.dark` class on (see the docstring above --
+    # there's no way to reach <body>/<html> from page content). CSS
+    # custom-property overrides only cascade *downward*, so `.dark`
+    # re-pointing --paper/--ink on .page-shell never reaches `body`
+    # or `html` above it -- both stay locked to :root's light values
+    # forever. Framework-level `body`/`html` rules (base_stylesheet.py)
+    # also paint their own `var(--ark-bg)` background and, on `body`,
+    # a 2.5rem/1.5rem/4rem padding that the site rule above never
+    # zeroed -- so without this rule, dark mode toggling recolors
+    # everything *inside* .page-shell while a permanent light-colored
+    # gutter (that padding, showing body's un-reactive background)
+    # frames the whole page. Giving .page-shell its own full-bleed
+    # background/min-height makes it the real paint surface -- it
+    # fully covers body/html underneath in both themes, so their
+    # fixed light background never shows.
+    site.style_selector(
+        ".page-shell",
+        {
+            "display": "block",
+            "min-height": "100vh",
+            "background": "var(--paper)",
+            "color": "var(--ink)",
         },
     )
     site.style_selector(
@@ -245,7 +271,7 @@ def register_styles(site):
     )
     site.style_selector(
         "nav.main-nav",
-        {"display": "flex", "align-items": "center", "gap": "40px", "flex": "1", "justify-content": "flex-end"},
+        {"display": "flex", "align-items": "center", "gap": "28px", "flex": "1", "justify-content": "space-between"},
     )
     site.style_selector(
         "nav.main-nav a:not(.icon-btn)",
@@ -303,8 +329,7 @@ def register_styles(site):
             "display": "flex",
             "align-items": "center",
             "gap": "8px",
-            "margin-left": "14px",
-            "padding-left": "28px",
+            "padding-left": "20px",
             "border-left": "1px solid var(--line)",
         },
     )
