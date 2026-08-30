@@ -20,7 +20,7 @@ don't carry over 1:1, both noted in place rather than silently dropped:
   here; only the site name text links to `/about`/`/` as before.
 """
 
-from arklight import Nav, Link, Container, Image, Span, Action
+from arklight import Header, Nav, Link, Container, Image, Span, Action
 
 SITE_TITLE = "Rae ARK"
 SITE_SUBTITLE = "\u5d50\u4e45 \u601c \u00b7 WEB NOVELIST"
@@ -62,25 +62,28 @@ def nav(theme_state: str | None = None):
             )
         )
 
-    return Container(
+    return Header(
         Container(
-            Image(src="/assets/images/profile.png", alt="Rae ARK", class_name="avatar"),
             Container(
-                Span(SITE_TITLE, class_name="name"),
-                Span(SITE_SUBTITLE, class_name="sub"),
-                class_name="brand",
+                Image(src="/assets/images/profile.png", alt="Rae ARK", class_name="avatar"),
+                Container(
+                    Span(SITE_TITLE, class_name="name"),
+                    Span(SITE_SUBTITLE, class_name="sub"),
+                    class_name="brand",
+                ),
+                class_name="brand-row",
             ),
-            class_name="brand-row",
+            Nav(
+                Link("Home", href="/"),
+                Link("Works", href="/works"),
+                Link("Store", href="/store"),
+                Link("Journal", href="/journal"),
+                Link("About", href="/about"),
+                Container(*icons, class_name="nav-icons"),
+                class_name="main-nav",
+                aria_label="Primary",
+            ),
+            class_name="wrap",
         ),
-        Nav(
-            Link("Home", href="/"),
-            Link("Works", href="/works"),
-            Link("Store", href="/store"),
-            Link("Journal", href="/journal"),
-            Link("About", href="/about"),
-            Container(*icons, class_name="nav-icons"),
-            class_name="main-nav",
-            aria_label="Primary",
-        ),
-        class_name="site-header wrap",
+        class_name="site-header",
     )

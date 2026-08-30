@@ -12,9 +12,8 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, Blockq
 from components.nav import nav
 from components.footer import footer
 from components.work_card import work_card
+from components.common import section_divider, PAGE_STYLESHEET_LINKS
 from content.works import WORKS, CURRENTLY_WRITING
-
-ASTERISM = "\u2042"
 
 
 def home():
@@ -56,7 +55,7 @@ def home():
             ),
             id="works",
         ),
-        Container(Span(ASTERISM), class_name="section-divider"),
+        section_divider(),
         Section(
             Container(
                 Container(
@@ -85,7 +84,7 @@ def home():
             ),
             class_name="alt-bg",
         ),
-        Container(Span(ASTERISM), class_name="section-divider"),
+        section_divider(),
         Section(
             Container(
                 Blockquote(
@@ -97,7 +96,7 @@ def home():
                 class_name="wrap pull-quote",
             ),
         ),
-        Container(Span(ASTERISM), class_name="section-divider"),
+        section_divider(),
         Section(
             Container(
                 Container(
@@ -134,4 +133,5 @@ def home():
             "themselves \u2014 reincarnation, isekai, and the quiet work of learning how to "
             "live again."
         ),
+        links=PAGE_STYLESHEET_LINKS,
     )
