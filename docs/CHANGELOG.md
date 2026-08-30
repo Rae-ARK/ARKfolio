@@ -5,6 +5,35 @@ list. Dates are UTC.
 
 ## [Unreleased]
 
+### Fixed
+- **`scripts/build.py` + `scripts/theme_persist_backend.py` restored.**
+  Commit `096dbf6` ("Removed some internal files") deleted both, but
+  `README.md`'s "Building" section still instructs `python
+  scripts/build.py` as the required entry point -- `arklight build
+  site.py -o ARK` alone only runs the stock backends and ships a
+  build where the theme resets on every navigation (see "Resolved:
+  theme toggle persistence" below). With the files gone, `python
+  scripts/build.py` failed outright (`No such file or directory`),
+  so the compiler's `Backend.postprocess` extension point --
+  `ThemePersistBackend`, this site's only user of it -- was never
+  being invoked at all. Restored both files verbatim from the last
+  commit before the deletion (`a8b1a22`); `python scripts/build.py`
+  builds successfully again and the `<!-- theme_persist_backend -->`
+  marker + injected `<script>` tags are present in every rendered
+  page, confirmed against a real build.
+- **Favicon (`/assets/images/profile.png`) now resolves correctly.**
+  This was never an ARKfolio-side bug -- `PAGE_FAVICON`
+  (`components/common.py`) and every `Page(favicon=...)` call were
+  always correct -- but a compiler bug in `arklight/backend/html/
+  head_meta.py` (root-relative `favicon`/`og_image` paths resolved
+  against the build process's cwd instead of the site's route
+  structure, via an un-stripped leading `/` reaching
+  `posixpath.relpath()`) meant the emitted `<link rel="icon" ...>`
+  could point at a wrong, environment-dependent path. Fixed upstream
+  in ARKlight; no ARKfolio-side code change was needed once the site
+  is built against a patched `arklight` install. Verified: `<link
+  rel="icon" href="assets/images/profile.png">` on every page.
+
 ### Added (this session -- ARKlight upgrade: nav toggle + native CSS)
 - Pulled `Rae-ARK/ARKlight` `alpha` branch forward from `v0.048` to
   `v0.0501`. Mostly an internal HTMX-integration refactor, but two
