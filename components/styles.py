@@ -215,6 +215,26 @@ def register_styles(site):
     site.style_selector(
         "header.site-header",
         {
+            # ARKlight's base_stylesheet.py ships a default tag rule,
+            # `header { display: flex; flex-wrap: wrap; align-items:
+            # center; gap: clamp(0.5rem, 2vw, 1.5rem); }`. This
+            # selector (`header.site-header`, higher specificity) never
+            # set its own `display`, so that framework default was
+            # still winning underneath -- turning `.wrap` (a block box
+            # designed to stretch to 100% width and *then* get capped
+            # by `max-width: var(--maxw)` + centered via `margin: 0
+            # auto`) into a flex item instead, sized by shrink-to-fit
+            # `flex-basis: auto` content sizing rather than stretching
+            # first. That starved `.wrap`'s own `justify-content:
+            # space-between` (`.site-header .wrap` below) of the room
+            # it needs to spread the brand row / nav links / icons
+            # across the header -- the nav bar's contents bunched up
+            # to their minimum width instead of stretching out to fill
+            # the intended column ("navbar can't stretch its legs").
+            # `display: block` here removes the framework default from
+            # the cascade entirely, letting `.wrap` size the normal
+            # block way again.
+            "display": "block",
             "position": "sticky",
             "top": "0",
             "z-index": "50",
