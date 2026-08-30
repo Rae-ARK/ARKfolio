@@ -38,7 +38,7 @@ LIGHT_TOKENS = {
     "--serif": "'Fraunces', Georgia, serif",
     "--sans": "'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif",
     "--mono": "'IBM Plex Mono', ui-monospace, monospace",
-    "--maxw": "100%",
+    "--maxw": "1080px",
     "--grain-opacity": "0.5",
     "--card-bg": "#ffffff",
 }
