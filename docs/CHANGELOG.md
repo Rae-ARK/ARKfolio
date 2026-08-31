@@ -6,6 +6,38 @@ list. Dates are UTC.
 ## [Unreleased]
 
 ### Fixed
+- **`theme_persist_backend.py` hardened + verified end-to-end.**
+  Investigated a report of dark-theme persistence being "uneven"
+  across pages. Rebuilt the site fresh and diffed every page's
+  injected theme-persistence code byte-for-byte -- identical on all 8
+  pages, ruling out a per-page code difference. Then simulated the
+  actual click -> persist -> fresh-page-load flow against the real
+  production build and the real `arklight.js` runtime (via a `jsdom`
+  harness), navigating across 5 pages in sequence: theme persisted
+  correctly and consistently every time. No code bug found in the
+  core mechanism -- the two most likely real-world causes of "some
+  pages have it, some don't" are `file://` testing (browsers can
+  isolate `localStorage` per `file://` document -- serve over
+  `http://` to test properly) and stale cached pages (particularly on
+  a CDN edge, e.g. Cloudflare -- hard-refresh or purge cache after
+  redeploying). Both are now documented directly in
+  `theme_persist_backend.py`'s own docstring so they're easy to rule
+  in/out next time.
+
+  Hardened anyway, as defense-in-depth: `POST_RUNTIME_SCRIPT` now
+  persists via two independent triggers -- the existing
+  `MutationObserver` on `.page-shell`'s class, plus a new direct
+  `click` listener on the toggle button itself -- so a future
+  ARKlight internal change to *how* the class gets updated can't
+  silently break persistence by breaking the one thing being watched.
+  `localStorage.setItem` failures are now surfaced via `console.warn`
+  instead of swallowed silently, so a real storage failure is easy to
+  tell apart (in devtools) from the two causes above. Also corrected
+  a docstring comment that had the `<script defer>` vs. inline
+  execution-order backwards (harmless in practice, but factually
+  wrong). Added `tests/test_theme_persist_backend.py` (8 tests,
+  exercising `inject()` directly, incl. the new click-listener path).
+
 - **`scripts/build.py` + `scripts/theme_persist_backend.py` restored.**
   Commit `096dbf6` ("Removed some internal files") deleted both, but
   `README.md`'s "Building" section still instructs `python
