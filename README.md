@@ -63,11 +63,13 @@ form, PWA, and the native wrapper hookup.
 closed component API still has no raw-HTML escape hatch for the
 anti-flash inline `<head>` script `localStorage` persistence needs
 (no `Script` node, no head-injection kwarg on `Page(...)` as of
-`v0.048`). Instead of waiting on core support, `scripts/build.py`
-attaches a small custom `Backend` (`scripts/theme_persist_backend.py`)
-that uses the compiler's own `postprocess(output_files)` hook to
-inject the snippet into every rendered page, in-process, as part of
-one normal build — see "Building" below.
+`v0.048`). `site.py` registers `components/theme_persist.py`'s
+`apply_theme_persist` via ARKlight's `Site.raw_postprocess(...)`
+(an experimental escape hatch added on the alpha branch), which
+injects the snippet into every rendered page as part of one normal
+`arklight build` — see "Building" below. (A first-class
+`State(persist=True)` is tracked upstream for a future ARKlight
+release, at which point this file goes away entirely.)
 
 ## Project structure
 
@@ -75,9 +77,10 @@ Following the pattern used in ARKlight's own reference sites
 (`Product-Showcase`, `Data_Viz_With_ARKlight_Alpha_Compiler`):
 
 ```
-site.py          entry point — registers every @site.page(...) route
+site.py          entry point — registers every @site.page(...) route,
+                 and wires up theme-persist via site.raw_postprocess(...)
 pages/           one function per route (home, works, store, journal, ...)
-components/      shared pieces (nav, footer, work card, ...)
+components/      shared pieces (nav, footer, work card, theme_persist, ...)
 content/         plain Python data — works, journal entries, store listings
                  (ported 1:1 from the original src/data/*.ts)
 assets/          images, icons — copied into the build output as-is
@@ -88,30 +91,27 @@ wrangler.jsonc   Cloudflare Workers deploy config
 
 ```bash
 pip install -e /path/to/ARKlight   # installs the `arklight` package, alpha branch
-python scripts/build.py            # -> ARK/index.html etc., theme persistence included
+arklight build site.py -o ARK      # -> ARK/index.html etc., theme persistence included
 ```
 
-`scripts/build.py` is a thin wrapper around ARKlight's own
-`compiler.pipeline.build()` (the same function the `arklight` CLI
-calls) with one addition: it attaches `ThemePersistBackend` from
-`scripts/theme_persist_backend.py` alongside the stock HTML/CSS/JS
-backends, so the theme-persistence `<script>` tags land in every page
-as part of the one build — see "Resolved" under "Known gaps" above.
-The `arklight` CLI itself has no flag to attach an extra backend
-(`arklight build site.py -o ARK` still works, but only runs the stock
-backends and ships a build where the theme resets on every
-navigation), so use `scripts/build.py` for this site rather than the
-bare CLI.
+Plain `arklight build` is enough — no wrapper script. Theme-persist is
+wired up from inside `site.py` itself via ARKlight's
+`Site.raw_postprocess(...)` hook (`components/theme_persist.py`), so
+it runs as part of any normal build through the CLI. This prints
+ARKlight's experimental-feature banner (`raw-postprocess` is gated as
+experimental); that's expected, not an error — see "Resolved" under
+"Known gaps" above.
 
 Useful flags: `-o/--output <dir>` (default `ARK`), `--no-open` (skip
-auto-opening the built site).
+auto-opening the built site), `--verbose`/`--debug` (stage-by-stage
+build narration).
 
 ## Deploying
 
 Same Cloudflare Workers target as the original:
 
 ```bash
-python scripts/build.py
+arklight build site.py -o ARK
 wrangler deploy
 ```
 

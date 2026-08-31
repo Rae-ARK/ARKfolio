@@ -1,4 +1,4 @@
-"""Unit tests for `scripts/theme_persist_backend.py`.
+"""Unit tests for `components/theme_persist.py`.
 
 `inject()` is a pure string -> string function (see its own docstring
 for why), so these exercise it directly against small synthetic HTML
@@ -7,12 +7,7 @@ fragments rather than running a full ARKlight build.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
-
-from theme_persist_backend import MARKER, STORAGE_KEY, inject  # noqa: E402
+from components.theme_persist import MARKER, STORAGE_KEY, inject
 
 
 def _page(body_attrs: str = ' data-ark-state="{&quot;theme&quot;: false}"') -> str:

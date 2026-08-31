@@ -1,11 +1,27 @@
-"""ARKlight `Backend` that makes the theme toggle persist across page loads.
+"""Theme-toggle persistence, wired through `Site.raw_postprocess(...)`.
 
-Supersedes `scripts/postbuild_theme_persist.py`: same fix, same injected
-HTML, but wired in through the compiler's actual extension point
-(`Backend.postprocess`, see `arklight/backend/base.py`) instead of a
-second command a person has to remember to run by hand after
-`arklight build`. See `scripts/build.py` for how this gets attached to
-`default_backends()`.
+Supersedes the old `scripts/build.py` + `scripts/theme_persist_backend.py`
+pair. That approach existed because, as of the `v0.048` alpha checkout,
+the `arklight` CLI had no flag to attach an extra `Backend` to a build
+(`_cmd_build` always calls `build()` with `backends=None`), so reaching
+the compiler's `Backend.postprocess` extension point at all meant
+calling `arklight.compiler.pipeline.build()` directly instead of going
+through the CLI -- a whole parallel entrypoint script just to run one
+extra transform over the rendered HTML.
+
+The alpha branch has since grown the proper hook for exactly this:
+`Site.raw_postprocess(fn)` (see ARKlight's CHANGELOG, "`Site.raw_
+postprocess(...)`: user-facing raw output escape hatch"). It's the
+user-facing equivalent of `Backend.postprocess()` -- same shape, same
+"runs over the combined output of every backend, after every render()"
+contract -- but registered directly on `Site` in `site.py`, so the
+plain `arklight build site.py -o ARK` CLI command is enough again. See
+`site.py` for the registration (`site.raw_postprocess(inject)`).
+
+It's gated as an ARKlight *experimental* feature (unchecked write
+access to every output file, unlike the rest of the validated
+pipeline), so a normal build now prints ARKlight's standard
+`[EXPERIMENTAL FEATURE ACTIVE]` banner -- expected, not an error.
 
 Why the fix itself is needed
 -----------------------------
@@ -22,15 +38,20 @@ light -- regardless of what the visitor last picked. That's the whole
 bug: it isn't a broken toggle, it's a toggle with nowhere to remember
 its value between page loads.
 
+(ARKlight's design doc tracks a future `State(persist=True)` -- see
+the compiler's own Stage 8 note in `arklight/backend/android/
+runtime.py` -- as the eventual first-class fix. Not implemented on
+this alpha checkout, so this module remains the workaround until it
+lands, at which point `pages/*.py`'s `State("theme", False)` calls can
+switch to `State("theme", False, persist=True)` and this whole file
+can go away.)
+
 ARKlight also has no site-author hook to inject a `<script>` into
-`<head>`/`<body>` (no `Script` node, no head-injection kwarg on
-`Page(...)` as of this alpha checkout), so this can't be fixed from
-`site.py`/`pages/*.py` alone -- it has to happen as a transform over
-already-rendered HTML. `Backend.postprocess` is exactly that
-extension point: it runs as a second pass over the *combined* output
-of every backend's `render()`, in the same in-process build, so there
-is no separate command and no risk of shipping a build where the
-patch step was silently skipped.
+`<head>`/`<body>` from `Page(...)`/component code (no `Script` node,
+no head-injection kwarg, as of this alpha checkout), so this can't be
+fixed from `site.py`/`pages/*.py` alone -- it has to happen as a
+transform over already-rendered HTML. `raw_postprocess` is exactly
+that extension point.
 
 What gets injected, per HTML page
 ----------------------------------
@@ -54,8 +75,7 @@ What gets injected, per HTML page
    only run once parsing finishes (right before `DOMContentLoaded`)
    while this inline script runs immediately, in place, during
    parsing, it actually executes *before* `arklight.js` does, not
-   after -- an earlier version of this comment had that backwards.
-   That ordering doesn't matter for correctness here: a
+   after. That ordering doesn't matter for correctness here: a
    `MutationObserver` only needs to be `observe()`d before a mutation
    happens, and `.page-shell` already exists in the DOM by the time
    this script runs (it's a fixed script src, meaning `.page-shell` --
@@ -82,11 +102,11 @@ odd -- worst case is one redundant, identical `localStorage.setItem`.
 
 Diagnosing "it isn't persisting"
 ----------------------------------
-If a rebuild-and-verify (see `scripts/build.py`'s own inject test, or
-`tests/test_theme_persist_backend.py`) confirms the injected script is
-correct but a live/deployed site still doesn't carry theme across
-pages, that is a deployment/browser issue, not a bug in this file's
-logic, and re-editing this script won't fix it. Two known causes:
+If a rebuild-and-verify (see `tests/test_theme_persist.py`) confirms
+the injected script is correct but a live/deployed site still doesn't
+carry theme across pages, that is a deployment/browser issue, not a
+bug in this file's logic, and re-editing this script won't fix it. Two
+known causes:
 
 - **`file://` URLs.** Opening built `.html` files directly (double-
   click / drag into a browser) instead of via `http://`/`https://`
@@ -98,28 +118,24 @@ logic, and re-editing this script won't fix it. Two known causes:
   properly.
 - **Stale cached pages**, especially on a CDN edge (e.g. Cloudflare
   Workers/Pages, see `README.md`'s deploy section) -- a page cached
-  from before this backend was wired in (or from before a later fix
-  to it) can sit alongside freshly-rebuilt pages and look exactly like
-  "some pages have it, some don't" even though every page in the
-  *current* build is identical. Hard-refresh, test in an incognito
-  window, and/or purge the CDN cache after deploying a rebuild.
+  from before this was wired in (or from before a later fix to it) can
+  sit alongside freshly-rebuilt pages and look exactly like "some
+  pages have it, some don't" even though every page in the *current*
+  build is identical. Hard-refresh, test in an incognito window,
+  and/or purge the CDN cache after deploying a rebuild.
 
 `persist()`'s own failures (private-browsing storage limits, quota,
-etc.) are now logged via `console.warn` rather than swallowed
-silently -- see `PERSIST_FAILURE_WARNING` below -- specifically so
-this is easy to tell apart from the two causes above: open devtools
-on the page in question and see whether a warning fires when you
-toggle the theme.
+etc.) are logged via `console.warn` rather than swallowed silently --
+see `PERSIST_FAILURE_WARNING` below -- specifically so this is easy to
+tell apart from the two causes above: open devtools on the page in
+question and see whether a warning fires when you toggle the theme.
 """
 
 from __future__ import annotations
 
 import re
 
-from arklight.backend.base import Backend
-from arklight.ir.build import WebsiteIR
-
-MARKER = "<!-- theme_persist_backend -->"
+MARKER = "<!-- theme_persist -->"
 
 # Storage key. Namespaced so it can't collide with some other script's
 # unrelated "theme" key if one ever gets added to this site.
@@ -176,7 +192,7 @@ POST_RUNTIME_SCRIPT = f"""<script>
         // you toggle the theme, persist() is working and the problem
         // is elsewhere (origin/caching), not in this script.
         if (window.console && console.warn) {{
-          console.warn("[theme_persist_backend] localStorage.setItem failed:", err);
+          console.warn("[theme_persist] localStorage.setItem failed:", err);
         }}
       }}
     }};
@@ -208,11 +224,11 @@ POST_RUNTIME_SCRIPT = f"""<script>
 def inject(html: str) -> str | None:
     """Return patched HTML, or None if already patched / nothing to do.
 
-    Pure string -> string, deliberately: `ThemePersistBackend.postprocess`
-    below is the only caller in the normal build, but keeping this as a
-    standalone function (rather than inlining it into the class) makes
-    it trivial to unit test without constructing a `WebsiteIR` or
-    running the full pipeline.
+    Pure string -> string, deliberately: `site.raw_postprocess` below
+    is the only caller in the normal build, but keeping this as a
+    standalone function (rather than inlining it into the callback)
+    makes it trivial to unit test without running a full ARKlight
+    build.
     """
     if MARKER in html:
         return None  # already patched, idempotent no-op
@@ -234,32 +250,18 @@ def inject(html: str) -> str | None:
     return html
 
 
-class ThemePersistBackend(Backend):
-    """Adds theme-persistence `<script>` tags to every rendered HTML page.
+def apply_theme_persist(output_files: dict[str, str]) -> dict[str, str]:
+    """`Site.raw_postprocess`-shaped callable: `(files) -> files`.
 
-    Contributes no files of its own (`render()` is a no-op) -- all the
-    work happens in `postprocess()`, which runs after HTMLBackend has
-    already rendered every page, per `Backend.postprocess`'s contract
-    of seeing the *combined* output of every backend in `backends=[...]`.
-    Attach it alongside the stock backends, e.g.:
-
-        from arklight.compiler.pipeline import build, default_backends
-        build(site_path, out_dir, backends=[*default_backends(), ThemePersistBackend()])
-
-    See `scripts/build.py`, which does exactly this.
+    Registered in `site.py` via `site.raw_postprocess(apply_theme_persist)`.
+    Runs `inject()` over every `.html` file in the combined build
+    output, leaving non-HTML files (CSS, JS, assets) untouched.
     """
-
-    name = "theme-persist"
-
-    def render(self, ir: WebsiteIR) -> dict[str, str]:  # noqa: ARG002
-        return {}
-
-    def postprocess(self, output_files: dict[str, str]) -> dict[str, str]:
-        patched = dict(output_files)
-        for path, contents in output_files.items():
-            if not path.endswith(".html"):
-                continue
-            result = inject(contents)
-            if result is not None:
-                patched[path] = result
-        return patched
+    patched = dict(output_files)
+    for path, contents in output_files.items():
+        if not path.endswith(".html"):
+            continue
+        result = inject(contents)
+        if result is not None:
+            patched[path] = result
+    return patched
