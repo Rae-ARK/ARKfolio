@@ -18,7 +18,11 @@ not yet implemented as of this scaffold's version.)
 ## Building without a local JDK
 
 This directory lives inside the `arkfolio` repo, so its CI workflow
-is at that repo's root, `../.github/workflows/android-build.yml`
+is at that repo's root, `../.github/workflows/android-build-arklight.yml`
+(deliberately not `android-build.yml` -- that filename is already
+taken on this repo's `main` branch by the Vue 3 + Capacitor Android
+CI; same repo, different branches, different app, kept as separate
+files so a future merge doesn't silently clobber one with the other)
 (GitHub Actions only discovers workflows at a repo's top level, never
 in a subdirectory -- every `run:` step in it is pinned back to this
 directory via `working-directory: android-project`). Push `arkfolio`
@@ -55,7 +59,7 @@ unsigned APK you can sign yourself later.
   https://github.com/Rae-ARK/ARKlight-Viewer-for-Android-Devices)
   (Apache-2.0). Unused by the default unpacked-tree setup above; kept
   in case you want to swap in a sealed `.ark` bundle by hand later.
-- `../.github/workflows/android-build.yml` (at the `arkfolio` repo
+- `../.github/workflows/android-build-arklight.yml` (at the `arkfolio` repo
   root, not in this directory) -- builds a debug APK, smoke-tests it
   (install + launch), and builds a release APK, all on GitHub-hosted
   runners on every push/PR (see "Building without a local JDK" above).

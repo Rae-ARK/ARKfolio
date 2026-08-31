@@ -1,4 +1,4 @@
-name: Android build
+name: Android build (ARKlight backend)
 
 # Builds a debug APK on GitHub-hosted runners on every push/PR,
 # installs and launches it on a throwaway emulator on the same runner
@@ -16,9 +16,16 @@ name: Android build
 # and every artifact/keystore path is prefixed with android-project/
 # to match (those aren't affected by a step's `working-directory`;
 # they're always resolved from the repo root / $GITHUB_WORKSPACE).
+#
+# Named distinctly from `main`'s own `.github/workflows/android-
+# build.yml` ("Android debug build", the Vue 3 + Capacitor Android
+# CI) -- different branch, different content, but the *same file
+# path*, which GitHub Actions keys workflows on. Kept as a separate
+# filename here so the two don't collide if this branch is ever
+# merged into `main`.
 on:
   push:
-    branches: [main, arklight]
+    branches: [arklight]
   pull_request:
   workflow_dispatch:
 
