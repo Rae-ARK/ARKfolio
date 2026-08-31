@@ -102,6 +102,12 @@ jobs:
   assemble-release:
     name: Assemble release APK
     runs-on: ubuntu-latest
+    # `secrets` isn't a permitted context inside a step's `if:` (only
+    # inside `env:`) -- see the "Decode release keystore" step below,
+    # which needed this rewritten from a direct `secrets.*` check to a
+    # job-level env var it can read instead.
+    env:
+      HAS_RELEASE_KEYSTORE: ${{ secrets.RELEASE_KEYSTORE_BASE64 != '' }}
     defaults:
       run:
         working-directory: android-project
@@ -130,12 +136,12 @@ jobs:
       # (no signing secrets configured); verify this path separately
       # if/when actually wiring up a signed release build.
       - name: Decode release keystore (optional)
-        if: ${{ secrets.RELEASE_KEYSTORE_BASE64 != '' }}
+        if: ${{ env.HAS_RELEASE_KEYSTORE == 'true' }}
         run: echo "${{ secrets.RELEASE_KEYSTORE_BASE64 }}" | base64 -d > release.keystore
 
       - name: Assemble release APK
         env:
-          RELEASE_KEYSTORE_PATH: ${{ secrets.RELEASE_KEYSTORE_BASE64 != '' && 'release.keystore' || '' }}
+          RELEASE_KEYSTORE_PATH: ${{ env.HAS_RELEASE_KEYSTORE == 'true' && 'release.keystore' || '' }}
           RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
           RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
           RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
