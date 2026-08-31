@@ -73,6 +73,15 @@ jobs:
           name: ARKlight-App-debug-apk
           path: apk
 
+      - name: Show downloaded artifact contents
+        # Diagnostic: makes it obvious in the log exactly what
+        # actions/download-artifact placed under apk/ (flat file,
+        # nested dirs, or nothing) instead of failing opaquely later
+        # inside the emulator-runner's adb install step.
+        run: |
+          echo "Contents of ./apk:"
+          find apk -type f -exec ls -la {} \;
+
       - name: Enable KVM (hardware-accelerated emulator)
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -89,6 +98,12 @@ jobs:
           disable-animations: true
           script: |
             APK="$(find apk -name '*.apk' | head -n 1)"
+            if [ -z "$APK" ]; then
+              echo "::error::No .apk file found under apk/ -- listing what's actually there:"
+              find apk -type f
+              exit 1
+            fi
+            echo "Installing $APK"
             adb install -r "$APK"
             adb shell am start -n com.arklight.app/com.arklight.app.MainActivity
             sleep 5
