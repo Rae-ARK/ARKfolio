@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rae ARK — Web Novelist</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Rae ARK writes fantasy and science-fantasy stories about people rebuilding themselves — reincarnation, isekai, and the quiet work of learning how to live again.">
+  <link rel="icon" href="assets/images/profile.png">
+  <meta property="og:title" content="Rae ARK — Web Novelist">
+  <meta property="og:description" content="Rae ARK writes fantasy and science-fantasy stories about people rebuilding themselves — reincarnation, isekai, and the quiet work of learning how to live again.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&amp;family=Work+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-ark-state="{&quot;theme&quot;: false}">
+<!-- theme_persist -->
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("arkfolio-theme");
+    if (saved !== "dark") return;
+    var body = document.body;
+    var raw = body.getAttribute("data-ark-state");
+    if (!raw) return;
+    // The attribute value is HTML-attribute-escaped by the browser's
+    // own parser by the time we read it here, so this is already the
+    // real JSON text (e.g. {"theme": false}) -- no manual unescaping
+    // needed.
+    var state = JSON.parse(raw);
+    state.theme = true;
+    body.setAttribute("data-ark-state", JSON.stringify(state));
+  } catch (err) {
+    // Corrupt/unavailable localStorage or unexpected state shape --
+    // fail open to the page's normal baked-in (light) default rather
+    // than breaking the page.
+  }
+})();
+</script>
+
+<div data-ark-bind-class="dark" data-ark-bind-class-state="theme" class="page-shell"><header class="site-header"><div class="wrap"><div class="brand-row"><img src="assets/images/profile.png" alt="Rae ARK" class="avatar" /><div class="brand"><div class="name-row"><a href="index.html" class="name">Rae ARK</a><div class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div><span class="sub">嵐久 怜 · WEB NOVELIST</span></div></div><button data-ark-on-click="behavior:toggle" data-ark-target="#primary-nav" data-ark-toggle-class="open" class="nav-toggle" aria-label="Toggle navigation menu" aria-controls="primary-nav" type="button">☰</button><nav class="main-nav" aria-label="Primary" id="primary-nav"><a href="index.html" class="active">Home</a><a href="works.html">Works</a><a href="store.html">Store</a><a href="journal.html">Journal</a><a href="about.html">About</a><div class="nav-icons"><a href="https://x.com/Rae7866" target="_blank" class="icon-btn icon-x" aria-label="Follow on X">X</a><a href="https://github.com/Rae-ARK/My-Portfolio" target="_blank" class="icon-btn icon-github" aria-label="View source on GitHub">GitHub</a><div data-ark-on-click="action:toggle_bool" data-ark-action-state="theme" data-ark-bind-class="dark" data-ark-bind-class-state="theme" class="icon-btn theme-toggle" role="button" tabindex="0" aria-label="Toggle light/dark theme"><span class="sr-only">Toggle theme</span></div></div></nav></div></header><section class="hero"><div class="wrap"><span class="eyebrow">Fantasy · Science Fantasy · Slice of Life</span><h1>Stories about people learning how to live again.</h1><p class="lede">Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.</p><div class="cta-row"><a href="works.html" class="btn btn-primary">Read the works</a><a href="journal.html" class="btn btn-ghost">From the writing desk</a></div></div></section><section id="works"><div class="wrap"><div class="section-head"><span class="eyebrow">Featured Works</span><h2>Three stories, one question</h2><p>Each begins differently — a second life, a wrong world, a body that isn&#x27;t yours — but all of them ask the same thing: what does it take to actually live, not just survive?</p></div><div class="card-grid"><article class="work-card"><div class="cover epmc"><span class="status-ribbon">Light Novel · On Hiatus</span></div><div class="work-body"><p class="tagline">A second life. A world of magic. A man trying to become someone better than who he was.</p><div class="tags"><span class="badge">Reincarnation</span><span class="badge">Progression Fantasy</span><span class="badge">Psychological Drama</span></div><p class="desc">A brilliant, socially broken researcher dies without ever living the life he wanted — and wakes as a child in a world of magic, remembering everything he lost.</p><div class="work-links"><a href="works.html#epmc">Full synopsis →</a><a href="https://www.royalroad.com/fiction/114101/enigmatic-pathways-mystic-circuits/" target="_blank">Royal Road ↗</a><a href="https://www.scribblehub.com/series/2312083/enigmatic-pathways-mystic-circuits/" target="_blank">Scribble Hub ↗</a></div></div></article><article class="work-card"><div class="cover sbm"><span class="status-ribbon">Web Novel · Ongoing</span></div><div class="work-body"><p class="tagline">A man who never learned how to live is given a second world, an AI companion, and the chance to start again.</p><div class="tags"><span class="badge">Isekai</span><span class="badge">Slice of Life</span><span class="badge">Soft Sci-Fi</span></div><p class="desc">He had everything a life was supposed to need, and none of it ever stuck. Asked for one wish before being cast into another world, he doesn&#x27;t ask for power — he asks for an AI.</p><div class="work-links"><a href="works.html#sbm">Full synopsis →</a><a href="https://www.royalroad.com/fiction/163034/summoned-by-mistake-i-decided-to-learn-how-to" target="_blank">Royal Road ↗</a><a href="https://www.scribblehub.com/series/2312017/summoned-by-mistake-i-decided-to-learn-how-to-live/" target="_blank">Scribble Hub ↗</a></div></div></article><article class="work-card"><div class="cover stbf"><span class="status-ribbon mature">Web Novel · Vol. 1 · On Break</span></div><div class="work-body"><p class="tagline">Pretending to be the person you&#x27;re expected to be is not optional. It&#x27;s the only thing keeping everything from collapsing.</p><div class="tags"><span class="badge">Reincarnation</span><span class="badge">Contemporary Drama</span><span class="badge mature">Mature Content</span></div><p class="desc">Tanso Faser dies at thirteen with a small, ridiculous wish. What he wakes up to instead is someone else&#x27;s life — already in motion, already full of people waiting for a man he&#x27;s never been.</p><div class="work-links"><a href="works.html#stbf">Full synopsis →</a><a href="https://www.royalroad.com/fiction/173205/the-shadow-i-cast-over-two-beautiful-flowers" target="_blank">Royal Road ↗</a></div></div></article></div></div></section><div class="section-divider"><div class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div><section class="alt-bg"><div class="wrap container-narrow"><div class="section-head"><span class="eyebrow">Currently Writing</span><h2>What&#x27;s alive on the desk right now</h2></div><div class="status-panel"><div class="status-row"><div><p class="status-title">Enigmatic Pathways Mystic Circuits — Volume 3</p><p class="status-note">In progress. Slow, deliberate, and worth getting right.</p></div><span class="status-state">Writing</span></div><div class="status-row"><div><p class="status-title">Summoned by Mistake, I Decided to Learn How to Live — Arc 3</p><p class="status-note">The ruins exploration arc. New chapters continue on a regular cadence.</p></div><span class="status-state">Ongoing</span></div><div class="status-row"><div><p class="status-title">The Shadow I Cast Over Two Beautiful Flowers — Act 2</p><p class="status-note">Resting until Volume 3 of Enigmatic Pathways Mystic Circuits is further along.</p></div><span class="status-state paused">On Break</span></div></div></div></section><div class="section-divider"><div class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div><section><div class="wrap pull-quote"><blockquote><p>“I believe stories deserve endings. Some of mine span years; others are written short and focused, on purpose — so I can keep learning how to bring a narrative to a close I actually believe in.”</p></blockquote><cite>— Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists</cite></div></section><div class="section-divider"><div class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div><section class="alt-bg"><div class="wrap"><div class="section-head"><span class="eyebrow">Where to Read</span><h2>Every chapter, free, wherever you already read</h2></div><div class="reads"><div class="read-card"><span class="k">Royal Road</span><a href="works.html" class="go">All three stories ↗</a></div><div class="read-card"><span class="k">Scribble Hub</span><a href="works.html" class="go">Two stories ↗</a></div><div class="read-card"><span class="k">X / Twitter</span><a href="https://x.com/Rae7866" target="_blank" class="go">@Rae7866 ↗</a></div></div></div></section><footer class="site-footer"><div class="wrap"><p class="footer-quote">“I hope for people to hold the book in their hands someday, and to sit on the shelves.”</p><p class="footer-attrib">— Rae ARK</p><div class="footer-imprint"><img src="assets/images/horizon-ark-logo.png" alt="Horizon ARK Studio" /><span>Published under Horizon ARK Studio</span></div><div class="footer-bottom"><p>© 2026 Rae ARK</p><div class="footer-links"><a href="works.html">Works</a><a href="store.html">Store</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://x.com/Rae7866" target="_blank">X</a><a href="https://github.com/Rae-ARK/My-Portfolio" target="_blank">GitHub</a></div></div></div></footer></div>
+<script src="arklight.js" defer></script>
+<script>
+(function () {
+  try {
+    var shell = document.querySelector(".page-shell");
+    if (!shell) return;
+    var persist = function () {
+      var isDark = shell.classList.contains("dark");
+      try {
+        localStorage.setItem("arkfolio-theme", isDark ? "dark" : "light");
+      } catch (err) {
+        // localStorage unavailable (private browsing, quota, etc.) --
+        // the toggle still works for this page, it just won't carry
+        // over to the next one. Surfaced via console.warn (rather
+        // than swallowed) so this is distinguishable, in devtools,
+        // from the file:// / stale-cache causes documented in this
+        // module's docstring -- if this warning is NOT firing when
+        // you toggle the theme, persist() is working and the problem
+        // is elsewhere (origin/caching), not in this script.
+        if (window.console && console.warn) {
+          console.warn("[theme_persist] localStorage.setItem failed:", err);
+        }
+      }
+    };
+    // Primary trigger: watch the class ARKlight itself drives.
+    new MutationObserver(persist).observe(shell, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    // Secondary, independent trigger: the toggle click itself. Reads
+    // the class shortly after the click (a macrotask later, so
+    // ARKlight's own click handler -- which flips the class
+    // synchronously -- has already run) rather than assuming
+    // anything about *how* the class got flipped. See "Why two
+    // listeners" in this module's docstring.
+    document.addEventListener("click", function (ev) {
+      if (ev.target.closest('[data-ark-action-state="theme"]')) {
+        setTimeout(persist, 0);
+      }
+    });
+  } catch (err) {
+    // No .page-shell / no MutationObserver support -- leave the page
+    // exactly as ARKlight rendered it.
+  }
+})();
+</script>
+</body>
+</html>

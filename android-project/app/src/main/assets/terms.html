@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms &amp; Conditions — Rae ARK</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Terms of use for the Rae ARK site and Android app.">
+  <link rel="icon" href="assets/images/profile.png">
+  <meta property="og:title" content="Terms &amp; Conditions — Rae ARK">
+  <meta property="og:description" content="Terms of use for the Rae ARK site and Android app.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&amp;family=Work+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-ark-state="{&quot;theme&quot;: false}">
+<!-- theme_persist -->
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("arkfolio-theme");
+    if (saved !== "dark") return;
+    var body = document.body;
+    var raw = body.getAttribute("data-ark-state");
+    if (!raw) return;
+    // The attribute value is HTML-attribute-escaped by the browser's
+    // own parser by the time we read it here, so this is already the
+    // real JSON text (e.g. {"theme": false}) -- no manual unescaping
+    // needed.
+    var state = JSON.parse(raw);
+    state.theme = true;
+    body.setAttribute("data-ark-state", JSON.stringify(state));
+  } catch (err) {
+    // Corrupt/unavailable localStorage or unexpected state shape --
+    // fail open to the page's normal baked-in (light) default rather
+    // than breaking the page.
+  }
+})();
+</script>
+
+<div data-ark-bind-class="dark" data-ark-bind-class-state="theme" class="page-shell"><header class="site-header"><div class="wrap"><div class="brand-row"><img src="assets/images/profile.png" alt="Rae ARK" class="avatar" /><div class="brand"><div class="name-row"><a href="index.html" class="name">Rae ARK</a><div class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div><span class="sub">嵐久 怜 · WEB NOVELIST</span></div></div><button data-ark-on-click="behavior:toggle" data-ark-target="#primary-nav" data-ark-toggle-class="open" class="nav-toggle" aria-label="Toggle navigation menu" aria-controls="primary-nav" type="button">☰</button><nav class="main-nav" aria-label="Primary" id="primary-nav"><a href="index.html">Home</a><a href="works.html">Works</a><a href="store.html">Store</a><a href="journal.html">Journal</a><a href="about.html">About</a><div class="nav-icons"><a href="https://x.com/Rae7866" target="_blank" class="icon-btn icon-x" aria-label="Follow on X">X</a><a href="https://github.com/Rae-ARK/My-Portfolio" target="_blank" class="icon-btn icon-github" aria-label="View source on GitHub">GitHub</a><div data-ark-on-click="action:toggle_bool" data-ark-action-state="theme" data-ark-bind-class="dark" data-ark-bind-class-state="theme" class="icon-btn theme-toggle" role="button" tabindex="0" aria-label="Toggle light/dark theme"><span class="sr-only">Toggle theme</span></div></div></nav></div></header><section class="hero"><div class="wrap"><span class="eyebrow">Legal</span><h1>Terms &amp; Conditions</h1><p class="lede">Last updated: July 2026</p></div></section><section><div class="wrap container-narrow"><div class="legal-card"><p>By using this site or the Rae ARK Android app, you agree to the terms below. If you don&#x27;t agree, the simplest option is not to use it — nothing here is gated behind acceptance of anything more involved than reading a webpage or opening an app.</p><h3>The content</h3><p>All original writing, artwork, and branding on this site and app — including the web novels, journal entries, and cover art — belongs to Rae ARK (Horizon ARK Studio) unless stated otherwise. You&#x27;re welcome to read, link to, and share pages, but reposting, republishing, or using the writing or art commercially without permission isn&#x27;t allowed.</p><h3>Third-party platforms</h3><p>Royal Road, Scribble Hub, X/Twitter, and any retailers linked from the Store page are independent platforms with their own terms of service. Reading, purchasing, or creating an account on those platforms is governed by their rules, not these ones.</p><h3>No warranty</h3><p>This site and app are provided &quot;as is.&quot; Every reasonable effort is made to keep content accurate and the app functioning, but no guarantee is made that it will be uninterrupted, error-free, or available at all times.</p><h3>Age and content notices</h3><p>Some works are tagged &quot;Mature Content&quot; on the Works page and carry appropriate content warnings there. Please check those tags before reading if that matters to you.</p><h3>Changes</h3><p>These terms may be updated occasionally; continued use after a change means you accept the updated terms. Material changes will update the &quot;last updated&quot; date above.</p><h3>Contact</h3><div class="inline-text"><span>Questions about these terms can be sent via the </span><a href="feedback.html">Feedback</a><span> page.</span></div></div></div></section><footer class="site-footer"><div class="wrap"><p class="footer-quote">“I hope for people to hold the book in their hands someday, and to sit on the shelves.”</p><p class="footer-attrib">— Rae ARK</p><div class="footer-imprint"><img src="assets/images/horizon-ark-logo.png" alt="Horizon ARK Studio" /><span>Published under Horizon ARK Studio</span></div><div class="footer-bottom"><p>© 2026 Rae ARK</p><div class="footer-links"><a href="works.html">Works</a><a href="store.html">Store</a><a href="journal.html">Journal</a><a href="about.html">About</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="https://x.com/Rae7866" target="_blank">X</a><a href="https://github.com/Rae-ARK/My-Portfolio" target="_blank">GitHub</a></div></div></div></footer></div>
+<script src="arklight.js" defer></script>
+<script>
+(function () {
+  try {
+    var shell = document.querySelector(".page-shell");
+    if (!shell) return;
+    var persist = function () {
+      var isDark = shell.classList.contains("dark");
+      try {
+        localStorage.setItem("arkfolio-theme", isDark ? "dark" : "light");
+      } catch (err) {
+        // localStorage unavailable (private browsing, quota, etc.) --
+        // the toggle still works for this page, it just won't carry
+        // over to the next one. Surfaced via console.warn (rather
+        // than swallowed) so this is distinguishable, in devtools,
+        // from the file:// / stale-cache causes documented in this
+        // module's docstring -- if this warning is NOT firing when
+        // you toggle the theme, persist() is working and the problem
+        // is elsewhere (origin/caching), not in this script.
+        if (window.console && console.warn) {
+          console.warn("[theme_persist] localStorage.setItem failed:", err);
+        }
+      }
+    };
+    // Primary trigger: watch the class ARKlight itself drives.
+    new MutationObserver(persist).observe(shell, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    // Secondary, independent trigger: the toggle click itself. Reads
+    // the class shortly after the click (a macrotask later, so
+    // ARKlight's own click handler -- which flips the class
+    // synchronously -- has already run) rather than assuming
+    // anything about *how* the class got flipped. See "Why two
+    // listeners" in this module's docstring.
+    document.addEventListener("click", function (ev) {
+      if (ev.target.closest('[data-ark-action-state="theme"]')) {
+        setTimeout(persist, 0);
+      }
+    });
+  } catch (err) {
+    // No .page-shell / no MutationObserver support -- leave the page
+    // exactly as ARKlight rendered it.
+  }
+})();
+</script>
+</body>
+</html>
