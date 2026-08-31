@@ -1,13 +1,4 @@
 <resources>
-    <!-- Brand marks: used only in the launcher icon drawables, not as
-         theme color roles - the icon should look the same regardless
-         of light/dark/dynamic theme. Vendored from
-         ARKlight-Viewer-for-Android-Devices's default branding;
-         replace freely once you have your own launcher icon (see
-         android.icon in arklight.config.py). -->
-    <color name="brand_gradient_start">#5FE0B5</color>
-    <color name="brand_gradient_end">#3D6EFF</color>
-
     <!-- Fallback (non-dynamic) Material 3 color roles - used on
          devices below Android 12, or when the system hasn't handed
          out a wallpaper-derived palette. -->
@@ -29,4 +20,9 @@
          in mipmap-anydpi-v26/ic_launcher.xml; some older launchers
          fall back to a flat background color. -->
     <color name="ic_launcher_background">#0F2A24</color>
+
+    <!-- Splash screen background, matching the launcher icon's dark
+         teal so the icon feels continuous between splash and app
+         icon. See values/themes.xml's Theme.ArkApp.Starting. -->
+    <color name="splash_background">#0F2A24</color>
 </resources>

@@ -77,4 +77,8 @@ dependencies {
     // packaged app (see docs/Foundational/DESIGN-NOTES.md, "v0.0438:
     // Android backend", "Why this needs to exist at all").
     implementation("androidx.webkit:webkit:1.11.0")
+    // Splash screen (AndroidX backport of the Android 12 SplashScreen
+    // API) -- gives a consistent splash on API 24+ instead of only
+    // API 31+, via Theme.ArkApp.Starting below.
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

@@ -6,6 +6,7 @@ import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.webkit.WebViewAssetLoader
 
@@ -41,6 +42,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Must be called before super.onCreate() -- swaps
+        // Theme.ArkApp.Starting (set on this activity in the
+        // manifest) for its postSplashScreenTheme (Theme.ArkApp) once
+        // the splash screen is dismissed.
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         webView = WebView(this)
         setContentView(webView)

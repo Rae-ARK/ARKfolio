@@ -29,4 +29,18 @@
         <item name="android:navigationBarColor" tools:targetApi="27">?attr/colorSurface</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
     </style>
+
+    <!--
+      Splash screen theme (androidx.core.splashscreen backport -
+      works API 24+, not just the native API 31+ SplashScreen).
+      Applied to MainActivity in AndroidManifest.xml; MainActivity
+      calls installSplashScreen() before super.onCreate(), which
+      swaps this theme for postSplashScreenTheme once the WebView is
+      ready. Icon source: assets/images/profile.png.
+    -->
+    <style name="Theme.ArkApp.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.ArkApp</item>
+    </style>
 </resources>
