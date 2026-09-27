@@ -539,9 +539,24 @@ htmx.config.includeIndicatorStyles = false;
       var media = rawMedia ? JSON.parse(rawMedia) : [];
       var query = rawQuery ? JSON.parse(rawQuery) : [];
       var initial = JSON.parse(raw);
+      // `/` and `/index.html` are the same page but different
+      // `location.pathname` values (and the build rewrites nav links
+      // to `index.html`), so before this they were two separate
+      // persisted stores for one page. Normalize the trailing
+      // "index.html" away so both resolve to the same key; a value
+      // saved before this fix (under the raw, un-normalized pathname)
+      // is tried second as a fallback.
+      var persistPath = location.pathname.replace(/\/index\.html$/, "/");
       persist.forEach(function (key) {
         try {
-          var saved = localStorage.getItem("ark:" + location.pathname + ":" + key);
+          var candidates = ["ark:" + persistPath + ":" + key];
+          if (persistPath !== location.pathname) {
+            candidates.push("ark:" + location.pathname + ":" + key);
+          }
+          var saved = null;
+          for (var i = 0; saved === null && i < candidates.length; i++) {
+            saved = localStorage.getItem(candidates[i]);
+          }
           if (saved !== null) { initial[key] = JSON.parse(saved); }
         } catch (err) {
           // Private browsing, quota, or a hand-edited non-JSON value:
@@ -602,7 +617,7 @@ htmx.config.includeIndicatorStyles = false;
         store.subscribe(function () {
           persist.forEach(function (key) {
             try {
-              localStorage.setItem("ark:" + location.pathname + ":" + key, JSON.stringify(store.get(key)));
+              localStorage.setItem("ark:" + persistPath + ":" + key, JSON.stringify(store.get(key)));
             } catch (err) {
               // Private browsing or quota exceeded: this key just
               // doesn't persist, same degrade-quietly discipline as
@@ -809,8 +824,13 @@ htmx.config.includeIndicatorStyles = false;
 
   function highlightActiveNavLink() {
     document.querySelectorAll(".nav a").forEach(function (link) {
-      var here = location.href.replace(/#.*$/, "");
-      var there = link.href.replace(/#.*$/, "");
+      // `/` and `/index.html` are the same page: compare both with the
+      // fragment and a trailing "index.html" stripped, so a nav link
+      // built as ".../index.html" (the compiler rewrites internal
+      // links that way) is still highlighted when the visited URL is
+      // the bare directory root.
+      var here = location.href.replace(/#.*$/, "").replace(/index\.html$/, "");
+      var there = link.href.replace(/#.*$/, "").replace(/index\.html$/, "");
       if (there === here) {
         link.classList.add("is-active");
       }

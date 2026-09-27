@@ -8,13 +8,13 @@ SPDXVersion: SPDX-2.3-informal
 DataLicense: CC0-1.0
 DocumentName: arkfolio-arklight-build-manifest
 SPDXID: SPDXRef-DOCUMENT
-Creator: Tool: ARKlight-v0.6616 (alpha)
-Created: 2026-09-26T17:36:48Z
+Creator: Tool: ARKlight-v0.70.0 (alpha)
+Created: 2026-09-27T14:29:28Z
 
 ## -- ARKlight itself --------------------------------------------------
 PackageName: ARKlight
 SPDXID: SPDXRef-Package-arklight
-PackageVersion: 0.6616
+PackageVersion: 0.70.0
 PackageSupplier: Organization: ARKlight
 PackageLicenseDeclared: GPL-3.0-or-later
 PrimaryPackagePurpose: APPLICATION
@@ -31,7 +31,7 @@ Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-Package-arklight
 
 PackageName: toggle
 SPDXID: SPDXRef-behavior-toggle
-PackageVersion: 0.6616
+PackageVersion: 0.70.0
 PackageSupplier: Person: ARKlight author (in-tree, ACC-standard)
 PrimaryPackagePurpose: LIBRARY
 PackageComment: named behavior, shipped as part of ARKlight's own runtime.
@@ -39,7 +39,7 @@ Relationship: SPDXRef-DOCUMENT DESCRIBES SPDXRef-behavior-toggle
 
 PackageName: toggle_bool
 SPDXID: SPDXRef-action-toggle-bool
-PackageVersion: 0.6616
+PackageVersion: 0.70.0
 PackageSupplier: Person: ARKlight author (in-tree, ACC-standard)
 PrimaryPackagePurpose: LIBRARY
 PackageComment: action, shipped as part of ARKlight's own runtime.

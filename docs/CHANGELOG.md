@@ -5,6 +5,41 @@ list. Dates are UTC.
 
 ## [Unreleased]
 
+### Changed (this session -- ARKlight upgrade: `v0.069` (`v0.6616`) -> `v0.70.0`)
+- **`android-project/` and `.github/workflows/android-build.yml`
+  regenerated from a fresh build**, via the same documented command
+  in `README.md`'s "Android app" section
+  (`./scripts/build.sh ARK && arklight android scaffold ARK -o
+  android-project --release`), re-applying the same repo-root
+  `.github/workflows/` + `.github/scripts/` relocation and
+  `working-directory: android-project` adaptation this project's
+  nested layout always needs after a re-scaffold. App identity
+  (`com.arklight.rae_ark_web_novelist`, "Rae ARK — Web Novelist")
+  unchanged -- still derived from the PWA manifest, same as before.
+- **Picked up an upstream link-path fix for free.** The previously
+  checked-in `android-project/`/PWA output was built against ARKlight
+  `v0.6616`; rebuilding against the now-installed `v0.70.0` picked up
+  an upstream fix (see ARKlight's own `CHANGELOG.md`) where `/` and
+  `/index.html` were treated as two different paths -- both for
+  `State(persist=True)`'s `localStorage` key and for app-shell nav
+  link "active" matching -- so a value persisted (or a link matched
+  as current) under one didn't carry over to the other. No source
+  change on this side; confirmed by diffing the old and new
+  `arklight.js` output.
+- **`README.md`'s "Deploying" section corrected.** It documented a
+  bare `wrangler deploy`, but this project has no `wrangler.jsonc`
+  checked in (unlike the "Project structure" list, which claimed one
+  existed) -- a bare `wrangler deploy` has no config to read from and
+  nothing to deploy. Replaced with `arklight deploy`, which builds
+  the site and fills in a minimal Workers config itself when a
+  project doesn't already have one (verified with `arklight deploy
+  --dry-run`); removed the false `wrangler.jsonc` line from "Project
+  structure" instead of adding the file, since `arklight deploy`
+  makes one unnecessary.
+- No use of `Site.raw_postprocess(...)` anywhere in this project --
+  confirmed still true; the only remaining mentions are historical,
+  in `site.py`'s and this file's own comments about its removal.
+
 ### Changed (this session -- ARKlight upgrade: `v0.048` -> `v0.069`, parity pass)
 - **Theme persistence now native.** `State("theme", False,
   persist=True)` on every page replaces `components/theme_persist.py`

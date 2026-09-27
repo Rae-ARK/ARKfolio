@@ -2,7 +2,7 @@
 // `arklight pwa <build-dir>` after your next `arklight build`
 // instead; this file (including CACHE_NAME) is fully
 // regenerated every time, not patched in place.
-const CACHE_NAME = "arklight-pwa-0c518df0f3c88429";
+const CACHE_NAME = "arklight-pwa-b19b16f598b1a5d0";
 const PRECACHE_URLS = [
   "about.html",
   "ark-pwa.js",

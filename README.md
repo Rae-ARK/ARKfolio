@@ -115,8 +115,12 @@ assets/             images, icons — copied into the build output as-is
 scripts/build.sh    arklight build + arklight pwa in one step
 android-project/    `arklight android scaffold` output (native WebView app)
 tests/              a couple of lightweight sanity checks over pages/*.py
-wrangler.jsonc      Cloudflare Workers deploy config
 ```
+
+No `wrangler.jsonc` here — unlike the original Vue site, this project has
+none checked in, and doesn't need one: `arklight deploy` (see "Deploying"
+below) fills in a minimal Workers config (assets directory, Worker name,
+compatibility date) itself when a project doesn't already have one.
 
 ## Building
 
@@ -136,12 +140,22 @@ Useful flags on the underlying `arklight build`: `-o/--output <dir>`
 
 ## Deploying
 
-Same Cloudflare Workers target as the original:
+Same Cloudflare Workers target as the original, but handed off through
+ARKlight's own CLI rather than a bare `wrangler deploy` — this project has
+no `wrangler.jsonc` checked in, so a bare `wrangler deploy` has no config
+to read and nothing to deploy from. `arklight deploy` builds the site
+first, then runs Wrangler itself, filling in a minimal Workers config
+(assets directory, Worker name, compatibility date) since none exists:
 
 ```bash
-./scripts/build.sh
-wrangler deploy
+arklight deploy
 ```
+
+Needs Wrangler on `PATH` and signed in (`npm install --global wrangler &&
+wrangler login`) — ARKlight hands the deploy off to Wrangler, it doesn't
+install or authenticate it. Note this skips the `arklight pwa` pass
+`scripts/build.sh` also runs, so a manifest/service-worker refresh needs
+`./scripts/build.sh` run once beforehand if either has changed.
 
 ## Android app
 
