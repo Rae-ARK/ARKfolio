@@ -21,5 +21,5 @@
          edge_to_edge is on, the system bars. One colour serves day and
          night because the page itself doesn't change with the phone's
          setting. Edit it here to tweak it by hand. -->
-    <color name="ark_site_background">#111111</color>
+    <color name="ark_site_background">#FFFFFF</color>
 </resources>

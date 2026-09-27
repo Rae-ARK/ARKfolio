@@ -9,7 +9,7 @@ DataLicense: CC0-1.0
 DocumentName: arkfolio-arklight-build-manifest
 SPDXID: SPDXRef-DOCUMENT
 Creator: Tool: ARKlight-v0.70.0 (alpha)
-Created: 2026-09-27T14:29:28Z
+Created: 2026-09-27T17:40:26Z
 
 ## -- ARKlight itself --------------------------------------------------
 PackageName: ARKlight
