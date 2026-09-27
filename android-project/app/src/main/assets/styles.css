@@ -564,7 +564,7 @@ map, area {
 /* v0.003 -- intrinsic responsive layout utilities.                    */
 /*                                                                      */
 /* ARKlight's `Page` never gets a `<head>` hook (see                   */
-/* docs/DESIGN-NOTES.md), so there is no `@media`/`@container` query    */
+/* docs/Foundational/DESIGN-NOTES.md), so there is no `@media`/`@container` query    */
 /* available to any generated site -- responsiveness has to come from  */
 /* the browser reflowing content from available width alone, not from  */
 /* a rule keyed to a width threshold. These utility classes are the    */
@@ -685,7 +685,7 @@ map, area {
   background: var(--ark-border);
 }
 
-/* Structural CSS selectors -- registered via `site.style_selector(...)`. See docs/DESIGN-NOTES.md ("CSS selector algebra + at-rule vocabulary"). */
+/* Structural CSS selectors -- registered via `site.style_selector(...)`. See docs/Foundational/DESIGN-NOTES.md ("CSS selector algebra + at-rule vocabulary"). */
 
 :root {
   --accent: #2c5c4f;

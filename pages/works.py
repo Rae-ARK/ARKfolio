@@ -2,8 +2,8 @@
 
 Each work gets its own #<slug> section with an asterism divider between
 them (skipped after the last one), matching the original's `v-for`
-template block. `v-reveal` scroll-in animation has no ARKlight
-equivalent yet -- omitted.
+template block. `v-reveal` scroll-in animation -> `on_reveal="reveal"`
+(see pages/home.py's docstring for the full explanation).
 """
 
 from arklight import Page, Section, Container, Span, Heading, Text, Strong, Link, State, Bind
@@ -68,31 +68,37 @@ def works():
             )
         )
 
-        sections.append(Section(Container(*body, class_name="wrap container-narrow"), id=work["slug"]))
+        sections.append(
+            Section(
+                Container(*body, class_name="wrap container-narrow"),
+                id=work["slug"],
+                on_reveal="reveal",
+            )
+        )
         if i < len(WORKS) - 1:
             sections.append(section_divider())
 
     return Page(
-        State("theme", False),
+        State("theme", False, persist=True),
         Container(
-        nav(theme_state="theme", current_route="/works"),
-        Section(
-            Container(
-                Span("The Works", class_name="eyebrow"),
-                Heading("Three stories, read in full elsewhere", level=1),
-                Text(
-                    "Every chapter lives on Royal Road and Scribble Hub \u2014 this page is "
-                    "just the map. Synopses below, links to the real thing at the end of each.",
-                    class_name="lede",
+            nav(theme_state="theme", current_route="/works"),
+            Section(
+                Container(
+                    Span("The Works", class_name="eyebrow"),
+                    Heading("Three stories, read in full elsewhere", level=1),
+                    Text(
+                        "Every chapter lives on Royal Road and Scribble Hub \u2014 this page is "
+                        "just the map. Synopses below, links to the real thing at the end of each.",
+                        class_name="lede",
+                    ),
+                    class_name="wrap",
                 ),
-                class_name="wrap",
+                class_name="hero",
             ),
-            class_name="hero",
-        ),
-        *sections,
-        footer(),
-        bind_class=Bind.when("theme", "dark"),
-        class_name="page-shell",
+            *sections,
+            footer(),
+            bind_class=Bind.when("theme", "dark"),
+            class_name="page-shell",
         ),
         title="Works \u2014 Rae ARK",
         description=(

@@ -14,4 +14,12 @@
     <color name="md_theme_surfaceVariant">#3F4944</color>
     <color name="md_theme_onSurfaceVariant">#BFC9C3</color>
     <color name="md_theme_outline">#89938E</color>
+
+    <!-- The site's own background colour, resolved when this project was
+         scaffolded (android.status_bar_color in arklight.config.py). It
+         paints the window behind the WebView, the splash screen and, unless
+         edge_to_edge is on, the system bars. One colour serves day and
+         night because the page itself doesn't change with the phone's
+         setting. Edit it here to tweak it by hand. -->
+    <color name="ark_site_background">#111111</color>
 </resources>

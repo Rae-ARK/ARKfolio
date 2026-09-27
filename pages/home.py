@@ -2,7 +2,12 @@
 
 Sections dropped or altered from the original, each noted at the call
 site below rather than silently omitted:
-- `v-reveal` scroll-in animation -- no ARKlight equivalent yet.
+- `v-reveal` scroll-in animation -- now `on_reveal="reveal"` (native
+  as of ARKlight v0.063), same default `is-visible` toggle class the
+  Vue port already used, so `assets/site.css`'s reveal rules only
+  needed a selector rename (`[data-reveal]` -> `[data-ark-on-reveal]`,
+  see that file). Applied to every section below except the hero
+  (matches the original, which never revealed above-the-fold content).
 - The asterism (\u2042) section dividers were inline SVG-ish `<span>`
   dot clusters -- kept as plain text glyphs for now.
 """
@@ -16,120 +21,134 @@ from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVIC
 from content.works import WORKS, CURRENTLY_WRITING
 
 
+def _status_row(item: dict):
+    """One row of the "Currently Writing" status panel.
+
+    Pulled into its own function (same pattern as work_card.py's
+    work_card(), store.py's _book(), journal.py's _entry()) so the
+    Home page's own call tree doesn't trip ARKlight's 8-level bracket-
+    nesting cap (`docs/Foundational/AUTHORING-GUIDE.md`,
+    "Bracket-nesting indentation is checked, not just style") --
+    each function's own tree starts counting from 0 again.
+    """
+    return Container(
+        Container(
+            Text(item["title"], class_name="status-title"),
+            Text(item["note"], class_name="status-note"),
+        ),
+        Span(
+            item["state"],
+            class_name="status-state paused" if item["paused"] else "status-state",
+        ),
+        class_name="status-row",
+    )
+
+
 def home():
     return Page(
-        State("theme", False),
+        State("theme", False, persist=True),
         Container(
-        nav(theme_state="theme", current_route="/"),
-        Section(
-            Container(
-                Span("Fantasy \u00b7 Science Fantasy \u00b7 Slice of Life", class_name="eyebrow"),
-                Heading("Stories about people learning how to live again.", level=1),
-                Text(
-                    "Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a "
-                    "life \u2014 told through people who are imperfect, lost, and trying anyway.",
-                    class_name="lede",
-                ),
+            nav(theme_state="theme", current_route="/"),
+            Section(
                 Container(
-                    Link("Read the works", href="/works", class_name="btn btn-primary"),
-                    Link("From the writing desk", href="/journal", class_name="btn btn-ghost"),
-                    class_name="cta-row",
-                ),
-                class_name="wrap",
-            ),
-            class_name="hero",
-        ),
-        Section(
-            Container(
-                Container(
-                    Span("Featured Works", class_name="eyebrow"),
-                    Heading("Three stories, one question", level=2),
+                    Span("Fantasy \u00b7 Science Fantasy \u00b7 Slice of Life", class_name="eyebrow"),
+                    Heading("Stories about people learning how to live again.", level=1),
                     Text(
-                        "Each begins differently \u2014 a second life, a wrong world, a body "
-                        "that isn't yours \u2014 but all of them ask the same thing: what does "
-                        "it take to actually live, not just survive?"
+                        "Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a "
+                        "life \u2014 told through people who are imperfect, lost, and trying anyway.",
+                        class_name="lede",
                     ),
-                    class_name="section-head",
+                    Container(
+                        Link("Read the works", href="/works", class_name="btn btn-primary"),
+                        Link("From the writing desk", href="/journal", class_name="btn btn-ghost"),
+                        class_name="cta-row",
+                    ),
+                    class_name="wrap",
                 ),
-                Container(*[work_card(work) for work in WORKS], class_name="card-grid"),
-                class_name="wrap",
+                class_name="hero",
             ),
-            id="works",
-        ),
-        section_divider(),
-        Section(
-            Container(
+            Section(
                 Container(
-                    Span("Currently Writing", class_name="eyebrow"),
-                    Heading("What's alive on the desk right now", level=2),
-                    class_name="section-head",
+                    Container(
+                        Span("Featured Works", class_name="eyebrow"),
+                        Heading("Three stories, one question", level=2),
+                        Text(
+                            "Each begins differently \u2014 a second life, a wrong world, a body "
+                            "that isn't yours \u2014 but all of them ask the same thing: what does "
+                            "it take to actually live, not just survive?"
+                        ),
+                        class_name="section-head",
+                    ),
+                    Container(*[work_card(work) for work in WORKS], class_name="card-grid"),
+                    class_name="wrap",
                 ),
+                id="works",
+                on_reveal="reveal",
+            ),
+            section_divider(),
+            Section(
                 Container(
-                    *[
+                    Container(
+                        Span("Currently Writing", class_name="eyebrow"),
+                        Heading("What's alive on the desk right now", level=2),
+                        class_name="section-head",
+                    ),
+                    Container(
+                        *[_status_row(item) for item in CURRENTLY_WRITING],
+                        class_name="status-panel",
+                    ),
+                    class_name="wrap container-narrow",
+                ),
+                class_name="alt-bg",
+                on_reveal="reveal",
+            ),
+            section_divider(),
+            Section(
+                Container(
+                    Blockquote(
+                        "\u201cI believe stories deserve endings. Some of mine span years; others "
+                        "are written short and focused, on purpose \u2014 so I can keep learning how "
+                        "to bring a narrative to a close I actually believe in.\u201d"
+                    ),
+                    Cite("\u2014 Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists"),
+                    class_name="wrap pull-quote",
+                ),
+                on_reveal="reveal",
+            ),
+            section_divider(),
+            Section(
+                Container(
+                    Container(
+                        Span("Where to Read", class_name="eyebrow"),
+                        Heading("Every chapter, free, wherever you already read", level=2),
+                        class_name="section-head",
+                    ),
+                    Container(
                         Container(
-                            Container(
-                                Text(item["title"], class_name="status-title"),
-                                Text(item["note"], class_name="status-note"),
-                            ),
-                            Span(
-                                item["state"],
-                                class_name="status-state paused" if item["paused"] else "status-state",
-                            ),
-                            class_name="status-row",
-                        )
-                        for item in CURRENTLY_WRITING
-                    ],
-                    class_name="status-panel",
-                ),
-                class_name="wrap container-narrow",
-            ),
-            class_name="alt-bg",
-        ),
-        section_divider(),
-        Section(
-            Container(
-                Blockquote(
-                    "\u201cI believe stories deserve endings. Some of mine span years; others "
-                    "are written short and focused, on purpose \u2014 so I can keep learning how "
-                    "to bring a narrative to a close I actually believe in.\u201d"
-                ),
-                Cite("\u2014 Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists"),
-                class_name="wrap pull-quote",
-            ),
-        ),
-        section_divider(),
-        Section(
-            Container(
-                Container(
-                    Span("Where to Read", class_name="eyebrow"),
-                    Heading("Every chapter, free, wherever you already read", level=2),
-                    class_name="section-head",
-                ),
-                Container(
-                    Container(
-                        Span("Royal Road", class_name="k"),
-                        Link("All three stories \u2197", href="/works", class_name="go"),
-                        class_name="read-card",
+                            Span("Royal Road", class_name="k"),
+                            Link("All three stories \u2197", href="/works", class_name="go"),
+                            class_name="read-card",
+                        ),
+                        Container(
+                            Span("Scribble Hub", class_name="k"),
+                            Link("Two stories \u2197", href="/works", class_name="go"),
+                            class_name="read-card",
+                        ),
+                        Container(
+                            Span("X / Twitter", class_name="k"),
+                            Link("@Rae7866 \u2197", href="https://x.com/Rae7866", target="_blank", class_name="go"),
+                            class_name="read-card",
+                        ),
+                        class_name="reads",
                     ),
-                    Container(
-                        Span("Scribble Hub", class_name="k"),
-                        Link("Two stories \u2197", href="/works", class_name="go"),
-                        class_name="read-card",
-                    ),
-                    Container(
-                        Span("X / Twitter", class_name="k"),
-                        Link("@Rae7866 \u2197", href="https://x.com/Rae7866", target="_blank", class_name="go"),
-                        class_name="read-card",
-                    ),
-                    class_name="reads",
+                    class_name="wrap",
                 ),
-                class_name="wrap",
+                class_name="alt-bg",
+                on_reveal="reveal",
             ),
-            class_name="alt-bg",
-        ),
-        footer(),
-        bind_class=Bind.when("theme", "dark"),
-        class_name="page-shell",
+            footer(),
+            bind_class=Bind.when("theme", "dark"),
+            class_name="page-shell",
         ),
         title="Rae ARK \u2014 Web Novelist",
         description=(

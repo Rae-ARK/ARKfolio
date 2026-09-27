@@ -1,4 +1,11 @@
-"""Store page, ported from ARKfolio's StorePage.vue."""
+"""Store page, ported from ARKfolio's StorePage.vue.
+
+`v-reveal` scroll-in animation -> `on_reveal="reveal"` (see
+pages/home.py's docstring for the full explanation), applied per-book
+and to the "not yet in print" note, matching the original's per-`.store
+-book`/`.store-empty` placement rather than revealing the whole grid
+at once.
+"""
 
 from arklight import Page, Section, Container, Span, Heading, Text, Link, State, Bind
 
@@ -34,40 +41,41 @@ def _book(book: dict):
         Container(class_name=f"work-thumb {book['thumb_class']}"),
         Container(*body),
         class_name="store-book",
+        on_reveal="reveal",
     )
 
 
 def store():
     return Page(
-        State("theme", False),
+        State("theme", False, persist=True),
         Container(
-        nav(theme_state="theme", current_route="/store"),
-        Section(
-            Container(
-                Span("Paperbacks", class_name="eyebrow"),
-                Heading("Store", level=1),
-                Text(
-                    "Every chapter is free to read online. These are the print editions, for "
-                    "anyone who'd rather have one on a shelf.",
-                    class_name="lede",
+            nav(theme_state="theme", current_route="/store"),
+            Section(
+                Container(
+                    Span("Paperbacks", class_name="eyebrow"),
+                    Heading("Store", level=1),
+                    Text(
+                        "Every chapter is free to read online. These are the print editions, for "
+                        "anyone who'd rather have one on a shelf.",
+                        class_name="lede",
+                    ),
+                    class_name="wrap",
                 ),
-                class_name="wrap",
+                class_name="hero",
             ),
-            class_name="hero",
-        ),
-        Section(
-            Container(*[_book(b) for b in STORE_BOOKS], class_name="wrap container-narrow"),
-        ),
-        section_divider(),
-        Section(
-            Container(
-                Text(NOT_YET_IN_PRINT_NOTE, class_name="store-empty"),
-                class_name="wrap container-narrow",
+            Section(
+                Container(*[_book(b) for b in STORE_BOOKS], class_name="wrap container-narrow"),
             ),
-        ),
-        footer(),
-        bind_class=Bind.when("theme", "dark"),
-        class_name="page-shell",
+            section_divider(),
+            Section(
+                Container(
+                    Text(NOT_YET_IN_PRINT_NOTE, class_name="store-empty", on_reveal="reveal"),
+                    class_name="wrap container-narrow",
+                ),
+            ),
+            footer(),
+            bind_class=Bind.when("theme", "dark"),
+            class_name="page-shell",
         ),
         title="Store \u2014 Rae ARK",
         description=(

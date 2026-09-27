@@ -4,30 +4,47 @@ plugins {
 }
 
 android {
-    namespace = "com.arklight.app"
+    namespace = "com.arklight.rae_ark_web_novelist"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.arklight.app"
+        applicationId = "com.arklight.rae_ark_web_novelist"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
     }
 
-    // Signing config (keystore path/passwords) is the project owner's
-    // own concern, passed through via env vars -- ARKlight does not
-    // manage keystores/credentials on anyone's behalf (see
-    // docs/Backends/ANDROID-BACKEND-IMPLEMENTATION.md, Stage 7).
-    // Locally, with these unset, `./gradlew assembleRelease` still
-    // works, it just produces an unsigned APK you'd sign yourself.
-    // `isNullOrBlank()` (not just a null check) matters here because
-    // Stage 4's CI job sets this from a GitHub Actions secret via an
-    // `env:` block -- when that secret isn't configured, the
-    // expression evaluating it resolves to an *empty string*, not an
-    // unset var, so a plain `!= null` check would still (wrongly) try
-    // `file("")` and fail the build instead of falling back to
-    // unsigned, same as the local no-env-vars-at-all case does.
+    // Signing configs. Release: keystore path/passwords are the
+    // project owner's own concern, passed through via env vars --
+    // ARKlight does not manage keystores/credentials on anyone's
+    // behalf (see docs/Backends/ANDROID-BACKEND-IMPLEMENTATION.md,
+    // Stage 7). Locally, with these unset, `./gradlew assembleRelease`
+    // still works, it just produces an unsigned APK you'd sign
+    // yourself. `isNullOrBlank()` (not just a null check) matters here
+    // because a CI job driving this the same way would set it from a
+    // GitHub Actions secret via an `env:` block -- when that secret
+    // isn't configured, the expression evaluating it resolves to an
+    // *empty string*, not an unset var, so a plain `!= null` check
+    // would still (wrongly) try `file("")` and fail the build instead
+    // of falling back to unsigned, same as the local no-env-vars-at-all
+    // case does.
+    //
+    // Debug: with no --debug-keystore given at scaffold time, this
+    // deliberately leaves Android Gradle Plugin's own implicit default
+    // alone -- it auto-generates and reuses ~/.android/debug.keystore
+    // (well-known androiddebugkey/android/android credentials) on
+    // whatever machine runs `assembleDebug`. Fine for one dev iterating
+    // on one machine, but a fresh CI runner has no such file either, so
+    // it generates its *own* debug key on every single run -- a debug
+    // APK built by CI won't share a signature with one built on your
+    // machine (or with one from a different CI run), so reinstalling
+    // one over the other on the same test device fails (`adb install
+    // -r` errors out; you'd have to uninstall first). Re-run `arklight
+    // android scaffold --debug-keystore <path>` to pin a shared debug
+    // key -- it's copied in as app/debug.keystore (checked into git is
+    // fine; debug keystores aren't meant to be secret) and every build,
+    // this machine or CI, signs with it instead. See README.md.
     val releaseStorePath = System.getenv("RELEASE_KEYSTORE_PATH")
     signingConfigs {
         if (!releaseStorePath.isNullOrBlank()) {
@@ -77,8 +94,4 @@ dependencies {
     // packaged app (see docs/Foundational/DESIGN-NOTES.md, "v0.0438:
     // Android backend", "Why this needs to exist at all").
     implementation("androidx.webkit:webkit:1.11.0")
-    // Splash screen (AndroidX backport of the Android 12 SplashScreen
-    // API) -- gives a consistent splash on API 24+ instead of only
-    // API 31+, via Theme.ArkApp.Starting below.
-    implementation("androidx.core:core-splashscreen:1.0.1")
 }

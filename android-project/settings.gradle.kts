@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ARKlight App"
+rootProject.name = "Rae ARK — Web Novelist"
 include(":app")

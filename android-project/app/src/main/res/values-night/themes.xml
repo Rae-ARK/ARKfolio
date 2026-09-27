@@ -15,9 +15,10 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
         <item name="colorOutline">@color/md_theme_outline</item>
 
-        <item name="android:statusBarColor" tools:targetApi="21">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/ark_site_background</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/ark_site_background</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
-        <item name="android:navigationBarColor" tools:targetApi="27">?attr/colorSurface</item>
+        <item name="android:navigationBarColor" tools:targetApi="27">@color/ark_site_background</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 </resources>

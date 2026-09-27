@@ -1,4 +1,4 @@
-package com.arklight.app
+package com.arklight.rae_ark_web_novelist
 
 import java.security.spec.KeySpec
 import javax.crypto.Mac

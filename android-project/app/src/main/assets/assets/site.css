@@ -867,22 +867,26 @@ nav.main-nav a,
   }
 }
 
-/* ---------------------- Scroll reveal (v-reveal directive) ---------------------- */
+/* ---------------------- Scroll reveal (native on_reveal="reveal") ---------------------- */
+/* Selector renamed from the Vue port's [data-reveal] to the attribute
+   ARKlight's JS backend actually emits (arklight/backend/html/attrs.py):
+   data-ark-on-reveal, with the default toggle_class "is-visible" kept
+   as-is below. */
 
-[data-reveal] {
+[data-ark-on-reveal] {
   opacity: 0;
   transform: translateY(18px);
   transition: opacity 0.5s ease, transform 0.5s ease;
   will-change: opacity, transform;
 }
 
-[data-reveal].is-visible {
+[data-ark-on-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  [data-ark-on-reveal] {
     transition: none;
     opacity: 1;
     transform: none;

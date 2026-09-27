@@ -5,6 +5,50 @@ list. Dates are UTC.
 
 ## [Unreleased]
 
+### Changed (this session -- ARKlight upgrade: `v0.048` -> `v0.069`, parity pass)
+- **Theme persistence now native.** `State("theme", False,
+  persist=True)` on every page replaces `components/theme_persist.py`
+  + `site.raw_postprocess(apply_theme_persist)` outright (both
+  deleted). Prompted by upstream removing `raw_postprocess` in this
+  same version range -- see ARKlight's own `CHANGELOG.md`/
+  `docs/Foundational/EXPERIMENTAL-APIS.md` -- which would have made
+  the old mechanism a silent no-op even without the parity push
+  behind this session. `tests/test_theme_persist.py` replaced with
+  `tests/test_theme_state_persist.py`.
+- **Scroll-reveal added.** `on_reveal="reveal"` (native since
+  ARKlight `v0.063`) on every section that had `v-reveal` in the Vue
+  source. `assets/site.css`'s already-ported (previously unused)
+  reveal rules had their selector renamed `[data-reveal]` ->
+  `[data-ark-on-reveal]` to match.
+- **App-shell navigation added.** `Site(app_shell=True)` in
+  `site.py`; `components/footer.py` marked `shell_persistent=True`.
+  `components/nav.py` deliberately left non-persistent -- see its
+  docstring.
+- **PWA support added.** New `scripts/build.sh` runs `arklight build`
+  then `arklight pwa`, translating the original `manifest.json`'s
+  values onto the CLI's flags.
+- **Android wrapper regenerated, not newly built.** `android-project/`
+  was already a native `arklight android scaffold` output (not
+  Capacitor, contrary to what `README.md` said); regenerated against
+  the changes above and re-applied the same repo-root
+  `.github/workflows/` relocation + `working-directory: android-project`
+  adaptation as before.
+- **`README.md`, `docs/PROGRESS.md` rewritten** to match all of the
+  above; "Known gaps" trimmed to just the Feedback form, which is now
+  understood to be a permanent trade-off rather than a pending
+  upstream feature (see `pages/feedback.py`'s docstring).
+
+### Fixed (this session)
+- Two pre-existing bugs surfaced by the compiler upgrade, unrelated to
+  the feature work above, both blocking any build at all: a
+  bracket-indentation violation repeated across all 8 `pages/*.py`
+  files (the outer `Container(...)` body wasn't indented deeper than
+  its own opener), and two 8-level bracket-nesting-cap violations
+  (`pages/home.py`'s status panel, `pages/about.py`'s "find the
+  stories" list) -- both fixed by pulling the offending subtree into
+  its own module-level function, the same fix the compiler's error
+  message itself suggests.
+
 ### Fixed
 - **`theme_persist_backend.py` hardened + verified end-to-end.**
   Investigated a report of dark-theme persistence being "uneven"

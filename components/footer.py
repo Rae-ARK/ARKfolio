@@ -3,6 +3,13 @@
 The original's `@error="hideImage"` (hide the Horizon ARK logo if it
 404s) needs a runtime `on_error` hook ARKlight doesn't expose yet --
 left as a plain `Image`, noted here rather than silently dropped.
+
+`shell_persistent=True` + a stable `id`: with `site.py`'s
+`app_shell=True`, this keeps the footer's actual DOM node (and its
+image) untouched across a boosted navigation instead of tearing it
+down and rebuilding it on every page -- safe here because, unlike the
+header (see components/nav.py's docstring), nothing in the footer
+varies by page.
 """
 
 from arklight import Footer, Container, Text, Span, Image, Link
@@ -45,4 +52,6 @@ def footer():
             class_name="wrap",
         ),
         class_name="site-footer",
+        id="site-footer",
+        shell_persistent=True,
     )

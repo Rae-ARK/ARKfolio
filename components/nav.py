@@ -35,6 +35,15 @@ Ported from ARKfolio's AppHeader.vue. Things that don't carry over
   here; only the site name text links to `/` as before (see
   `_asterism()` above for the matching workaround on the three-dot
   motif next to it, which has the same text-only-children problem).
+- Deliberately *not* `shell_persistent=True` (unlike `footer()`), even
+  though `site.py` now sets `app_shell=True`. This header's active-link
+  highlighting (the `class_name="active"` below) is computed per page
+  at build time from `current_route`; `shell_persistent` compiles to
+  `hx-preserve=true` (see `components/footer.py`), which tells htmx to
+  keep the *existing* DOM node across a boosted navigation instead of
+  swapping in the new page's copy. Doing that here would freeze the
+  active-link highlight on whatever page the visitor first landed on.
+  The footer has no per-page state, so it's the safe one to persist.
 """
 
 from arklight import Header, Nav, Link, Container, Image, Span, Button, Action, Bind

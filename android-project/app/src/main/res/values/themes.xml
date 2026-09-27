@@ -7,7 +7,7 @@
       everywhere else it falls back to the branded roles below.
 
       NoActionBar because Application mode's WebView fills the entire
-      window (see MainActivity.kt) - there is no toolbar/chrome.
+      window (see MainActivity.kt); there is no toolbar/chrome.
     -->
     <style name="Theme.ArkApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
@@ -24,23 +24,10 @@
         <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
         <item name="colorOutline">@color/md_theme_outline</item>
 
-        <item name="android:statusBarColor" tools:targetApi="21">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
-        <item name="android:navigationBarColor" tools:targetApi="27">?attr/colorSurface</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
-    </style>
-
-    <!--
-      Splash screen theme (androidx.core.splashscreen backport -
-      works API 24+, not just the native API 31+ SplashScreen).
-      Applied to MainActivity in AndroidManifest.xml; MainActivity
-      calls installSplashScreen() before super.onCreate(), which
-      swaps this theme for postSplashScreenTheme once the WebView is
-      ready. Icon source: assets/images/profile.png.
-    -->
-    <style name="Theme.ArkApp.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/splash_background</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>
-        <item name="postSplashScreenTheme">@style/Theme.ArkApp</item>
+        <item name="android:windowBackground">@color/ark_site_background</item>
+        <item name="android:statusBarColor" tools:targetApi="21">@color/ark_site_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:navigationBarColor" tools:targetApi="27">@color/ark_site_background</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
     </style>
 </resources>

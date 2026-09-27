@@ -1,4 +1,4 @@
-package com.arklight.app
+package com.arklight.rae_ark_web_novelist
 
 import android.app.Application
 import com.google.android.material.color.DynamicColors

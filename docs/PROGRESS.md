@@ -16,13 +16,15 @@ every work session. For the plain version-history record, see
 | About               | DONE        | bio + sidebar; "find the stories" list restructured, see below |
 | Privacy             | DONE        | static legal copy |
 | Terms               | DONE        | static legal copy |
-| Feedback            | PARTIAL     | mailto-per-subject links, not a single composer form — see below |
+| Feedback            | PARTIAL, on purpose | mailto-per-subject links; not a single composer form, and now confirmed that isn't reachable at all yet — see below |
 | Theme toggle (UI)   | DONE        | `Action.toggle_bool` + `Bind.when` |
-| Theme persistence   | NOT STARTED | needs `localStorage`, no ARKlight hook for it yet |
+| Theme persistence   | DONE        | native `State(persist=True)` — see below |
 | Mobile hamburger nav| DONE        | native `"toggle"` behavior, no `State` needed |
-| PWA / offline       | NOT SCOPED  | see open questions |
-| Android/Capacitor   | NOT STARTED | wrapper still points at the Vue build's `dist/` |
-| CI (`deploy.yml`, `android-build.yml`) | NOT STARTED | still targets the Vue build |
+| Scroll-reveal        | DONE        | native `on_reveal="reveal"` (`v0.063`) — see below |
+| App-shell navigation | DONE        | `Site(app_shell=True)` + `shell_persistent` footer — see below |
+| PWA / offline       | DONE        | `scripts/build.sh` → `arklight pwa` |
+| Android             | DONE        | native `arklight android scaffold` output in `android-project/` (not Capacitor) |
+| CI (`android-build.yml`) | DONE   | regenerated + re-adapted for the `android-project/` nesting; `deploy.yml` (Cloudflare) still TODO |
 | Native CSS (design tokens, reset, header/nav, buttons, hero, footer) | DONE | `components/styles.py`, via `site.style_selector()` |
 | Native CSS (work cards, journal, store, about, legal, feedback) | NOT STARTED | still in `assets/site.css` |
 
@@ -62,48 +64,128 @@ every work session. For the plain version-history record, see
 
 ## Open items, in rough priority order
 
-1. **Feedback form parity.** Needs ARKlight's `v0.054` (two-way
-   input binding — see ARKlight's own `PROGRESS.md`/`CHANGELOG.md`).
-   Until then, staying with the per-subject `mailto:` links already
-   shipped — a `<form method="post" enctype="text/plain"
-   action="mailto:...">` workaround was tried on paper and rejected:
-   whether it actually populates the Subject line is inconsistent
-   across browsers/mail clients, which would be a real per-visitor
-   regression, not just a cosmetic gap.
-2. **Theme persistence + anti-flash script.** `Action.toggle_bool`
-   flips the class at runtime, but nothing writes it to
-   `localStorage`, and there's no pre-paint `<head>` script to avoid
-   a flash of the wrong theme on load — ARKlight's component API has
-   no raw-HTML/JS escape hatch as of `v0.048`. Best current lead: a
-   custom `Backend` using the `postprocess(output_files)` hook (added
-   `v0.043`) to inject a small fixed snippet into the built HTML
-   files directly, entirely at the Python build-script level, still
-   without needing core support. Not yet prototyped.
-3. **Native CSS port, remaining pages.** Work cards, journal timeline,
+1. **Native CSS port, remaining pages.** Work cards, journal timeline,
    store/retailer grid, about/legal/feedback styling is still in
    `assets/site.css` rather than `components/styles.py`. Same pattern
    as the pieces already ported -- next in line by page traffic/
    visual weight would be work cards (Home + Works) and the footer's
    sibling `.journal-card`/`.about-side` family.
-4. **Hover-state device gating regression.** `.btn-primary`/
+2. **Hover-state device gating regression.** `.btn-primary`/
    `.btn-ghost`'s native `&:hover` isn't gated behind `@media (hover:
    hover) and (pointer: fine)` the way the original was, risking a
    "stuck hover" look after a tap on touchscreens. Needs checking
    whether `style_selector()` supports an `@media`-wrapped variant, or
-   another way to reintroduce the gate natively.
-4. **PWA/offline/installable.** Genuinely unscoped — need to check
-   whether ARKlight has (or plans) a service-worker/manifest backend
-   at all before deciding how this maps over.
-5. **Android/Capacitor wrapper.** Should in principle just need
-   pointing `npx cap sync android` at this build's output directory
-   instead of Vite's `dist/` — not yet verified end to end.
-6. **CI (`deploy.yml`, `android-build.yml`).** Needs updating to run
-   `arklight build` instead of (or alongside, during the transition)
-   the Vite build.
+   another way to reintroduce the gate natively. Still open -- the
+   `v0.048`→`v0.069` upgrade pass didn't touch this.
+3. **CI (`deploy.yml`).** The Cloudflare Workers deploy workflow still
+   needs to run `./scripts/build.sh` instead of a Vite build (the
+   Android CI side of this item, `android-build.yml`, is now done --
+   see the session log below).
+4. **`arklight android scaffold --release`'s README/workflow
+   mismatch.** Filed against upstream, not this repo: the generated
+   `android-project/README.md` says "there is deliberately no
+   release-build job here" even when `--release` was passed and the
+   workflow it generates in the same run *does* include one. Re-check
+   next time this command is re-run against a newer compiler.
+
+**Resolved since the last pass** (was open items 1, 2, 4, 5 above --
+see the session log below for how):
+- Feedback form parity -- turned out to be a dead end even with
+  two-way binding now shipped (see `pages/feedback.py`'s docstring),
+  so this is closed as "working as intended," not "still open."
+- Theme persistence + anti-flash script -- solved natively,
+  `components/theme_persist.py` deleted.
+- PWA/offline/installable -- scoped and shipped (`arklight pwa`).
+- Android/Capacitor wrapper -- turned out to not need Capacitor at
+  all; already-generated `android-project/` regenerated fresh.
 
 ## Session log
 
 Newest first.
+
+### ARKlight upgrade: `v0.048` → `v0.069` (`v0.06616`) -- parity pass
+
+Pulled `ARKlight` `alpha` all the way from `v0.048` to the current
+`v0.06616` in one jump (see ARKlight's own `CHANGELOG.md` for
+everything in between) and used what that unlocked to close out most
+of the open items list below.
+
+- **Bracket-nesting bugs, pre-existing.** Before any of the actual
+  feature work below would even build: every `pages/*.py` file had the
+  outer `Page(... Container(...) ...)` body indented flush with
+  `Container(`'s own opening line rather than deeper -- valid under
+  whatever compiler version this was originally authored against,
+  rejected by the current one's stricter bracket-indentation check.
+  Fixed by reindenting each file's outer `Container(...)` block by one
+  level. Separately, `home.py`'s "Currently Writing" status panel and
+  `about.py`'s "Find the stories" list both then turned out to nest 9
+  levels of brackets deep -- one past ARKlight's readability cap.
+  Pulled each into its own module-level helper function
+  (`_status_row()`, `_find_stories_row()`), same fix the compiler's
+  own error message suggests, and the same pattern this codebase
+  already used for `_book()`/`_entry()`/`work_card()`.
+- **Theme persistence: native at last.** `State(..., persist=True)`
+  shipped upstream since `v0.048` -- `State("theme", False,
+  persist=True)` on every page replaces the entire
+  `components/theme_persist.py` + `Site.raw_postprocess(...)`
+  mechanism (both deleted, along with its test,
+  `tests/test_theme_persist.py`, replaced with a much smaller
+  `tests/test_theme_state_persist.py` that just checks every page
+  actually sets `persist=True` and not the default `False`). This
+  also sidesteps `raw_postprocess`'s own removal in this same
+  version range -- calling it now is a silent no-op, so this would
+  have broken outright on upgrade even without the parity push.
+- **Scroll-reveal: native as of `v0.063`.** `on_reveal="reveal"`
+  matches the Vue site's `v-reveal` directive attribute-for-attribute
+  (same `is-visible` default toggle class), added to every section
+  that had `v-reveal` in the original. `assets/site.css`'s existing
+  (already-ported, previously dead) reveal rules only needed their
+  selector renamed from `[data-reveal]` to what ARKlight's JS backend
+  actually emits, `[data-ark-on-reveal]`.
+- **App-shell navigation.** `Site(app_shell=True)` in `site.py`. Footer
+  marked `shell_persistent=True` (stable `id`, no per-page state to go
+  stale). Header deliberately left non-persistent -- its active-link
+  class is computed per page at build time, and `hx-preserve` would
+  freeze it on whatever page the visitor first landed on. Documented
+  in `components/nav.py`'s docstring so it doesn't look like an
+  oversight to whoever touches this next.
+- **`raw_postprocess` → `script-extension`/`Backend.postprocess()`
+  research, then not used.** Read ARKlight's own experimental-APIs
+  doc expecting to migrate onto `ScriptExtension`
+  (`site.register_script_extension(...)`) for the anti-flash script.
+  Worked through the actual ordering semantics (deferred
+  `arklight.js`'s top-level code runs before the
+  `DOMContentLoaded`-gated `arkInitPage()`, so a `ScriptExtension`
+  *would* have worked for the initial-load case -- but its
+  `htmx:afterSettle`-driven re-init on every boosted navigation, once
+  `app_shell=True` is on, would have raced the correction script
+  against the very re-init it needed to run before, since
+  `ScriptExtension` can only append code, never run before what's
+  already in `arklight.js`). Moot in the end: `State(persist=True)`
+  covers the same need natively and sidesteps the ordering problem
+  entirely, so `ScriptExtension` was never actually wired in. Leaving
+  this note in case a future need for it comes up -- the ordering
+  gotcha above is real and worth knowing before reaching for it.
+- **PWA support.** New `scripts/build.sh`, wrapping
+  `arklight build` + `arklight pwa` with the original `manifest.json`'s
+  values translated onto `arklight pwa`'s flags as closely as they go
+  (see the script's comments for what's not expressible yet).
+- **Android wrapper.** Turned out `android-project/` was already a
+  real, native `arklight android scaffold` output (WebView-based, not
+  Capacitor) -- the README describing a Capacitor plan predated it and
+  was just never updated. Regenerated via
+  `./scripts/build.sh ARK && arklight android scaffold ARK -o
+  android-project --release` so the bundled HTML/JS/CSS reflect
+  everything above, and reapplied the same `.github/workflows/`
+  root-relocation + `working-directory: android-project` adaptation
+  the previous scaffold already had by hand (the freshly generated
+  `android-project/README.md` documents this exact situation, so it's
+  the tool's own recommended approach, not a one-off workaround).
+  Noted, but didn't attempt to fix, an inconsistency in this alpha's
+  own scaffold output: with `--release`, the generated README still
+  says "there is deliberately no release-build job here" in the same
+  breath as documenting the one that *is* in the generated workflow.
+- Full rebuild + `pytest tests/` green after every step above.
 
 ### 2026-08-27 (later) — ARKlight upgrade: nav toggle + native CSS
 - Pulled `ARKlight` `alpha` from `v0.048` to `v0.0501`. See

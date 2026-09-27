@@ -1,4 +1,9 @@
-"""Journal page, ported from ARKfolio's JournalPage.vue."""
+"""Journal page, ported from ARKfolio's JournalPage.vue.
+
+`v-reveal` scroll-in animation -> `on_reveal="reveal"` (see
+pages/home.py's docstring), applied per-entry, matching the original's
+per-`.journal-entry` placement.
+"""
 
 from arklight import Page, Section, Container, Span, Heading, Text, State, Bind
 
@@ -22,36 +27,37 @@ def _entry(entry: dict):
             class_name="journal-card",
         ),
         class_name="journal-entry",
+        on_reveal="reveal",
     )
 
 
 def journal():
     return Page(
-        State("theme", False),
+        State("theme", False, persist=True),
         Container(
-        nav(theme_state="theme", current_route="/journal"),
-        Section(
-            Container(
-                Span("From the Writing Desk", class_name="eyebrow"),
-                Heading("Journal", level=1),
-                Text(
-                    "Not news. Just the process \u2014 the breaks, the doubts, the small wins "
-                    "\u2014 as it actually happens.",
-                    class_name="lede",
+            nav(theme_state="theme", current_route="/journal"),
+            Section(
+                Container(
+                    Span("From the Writing Desk", class_name="eyebrow"),
+                    Heading("Journal", level=1),
+                    Text(
+                        "Not news. Just the process \u2014 the breaks, the doubts, the small wins "
+                        "\u2014 as it actually happens.",
+                        class_name="lede",
+                    ),
+                    class_name="wrap",
                 ),
-                class_name="wrap",
+                class_name="hero",
             ),
-            class_name="hero",
-        ),
-        Section(
-            Container(
-                Container(*[_entry(e) for e in JOURNAL_ENTRIES], class_name="timeline"),
-                class_name="wrap container-narrow",
+            Section(
+                Container(
+                    Container(*[_entry(e) for e in JOURNAL_ENTRIES], class_name="timeline"),
+                    class_name="wrap container-narrow",
+                ),
             ),
-        ),
-        footer(),
-        bind_class=Bind.when("theme", "dark"),
-        class_name="page-shell",
+            footer(),
+            bind_class=Bind.when("theme", "dark"),
+            class_name="page-shell",
         ),
         title="Journal \u2014 Rae ARK",
         description=(
