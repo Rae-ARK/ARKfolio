@@ -2,6 +2,22 @@
 
 Shipped changes that resolve a proposal or an audit finding. Newest first.
 
+## 2026-10-09 (later)
+
+### Journal update and Store print card
+
+- **Journal** — two new entries on `/journal`, taken from the author's own
+  Royal Road posts: *Arc 3 Is Done — A Short Break Before Arc 4* (Oct 3, 2026)
+  and *Unauthorised Copies on a Mirror Site* (Jul 19, 2026). The source
+  comment in `data/journal.ts` no longer refers to the deleted `journal.html`.
+  Source notes: [foundational](../foundational/README.md). Files:
+  `src/data/journal.ts`.
+- **Store "not in print yet" note** now sits in a card (brass top edge, solid
+  border, shadow, normal text color) with the waiting buttons as primary
+  buttons, instead of a faint dashed box. Files: `StorePage.vue`, `main.css`.
+- New proposal: [0007](../proposals/0007-store-page-redesign.md), a Store page
+  redesign using modern CSS motion. Not started.
+
 ## 2026-10-09
 
 ### Round of audit fixes and copy changes

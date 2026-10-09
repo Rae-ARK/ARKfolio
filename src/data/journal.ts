@@ -5,8 +5,20 @@ export interface JournalEntry {
   tags: { thumb: 'epmc' | 'sbm' | 'stbf'; label: string }
 }
 
-// Extracted 1:1 from journal.html, newest first.
+// Newest first. Entries are drawn from the author's own posts on Royal Road.
 export const journalEntries: JournalEntry[] = [
+  {
+    date: 'October 3, 2026',
+    title: 'Arc 3 Is Done — A Short Break Before Arc 4',
+    body: "Arc 3 of Summoned by Mistake, Duty in Their Absence, has wrapped. My health let me down for a few days, and life took an unexpected turn with some unavoidable matters, so the usual break between arcs came at the right time — though this one is short. Arc 4 starts next week. Whenever I step away I go back and reread what I've written. Sometimes it holds up; most of the time I wince and ask how to do it better. I do think I've improved as a writer, and chapters like 19 and 21 were a blast to write. What did you think of Arc 3, and of SBM so far? I read every comment.",
+    tags: { thumb: 'sbm', label: 'SBM' },
+  },
+  {
+    date: 'July 19, 2026',
+    title: 'Unauthorised Copies on a Mirror Site',
+    body: "I found all three stories copied and hosted in full on Novels2.com without my permission. I don't mind sites that index my work and send readers to the original — that helps people find stories. Hosting a complete copy is something else: it's unauthorised redistribution. If you'd like to support the work, please read it on Royal Road, Scribble Hub, or through Amazon KDP and the stores connected to it, and let other readers and writers know mirror sites like this exist. If you've been through a DMCA or copyright process before, I'd be grateful to hear how it went.",
+    tags: { thumb: 'sbm', label: 'SBM · EPMC · STBF' },
+  },
   {
     date: 'July 2026',
     title: 'One Month Into the Paperback',

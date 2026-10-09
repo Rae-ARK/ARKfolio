@@ -40,14 +40,15 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
 
   <section class="page-body flush">
     <div class="wrap container-narrow">
-      <div class="store-empty" v-reveal>
-        <p>{{ notYetInPrintNote }}</p>
-        <p>{{ notYetInPrintCta }}</p>
+      <div class="print-card" v-reveal>
+        <span class="eyebrow">Still to come</span>
+        <p class="print-card-lead">{{ notYetInPrintNote }}</p>
+        <p class="print-card-cta">{{ notYetInPrintCta }}</p>
         <div class="waiting-links">
           <router-link
             v-for="item in notYetInPrint"
             :key="item.slug"
-            class="btn btn-ghost"
+            class="btn btn-primary btn-small"
             :to="{ path: '/feedback', query: { subject: waitingSubjects[item.slug] } }"
           >
             I'm waiting for {{ item.shortTitle }} →

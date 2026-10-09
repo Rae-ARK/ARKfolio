@@ -1120,13 +1120,14 @@ section.alt-bg {
   margin-top: 6px;
 }
 
-.store-empty {
-  border: 1px dashed var(--line);
+.print-card {
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--brass);
   border-radius: 10px;
-  padding: 26px;
+  padding: 30px 32px 32px;
   text-align: center;
-  color: var(--ink-faint);
-  font-size: 0.9rem;
+  box-shadow: var(--shadow-md);
 }
 
 /* ---------------------- Feedback page ---------------------- */
@@ -1405,8 +1406,23 @@ section.page-body.flush {
   margin-top: 4px;
 }
 
-.store-empty p {
-  margin: 0 0 12px;
+.print-card .eyebrow {
+  margin-bottom: 0.6em;
+}
+
+.print-card p {
+  margin: 0 auto 12px;
+  max-width: 540px;
+}
+
+.print-card .print-card-lead {
+  font-size: 1.02rem;
+  color: var(--ink);
+}
+
+.print-card .print-card-cta {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
 }
 
 .waiting-links {
@@ -1415,11 +1431,6 @@ section.page-body.flush {
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 18px;
-}
-
-.waiting-links .btn {
-  padding: 9px 16px;
-  font-size: 0.82rem;
 }
 
 /* Feedback */
