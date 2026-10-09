@@ -36,7 +36,7 @@
             X
           </a>
           <a
-            href="https://github.com/Rae-ARK/My-Portfolio"
+            href="https://github.com/Rae-ARK/ARKfolio"
             target="_blank"
             rel="noopener"
           >
