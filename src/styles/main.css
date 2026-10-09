@@ -287,10 +287,10 @@ nav.main-nav a:not(.icon-btn):hover {
   color: var(--ink);
 }
 
-/* Desktop nav links lead with a small glyph so each destination reads at a
-   glance (recognition) rather than requiring every label to be read in
-   turn (recall). The mobile TOC-style grid below already has its own
-   numbered-index cue, so the glyph is desktop-only there. */
+/* Nav links lead with a small glyph so each destination reads at a glance
+   (recognition) rather than requiring every label to be read in turn
+   (recall). Sized small here for the horizontal desktop row; the mobile
+   grid below sizes it up to be the row's primary glyph instead. */
 .nav-icon {
   width: 15px;
   height: 15px;
@@ -1535,7 +1535,6 @@ section.page-body.flush {
     right: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    counter-reset: navitem;
     background: var(--paper);
     border-bottom: 1px solid var(--line);
     padding: 4px max(20px, env(safe-area-inset-right, 0px)) max(14px, env(safe-area-inset-bottom, 0px))
@@ -1558,13 +1557,14 @@ section.page-body.flush {
     transition: opacity 0.18s ease, transform 0.18s ease;
   }
 
-  /* Each link reads like a table-of-contents entry: a brass index number
-     over a serif label, two to a row, rather than a plain stacked list. */
+  /* Each link reads like an app's tab bar entry: an icon over a serif
+     label, two to a row, rather than a plain stacked list or a numbered
+     table of contents. */
   nav.main-nav a:not(.icon-btn) {
-    counter-increment: navitem;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    align-items: flex-start;
+    gap: 8px;
     width: auto;
     padding: 16px 16px 16px 4px;
     font-family: var(--serif);
@@ -1573,29 +1573,22 @@ section.page-body.flush {
     border-bottom: 1px solid var(--line);
   }
 
-  nav.main-nav a:not(.icon-btn)::before {
-    content: counter(navitem, decimal-leading-zero);
-    font-family: var(--mono);
-    font-size: 0.66rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    color: var(--brass);
+  /* On mobile the icon is the glyph (no index number beside it), so it
+     runs larger than the desktop row's small leading icon. */
+  nav.main-nav .nav-icon {
+    width: 22px;
+    height: 22px;
+    opacity: 0.75;
   }
 
-  /* The numbered index already gives this layout its glyph; a second icon
-     here would just compete with it. */
-  nav.main-nav .nav-icon {
-    display: none;
+  nav.main-nav a:not(.icon-btn).active .nav-icon {
+    opacity: 1;
   }
 
   /* The active-page underline from the desktop nav would float mid-row in
-     this grid; swap it for coloring the entry's own number + label. */
+     this grid; swap it for coloring the entry's own icon + label. */
   nav.main-nav a.active::after {
     content: none;
-  }
-
-  nav.main-nav a:not(.icon-btn).active::before {
-    color: var(--accent);
   }
 
   /* Five links in two columns: give the last one (About) a full-width row
@@ -1622,7 +1615,7 @@ section.page-body.flush {
 
 @media (max-width: 420px) {
   /* Below ~420px the serif label wraps awkwardly at two-up; one column
-     with the TOC numbering still reads better than squeezed pairs. */
+     reads better than squeezed pairs. */
   nav.main-nav {
     grid-template-columns: 1fr;
   }
