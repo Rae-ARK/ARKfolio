@@ -31,6 +31,5 @@ hold together as one unit when space gets tight.
 
 ## Outcome
 
-Breakpoint moved to 900px and the brand set to not wrap or shrink. The
-900px value is an estimate from the CSS and has **not** yet been checked
-in a browser; confirm across 700-1000px.
+Breakpoint moved to 900px and the brand set to not wrap or shrink.
+Verified by the author in a browser on 2026-10-09.

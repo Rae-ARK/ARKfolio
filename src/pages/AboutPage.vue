@@ -20,22 +20,22 @@ function hideOnError(event: Event) {
 </script>
 
 <template>
-  <section class="hero" style="padding-bottom:36px;">
+  <section class="hero page-hero">
     <div class="wrap">
       <span class="eyebrow">About</span>
-      <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Rae ARK</h1>
+      <h1>Rae ARK</h1>
     </div>
   </section>
 
-  <section style="padding-top:0;" v-reveal>
+  <section class="page-body" v-reveal>
     <div class="wrap about-grid">
       <div>
-        <p style="font-size:1.08rem; color:var(--ink);">I write character-driven fantasy and science fantasy about people rebuilding themselves. Whether through reincarnation, another world, or just difficult circumstances, my stories explore regret, curiosity, responsibility, and the slow process of learning how to live.</p>
+        <p class="about-lead">I write character-driven fantasy and science fantasy about people rebuilding themselves. Whether through reincarnation, another world, or just difficult circumstances, my stories explore regret, curiosity, responsibility, and the slow process of learning how to live.</p>
         <p>My stories rarely revolve around saving the world. They're interested in the people who live in it — the ones who are imperfect, lost, and trying to find their place anyway.</p>
         <p>Some of my projects start with careful planning. Others start with a single idea that refuses to leave. Either way, I usually discover the story alongside my readers rather than arriving with it fully formed — what you're reading is often close to a first draft, mistakes and all.</p>
         <p>I write as a hobby, in whatever free time I can find around everything else. That means release schedules shift, and I take real breaks after finishing a big chunk of work — it's practically tradition at this point. But I don't start things to abandon them. If a story's still going, expect it to keep going, even if slowly.</p>
 
-        <div class="section-divider" style="margin:48px 0;"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+        <div class="section-divider about-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
 
         <h3>Why these kinds of stories</h3>
         <p>Enigmatic Pathways Mystic Circuits started after an anime watch session turned into a real conversation about what family should mean beyond raw talent. Re:Zero and Mushoku Tensei both left a mark on how I think about second chances and slow, hard-won emotional growth — not power fantasies, but people learning to carry what happened to them.</p>
@@ -43,16 +43,16 @@ function hideOnError(event: Event) {
       </div>
 
       <aside class="about-side">
-        <div class="avatar-large" style="background-image:url('/assets/images/profile.png')"></div>
+        <div class="avatar-large"></div>
         <h4>The name</h4>
-        <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:20px;">Rae ARK — 嵐久 怜.</p>
+        <p class="about-name">Rae ARK — 嵐久 怜.</p>
         <h4>Find the stories</h4>
         <ul>
           <li v-for="link in readLinks" :key="link.url">
-            {{ link.site }} — <a :href="link.url" target="_blank" rel="noopener" style="color:var(--accent); font-weight:600;">{{ link.title }}↗</a>
+            {{ link.site }} — <a class="side-link" :href="link.url" target="_blank" rel="noopener">{{ link.title }} ↗</a>
           </li>
         </ul>
-        <h4 style="margin-top:22px;">Currently writing</h4>
+        <h4 class="spaced">Currently writing</h4>
         <ul>
           <li v-for="item in currentlyWriting" :key="item">{{ item }}</li>
         </ul>
@@ -62,7 +62,7 @@ function hideOnError(event: Event) {
         </div>
         <a class="source-credit" href="https://github.com/Rae-ARK/ARKfolio" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2C6.48 2 2 6.58 2 12.17c0 4.47 2.87 8.26 6.84 9.6.5.1.68-.22.68-.5v-1.94c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.55 2.36 1.1 2.93.84.09-.66.35-1.1.64-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.74 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.48.1 2.74.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .28.18.6.69.5A10.19 10.19 0 0 0 22 12.17C22 6.58 17.52 2 12 2Z"/></svg>
-          <span>This site's source on GitHub</span>
+          <span>This site's source on GitHub ↗</span>
         </a>
       </aside>
     </div>

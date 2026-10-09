@@ -4,7 +4,7 @@ Vue 3 + Vite + TypeScript author site for Rae ARK, shipped three ways:
 as a website, as an installable PWA, and as a native Android app via
 Capacitor.
 
-**Repo:** [Rae-ARK/My-Portfolio](https://github.com/Rae-ARK/My-Portfolio)
+**Repo:** [Rae-ARK/ARKfolio](https://github.com/Rae-ARK/ARKfolio)
 
 ## What's here
 

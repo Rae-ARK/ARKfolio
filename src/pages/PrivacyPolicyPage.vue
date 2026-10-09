@@ -4,15 +4,15 @@ const CONTACT_EMAIL = 'contact@rae-ark.example'
 </script>
 
 <template>
-  <section class="hero" style="padding-bottom:36px;">
+  <section class="hero page-hero">
     <div class="wrap">
       <span class="eyebrow">Legal</span>
-      <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Privacy Policy</h1>
+      <h1>Privacy Policy</h1>
       <p class="lede">Last updated: {{ LAST_UPDATED }}</p>
     </div>
   </section>
 
-  <section style="padding-top:0;" v-reveal>
+  <section class="page-body" v-reveal>
     <div class="wrap container-narrow">
       <div class="legal-card">
         <p>

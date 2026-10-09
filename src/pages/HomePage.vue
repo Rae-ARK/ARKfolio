@@ -64,16 +64,16 @@ import WorkCard from '@/components/WorkCard.vue'
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Where to Read</span>
-        <h2>Every chapter, free, wherever you already read</h2>
+        <h2>Read every chapter free, or keep a copy on your shelf</h2>
       </div>
       <div class="reads">
         <div class="read-card">
           <span class="k">Royal Road</span>
-          <router-link class="go" to="/works">All three stories ↗</router-link>
+          <router-link class="go" to="/works">All three stories →</router-link>
         </div>
         <div class="read-card">
           <span class="k">Scribble Hub</span>
-          <router-link class="go" to="/works">Two stories ↗</router-link>
+          <router-link class="go" to="/works">Two stories →</router-link>
         </div>
         <div class="read-card">
           <span class="k">X / Twitter</span>

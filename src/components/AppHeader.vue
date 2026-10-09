@@ -17,7 +17,7 @@ const { theme, toggleTheme } = useTheme()
     <div class="wrap">
       <div class="brand-row">
         <router-link to="/about">
-          <div class="avatar" style="background-image:url('/assets/images/profile.png')"></div>
+          <div class="avatar"></div>
         </router-link>
         <div class="brand">
           <span class="name">

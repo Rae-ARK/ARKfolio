@@ -19,30 +19,11 @@
       <div class="footer-bottom">
         <span>© 2026 Rae ARK</span>
 
-        <div class="footer-links">
-          <router-link to="/works">Works</router-link>
-          <router-link to="/store">Store</router-link>
-          <router-link to="/journal">Journal</router-link>
-          <router-link to="/about">About</router-link>
+        <nav class="footer-legal" aria-label="Footer">
           <router-link to="/feedback">Feedback</router-link>
           <router-link to="/privacy">Privacy</router-link>
           <router-link to="/terms">Terms</router-link>
-
-          <a
-            href="https://x.com/Rae7866"
-            target="_blank"
-            rel="noopener"
-          >
-            X
-          </a>
-          <a
-            href="https://github.com/Rae-ARK/ARKfolio"
-            target="_blank"
-            rel="noopener"
-          >
-            GitHub
-          </a>
-        </div>
+        </nav>
       </div>
     </div>
   </footer>

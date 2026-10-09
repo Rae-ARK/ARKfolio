@@ -3,15 +3,15 @@ import { journalEntries } from '@/data/journal'
 </script>
 
 <template>
-  <section class="hero" style="padding-bottom:36px;">
+  <section class="hero page-hero">
     <div class="wrap">
       <span class="eyebrow">From the Writing Desk</span>
-      <h1 style="font-size:clamp(2rem,4vw,2.8rem);">Journal</h1>
+      <h1>Journal</h1>
       <p class="lede">Not news. Just the process — the breaks, the doubts, the small wins — as it actually happens.</p>
     </div>
   </section>
 
-  <section style="padding-top:0;">
+  <section class="page-body">
     <div class="wrap container-narrow">
       <div class="timeline">
         <div class="journal-entry" v-reveal v-for="entry in journalEntries" :key="entry.date + entry.title">

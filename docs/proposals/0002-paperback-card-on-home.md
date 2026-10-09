@@ -21,8 +21,8 @@ Scribble Hub and X cards). The footer placement is dropped.
 
 ## Notes
 
-- The section heading currently reads "Every chapter, free, wherever you
-  already read". A paid print edition sits slightly outside that wording;
-  consider whether the heading needs adjusting.
+- The section heading read "Every chapter, free, wherever you already read".
+  A paid print edition sits outside that wording; resolved by
+  [0005](0005-where-to-read-heading.md).
 - Per [audit finding 2](../implementation/ui-ux-audit.md#2--external-link-arrows-on-internal-links),
   an internal link should not use the ↗ glyph.

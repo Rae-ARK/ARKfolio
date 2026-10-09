@@ -238,6 +238,11 @@ header.site-header {
   margin: 0 auto 20px;
 }
 
+.avatar,
+.avatar-large {
+  background-image: url('/assets/images/profile.png');
+}
+
 .brand .name {
   font-family: var(--serif);
   font-weight: 700;
@@ -1258,14 +1263,198 @@ footer.site-footer {
   color: var(--ink-faint);
 }
 
-.footer-links {
+.footer-legal {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   flex-wrap: wrap;
+  font-size: 0.78rem;
 }
 
-.footer-links a:hover {
+.footer-legal a {
+  color: var(--ink-faint);
+}
+
+.footer-legal a:hover {
   color: var(--accent);
+}
+
+/* ---------------------- Page layout helpers ---------------------- */
+
+/* Hero used by every inner page (everything except Home). */
+.hero.page-hero {
+  padding-bottom: 36px;
+}
+
+.hero.page-hero.roomy {
+  padding-bottom: 48px;
+}
+
+.page-hero h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+}
+
+/* Section that follows a page hero. The hero draws a rule along its bottom
+   edge, so the body needs real space below it or the first line of text
+   sits right on the rule. */
+section.page-body {
+  padding-top: 48px;
+}
+
+section.page-body.tight {
+  padding-top: 36px;
+}
+
+section.page-body.snug {
+  padding-top: 24px;
+}
+
+section.page-body.flush {
+  padding-top: 0;
+}
+
+/* About */
+
+.about-lead {
+  font-size: 1.08rem;
+  color: var(--ink);
+}
+
+.about-divider {
+  margin: 48px 0;
+}
+
+.about-name {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-bottom: 20px;
+}
+
+.about-side .side-link {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.about-side h4.spaced {
+  margin-top: 22px;
+}
+
+/* Works */
+
+.work-title {
+  margin-bottom: 0.2em;
+}
+
+.work-short {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+}
+
+.work-section .tags {
+  margin-bottom: 20px;
+}
+
+.work-section .not-expect {
+  margin: 24px 0;
+}
+
+.work-section .work-links {
+  margin-top: 8px;
+}
+
+.content-notice {
+  background: var(--warn-tint);
+  border: 1px solid var(--warn);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin-bottom: 24px;
+}
+
+.content-notice strong {
+  color: var(--warn);
+  font-size: 0.85rem;
+}
+
+.content-notice p {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+/* Store */
+
+.store-book .eyebrow {
+  margin-bottom: 0.3em;
+}
+
+.store-book h2 {
+  margin-bottom: 0.2em;
+}
+
+.store-book .book-desc {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.retailer-notes {
+  margin-top: 14px;
+}
+
+.retailer-notes .retailer-note {
+  margin-top: 4px;
+}
+
+.store-empty p {
+  margin: 0 0 12px;
+}
+
+.waiting-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.waiting-links .btn {
+  padding: 9px 16px;
+  font-size: 0.82rem;
+}
+
+/* Feedback */
+
+.form-field .optional {
+  text-transform: none;
+}
+
+.form-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+.copy-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .copy-btn:hover {
+    border-color: var(--accent);
+  }
 }
 
 /* ---------------------- Utility ---------------------- */
