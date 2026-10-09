@@ -79,6 +79,10 @@ import WorkCard from '@/components/WorkCard.vue'
           <span class="k">X / Twitter</span>
           <a class="go" href="https://x.com/Rae7866" target="_blank" rel="noopener">@Rae7866 ↗</a>
         </div>
+        <div class="read-card">
+          <span class="k">Paperback</span>
+          <router-link class="go" to="/store">Summoned by Mistake, Vol. 1 →</router-link>
+        </div>
       </div>
     </div>
   </section>
