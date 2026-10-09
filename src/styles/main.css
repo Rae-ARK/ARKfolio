@@ -1003,11 +1003,7 @@ section.alt-bg {
   justify-content: center;
 }
 
-.imprint-mark {
-  height: 26px;
-  width: auto;
-  opacity: 0.9;
-}
+
 
 .imprint-credit span {
   font-family: var(--mono);
@@ -1258,9 +1254,21 @@ footer.site-footer {
   margin-bottom: 36px;
 }
 
-.footer-imprint img {
-  height: 20px;
-  opacity: 0.85;
+/* Vector mark, not the old flattened PNG — crisp at any size, and sized
+   big enough to actually read the ring + triangle shape rather than the
+   ~20px sliver the raster version was squeezed down to. */
+.imprint-logo {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.imprint-mark {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .footer-imprint span {
@@ -1557,14 +1565,14 @@ section.page-body.flush {
     transition: opacity 0.18s ease, transform 0.18s ease;
   }
 
-  /* Each link reads like an app's tab bar entry: an icon over a serif
-     label, two to a row, rather than a plain stacked list or a numbered
-     table of contents. */
+  /* Each link reads like an app's tab bar entry: icon and serif label
+     sitting inline on one baseline, two to a row, rather than a plain
+     stacked list or a numbered table of contents. */
   nav.main-nav a:not(.icon-btn) {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     width: auto;
     padding: 16px 16px 16px 4px;
     font-family: var(--serif);
@@ -1574,10 +1582,11 @@ section.page-body.flush {
   }
 
   /* On mobile the icon is the glyph (no index number beside it), so it
-     runs larger than the desktop row's small leading icon. */
+     runs larger than the desktop row's small leading icon — but sits
+     inline with the label instead of stacked above it. */
   nav.main-nav .nav-icon {
-    width: 22px;
-    height: 22px;
+    width: 19px;
+    height: 19px;
     opacity: 0.75;
   }
 

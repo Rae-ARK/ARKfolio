@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import AppLogoMark from './AppLogoMark.vue'
+</script>
+
 <template>
   <footer class="site-footer">
     <div class="wrap">
@@ -8,11 +12,7 @@
       <p class="footer-attrib">— Rae ARK</p>
 
       <div class="footer-imprint">
-        <img
-          src="/assets/images/horizon-ark-logo.png"
-          alt="Horizon ARK Studio"
-          @error="hideImage"
-        />
+        <AppLogoMark class="imprint-logo" />
         <span>Published under Horizon ARK Studio</span>
       </div>
 
@@ -28,12 +28,3 @@
     </div>
   </footer>
 </template>
-
-<script setup lang="ts">
-function hideImage(event: Event) {
-  const img = event.target as HTMLImageElement | null
-  if (img) {
-    img.style.display = 'none'
-  }
-}
-</script>

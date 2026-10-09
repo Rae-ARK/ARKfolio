@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AppLogoMark from '@/components/AppLogoMark.vue'
+
 const readLinks = [
   { site: 'Royal Road', title: 'Enigmatic Pathways Mystic Circuits', url: 'https://www.royalroad.com/fiction/114101/enigmatic-pathways-mystic-circuits/' },
   { site: 'Royal Road', title: 'Summoned by Mistake, I Decided to Learn How to Live', url: 'https://www.royalroad.com/fiction/163034/summoned-by-mistake-i-decided-to-learn-how-to' },
@@ -14,9 +16,6 @@ const currentlyWriting = [
   'The Shadow I Cast Over Two Beautiful Flowers — Act 2, on break',
 ]
 
-function hideOnError(event: Event) {
-  (event.target as HTMLImageElement).style.display = 'none'
-}
 </script>
 
 <template>
@@ -57,7 +56,7 @@ function hideOnError(event: Event) {
           <li v-for="item in currentlyWriting" :key="item">{{ item }}</li>
         </ul>
         <div class="imprint-credit">
-          <img class="imprint-mark" src="/assets/images/horizon-ark-logo.png" alt="Horizon ARK Studio" @error="hideOnError">
+          <AppLogoMark class="imprint-mark" />
           <span>Horizon ARK Studio</span>
         </div>
         <a class="source-credit" href="https://github.com/Rae-ARK/ARKfolio" target="_blank" rel="noopener">
