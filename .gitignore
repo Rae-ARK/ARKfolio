@@ -46,6 +46,7 @@ android/local.properties
 android/captures/
 android/*.iml
 android/.idea/
+android/release-keystore.jks
 
 # iOS (not added yet — Stage 4/Tauri covers desktop instead)
 ios/
