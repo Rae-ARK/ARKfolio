@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ArkFolio
+GenericName=Portfolio
+Comment=Rae ARK — Web Novelist portfolio, journal, and store
+Exec=arkfolio
+Icon=arkfolio
+Terminal=false
+Type=Application
+Categories=Office;Network;
+StartupWMClass=arkfolio

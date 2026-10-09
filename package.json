@@ -11,7 +11,10 @@
     "deploy": "npm run build && wrangler deploy",
     "android:sync": "npm run build && npx cap sync android",
     "android:open": "npm run android:sync && npx cap open android",
-    "android:build": "npm run android:sync && cd android && ./gradlew assembleDebug"
+    "android:build": "npm run android:sync && cd android && ./gradlew assembleDebug",
+    "linux:dev": "npm run build && npx neu run",
+    "linux:build": "npm run build && npx neu update && npx neu build --release --embed-resources",
+    "linux:deb": "npm run linux:build && bash scripts/build-deb.sh"
   },
   "dependencies": {
     "@capacitor/android": "^8.4.2",
@@ -21,10 +24,15 @@
     "@capacitor/core": "^8.4.2",
     "@capacitor/splash-screen": "^8.0.2",
     "@capacitor/status-bar": "^8.0.3",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/work-sans": "^5.3.0",
     "vue": "^3.4.38",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@neutralinojs/lib": "^6.9.0",
+    "@neutralinojs/neu": "^11.7.2",
     "@types/node": "^26.1.2",
     "@vitejs/plugin-vue": "^5.2.1",
     "typescript": "^5.6.2",

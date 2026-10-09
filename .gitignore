@@ -48,5 +48,20 @@ android/*.iml
 android/.idea/
 android/release-keystore.jks
 
-# iOS (not added yet — Stage 4/Tauri covers desktop instead)
+# Neutralino downloaded binaries + local runtime files (fetched by
+# `npx neu update`, rebuilt by `npx neu build` — not meant for git)
+bin/
+resources.neu
+neutralinojs.log
+.tmp/
+dist/deb-build/
+dist/deb/
+dist/apk/
+
+# Android release signing key — generated locally by
+# scripts/generate-keystore.sh, never committed.
+android/release-keystore.jks
+*.jks
+*.keystore
+
 ios/

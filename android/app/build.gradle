@@ -16,10 +16,31 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    // Release signing is entirely env-var driven so no secret ever lives in
+    // this file or in git. Locally this block is inert (the env vars are
+    // unset, so `signingConfigs.release` just never gets attached to the
+    // release build type, and `assembleRelease` produces an unsigned APK).
+    // In CI, the workflow's "Decode release keystore" step writes the
+    // keystore file and exports these four vars right before the signed
+    // build runs.
+    def releaseKeystorePath = System.getenv("ANDROID_KEYSTORE_PATH")
+    if (releaseKeystorePath) {
+        signingConfigs {
+            release {
+                storeFile file(releaseKeystorePath)
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (releaseKeystorePath) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
