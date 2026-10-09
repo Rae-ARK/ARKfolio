@@ -31,11 +31,26 @@ const { theme, toggleTheme } = useTheme()
       </div>
 
       <nav class="main-nav" :class="{ open: navOpen }">
-        <router-link to="/" active-class="active" exact-active-class="active" @click="closeNav">Home</router-link>
-        <router-link to="/works" active-class="active" @click="closeNav">Works</router-link>
-        <router-link to="/store" active-class="active" @click="closeNav">Store</router-link>
-        <router-link to="/journal" active-class="active" @click="closeNav">Journal</router-link>
-        <router-link to="/about" active-class="active" @click="closeNav">About</router-link>
+        <router-link to="/" active-class="active" exact-active-class="active" @click="closeNav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M9.75 19.5V13.5h4.5v6"/></svg>
+          <span>Home</span>
+        </router-link>
+        <router-link to="/works" active-class="active" @click="closeNav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h6a2 2 0 0 1 2 2V20a2 2 0 0 0-2-1.5H4Z"/><path d="M20 4.5h-6a2 2 0 0 0-2 2V20a2 2 0 0 1 2-1.5h6Z"/></svg>
+          <span>Works</span>
+        </router-link>
+        <router-link to="/store" active-class="active" @click="closeNav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8.5h14l-1 11.5H6Z"/><path d="M8.5 8.5V6a3.5 3.5 0 0 1 7 0v2.5"/></svg>
+          <span>Store</span>
+        </router-link>
+        <router-link to="/journal" active-class="active" @click="closeNav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h10.5a1.5 1.5 0 0 1 1.5 1.5v15.5H7.5A1.5 1.5 0 0 1 6 19Z"/><path d="M6 19a1.5 1.5 0 0 1 1.5-1.5H18"/><path d="M9.5 8h5M9.5 11.5h5"/></svg>
+          <span>Journal</span>
+        </router-link>
+        <router-link to="/about" active-class="active" @click="closeNav">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.25" r="3.25"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>
+          <span>About</span>
+        </router-link>
 
         <div class="nav-icons">
           <a class="icon-btn" href="https://x.com/Rae7866" target="_blank" rel="noopener" aria-label="Follow on X">

@@ -273,6 +273,9 @@ nav.main-nav {
 }
 
 nav.main-nav a:not(.icon-btn) {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 0.92rem;
   font-weight: 500;
   color: var(--ink-soft);
@@ -282,6 +285,22 @@ nav.main-nav a:not(.icon-btn) {
 
 nav.main-nav a:not(.icon-btn):hover {
   color: var(--ink);
+}
+
+/* Desktop nav links lead with a small glyph so each destination reads at a
+   glance (recognition) rather than requiring every label to be read in
+   turn (recall). The mobile TOC-style grid below already has its own
+   numbered-index cue, so the glyph is desktop-only there. */
+.nav-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+nav.main-nav a:not(.icon-btn):hover .nav-icon,
+nav.main-nav a:not(.icon-btn).active .nav-icon {
+  opacity: 1;
 }
 
 nav.main-nav a.active {
@@ -1561,6 +1580,12 @@ section.page-body.flush {
     font-weight: 400;
     letter-spacing: 0.1em;
     color: var(--brass);
+  }
+
+  /* The numbered index already gives this layout its glyph; a second icon
+     here would just compete with it. */
+  nav.main-nav .nav-icon {
+    display: none;
   }
 
   /* The active-page underline from the desktop nav would float mid-row in

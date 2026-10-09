@@ -11,7 +11,8 @@
   the same primitives once the Store step lands and gets a browser check.
 - **Relates to:** [0006](0006-print-interest-via-feedback.md),
   [UI/UX audit](../implementation/ui-ux-audit.md), the mobile-nav redesign
-  shipped alongside this revision (see the changelog and audit finding 10).
+  shipped alongside this revision (see the changelog and audit finding 10),
+  and the header nav icon pass described under References below.
 
 ## Problem
 
@@ -169,6 +170,30 @@ design" in what's actually shipping rather than a vague impression of it:
   informed the separate mobile-nav fix shipped alongside this revision —
   called out here because it's the same "modern web design, whole site"
   effort even though it isn't part of this proposal's own change list.
+- A 2025 conference talk on desktop UX (the speaker's background is Apple/
+  Google HI work, now doing UX for open-source desktop projects) argued that
+  desktop interface conventions have stayed largely frozen for two decades
+  while the tooling and expectations around them have moved on, and that
+  small, well-considered affordances — the kind a native desktop app
+  accumulates — are worth deliberately importing into interfaces that would
+  otherwise default to being "just a webpage." The specific argument that
+  applies here is about recognition versus recall: a row of plain text
+  labels makes every visit re-read and re-parse the same five words, where a
+  small leading glyph per destination (as a desktop app's sidebar or
+  toolbar would do) lets a returning visitor orient by shape and position
+  instead. That's the reasoning behind the header nav icons (Home/Works/
+  Store/Journal/About) shipped alongside this revision — each link keeps
+  its text label for clarity and accessibility, but now leads with a small
+  stroke icon so the destination reads before the word does. It's a
+  narrow, single-component application of the talk's broader point, not an
+  adoption of the talk's larger proposals (spatial window management,
+  persistent "working memory" across clipboard/files/history) — those are
+  about desktop operating-system shells, not a scoped, content-first
+  personal site, and are out of scope here; what does carry over at this
+  site's scale is the general instinct that small, considered affordances
+  are what make an interface feel like a deliberately designed piece of
+  software rather than a stack of default browser chrome, even though
+  ARKfolio is and remains a website rather than a native app.
 
 ## Rollout
 
