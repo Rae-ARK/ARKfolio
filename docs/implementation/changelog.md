@@ -2,6 +2,38 @@
 
 Shipped changes that resolve a proposal or an audit finding. Newest first.
 
+## 2026-10-10
+
+### Arc 3 → Arc 4, mobile nav redesign, and widened proposal 0007
+
+- **Audit 10** — "Currently writing" on the About page and home page said
+  "Arc 3, ongoing" after the Journal's own Oct 3, 2026 entry said Arc 3 had
+  wrapped and Arc 4 was starting. Updated to "Arc 4, ongoing" in both
+  places. Files: `AboutPage.vue`, `data/works.ts`.
+- **Audit 11** — the mobile nav dropdown was constrained by `.wrap`'s own
+  padding (the actual containing block for its `position: absolute` panel),
+  so it rendered as a narrow, left-aligned single-column list rather than
+  using the screen's width. Repositioned against `header.site-header`
+  instead (edge-to-edge), and replaced the stacked list with a numbered
+  two-column table-of-contents-style grid, with a one-column fallback under
+  420px and an open/close transition guarded by `prefers-reduced-motion`.
+  Files: `main.css`. Needs a real-device/browser check before being
+  considered fully verified.
+- **Proposal [0007](../proposals/0007-store-page-redesign.md)** — widened
+  from "Store page only" to the whole site: the motion primitives are now
+  written as shared `main.css` sections from the start, with a page-by-page
+  rollout (Store first, then Home/Works, then Journal/About), and a new
+  References section grounding "modern web design" in current browser
+  support data and design precedent gathered for this revision. Still
+  `Proposed`; no page content changed by this revision, only the proposal
+  document.
+- Sanity-checked the rest of the site for the same kind of drift: router
+  links against the route table, external-link (↗) vs internal-link (→)
+  usage, copyright year, legal-page "last updated" handling, and leftover
+  inline styles — no further issues found.
+- Verification: `npm run build` (vue-tsc + vite) passes; no unused
+  components, composables, or data files found in `src/`.
+
 ## 2026-10-09 (later)
 
 ### Journal update and Store print card

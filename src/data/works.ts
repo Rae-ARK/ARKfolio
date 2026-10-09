@@ -107,6 +107,6 @@ export const works: Work[] = [
 
 export const currentlyWriting = [
   { title: 'Enigmatic Pathways Mystic Circuits — Volume 3', note: 'In progress. Slow, deliberate, and worth getting right.', state: 'Writing' },
-  { title: 'Summoned by Mistake, I Decided to Learn How to Live — Arc 3', note: 'The ruins exploration arc. New chapters continue on a regular cadence.', state: 'Ongoing' },
+  { title: 'Summoned by Mistake, I Decided to Learn How to Live — Arc 4', note: 'Picked back up after a short break following Arc 3. New chapters continue on a regular cadence.', state: 'Ongoing' },
   { title: 'The Shadow I Cast Over Two Beautiful Flowers — Act 2', note: 'Resting until Volume 3 of Enigmatic Pathways Mystic Circuits is further along.', state: 'On Break', paused: true },
 ]

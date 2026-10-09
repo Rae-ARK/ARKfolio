@@ -10,7 +10,7 @@ const readLinks = [
 
 const currentlyWriting = [
   'Enigmatic Pathways Mystic Circuits — Vol. 3, in progress',
-  'Summoned by Mistake, I Decided to Learn How to Live — Arc 3, ongoing',
+  'Summoned by Mistake, I Decided to Learn How to Live — Arc 4, ongoing',
   'The Shadow I Cast Over Two Beautiful Flowers — Act 2, on break',
 ]
 

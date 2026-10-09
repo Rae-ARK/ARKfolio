@@ -1497,49 +1497,125 @@ section.page-body.flush {
     display: flex;
   }
 
+  /* .wrap is normally `position: relative`, which made it — not the
+     header — the containing block for the absolutely-positioned dropdown,
+     so the panel's left/right edges were pinned to the padded content
+     column instead of the screen edge: a narrow list inside an already
+     narrow viewport. header.site-header is `position: sticky`, which is
+     still a valid containing block, so handing position back to it lets
+     the panel run edge-to-edge instead. */
+  .site-header .wrap {
+    position: static;
+    flex-wrap: wrap;
+  }
+
   nav.main-nav {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    counter-reset: navitem;
     background: var(--paper);
     border-bottom: 1px solid var(--line);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    padding: 10px 32px 22px;
-    display: none;
+    padding: 4px max(20px, env(safe-area-inset-right, 0px)) max(14px, env(safe-area-inset-bottom, 0px))
+      max(20px, env(safe-area-inset-left, 0px));
     z-index: 60;
+    /* Kept in the layout (not display:none) so it can transition, but
+       hidden from view, hit-testing and the tab order until opened. */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s linear 0.18s;
   }
 
   nav.main-nav.open {
-    display: flex;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    transition: opacity 0.18s ease, transform 0.18s ease;
   }
 
+  /* Each link reads like a table-of-contents entry: a brass index number
+     over a serif label, two to a row, rather than a plain stacked list. */
   nav.main-nav a:not(.icon-btn) {
-    padding: 10px 0;
-    width: 100%;
+    counter-increment: navitem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: auto;
+    padding: 16px 16px 16px 4px;
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+  }
+
+  nav.main-nav a:not(.icon-btn)::before {
+    content: counter(navitem, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--brass);
+  }
+
+  /* The active-page underline from the desktop nav would float mid-row in
+     this grid; swap it for coloring the entry's own number + label. */
+  nav.main-nav a.active::after {
+    content: none;
+  }
+
+  nav.main-nav a:not(.icon-btn).active::before {
+    color: var(--accent);
+  }
+
+  /* Five links in two columns: give the last one (About) a full-width row
+     instead of leaving a dangling empty cell beside it. */
+  nav.main-nav a:not(.icon-btn):nth-child(5) {
+    grid-column: 1 / -1;
+  }
+
+  nav.main-nav a:not(.icon-btn):nth-child(even) {
+    padding-left: 16px;
+    border-left: 1px solid var(--line);
   }
 
   nav.main-nav .nav-icons {
-    margin: 10px 0 2px;
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin: 6px 0 2px;
     padding-left: 0;
     border-left: none;
     border-top: 1px solid var(--line);
-    padding-top: 14px;
-    width: 100%;
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  /* Below ~420px the serif label wraps awkwardly at two-up; one column
+     with the TOC numbering still reads better than squeezed pairs. */
+  nav.main-nav {
+    grid-template-columns: 1fr;
   }
 
-  .site-header .wrap {
-    position: relative;
-    flex-wrap: wrap;
+  nav.main-nav a:not(.icon-btn):nth-child(5) {
+    grid-column: auto;
+  }
+
+  nav.main-nav a:not(.icon-btn):nth-child(even) {
+    padding-left: 4px;
+    border-left: none;
   }
 }
 
 @media (max-width: 700px) {
   nav.main-nav {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
   }
 }
 
@@ -1568,5 +1644,10 @@ section.page-body.flush {
     transition: none;
     opacity: 1;
     transform: none;
+  }
+
+  nav.main-nav,
+  nav.main-nav.open {
+    transition: none;
   }
 }

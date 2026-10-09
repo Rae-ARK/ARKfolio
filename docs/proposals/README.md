@@ -15,7 +15,7 @@ yet implemented**. Each proposal carries a status.
 | [0004](0004-about-text-spacing.md) | About page text sits on the hero divider | Implemented |
 | [0005](0005-where-to-read-heading.md) | Update the "Where to Read" heading | Implemented |
 | [0006](0006-print-interest-via-feedback.md) | Let readers say they're waiting for a paperback | Implemented |
-| [0007](0007-store-page-redesign.md) | Redesign the Store page with modern CSS motion | Proposed |
+| [0007](0007-store-page-redesign.md) | Site-wide modern CSS motion, starting with the Store page | Proposed |
 
 ## Adding a proposal
 

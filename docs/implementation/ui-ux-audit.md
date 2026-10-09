@@ -17,6 +17,8 @@
 | 7 | Two parallel codebases in the repo | Resolved |
 | 8 | Heavy use of inline `style=""` | Resolved |
 | 9 | GitHub links point to a renamed repo | Resolved |
+| 10 | "Currently writing" said Arc 3 after Arc 3 had wrapped | Resolved |
+| 11 | Mobile nav was a cramped single-column list | Resolved |
 
 ## Findings
 
@@ -107,3 +109,37 @@ break.
 
 **Status:** Resolved. Header, footer and About page links were updated in
 commit `ecbf336`; the `README.md` link was updated on 2026-10-09.
+
+### 10. "Currently writing" said Arc 3 after Arc 3 had wrapped
+
+The About page sidebar and the home page's "Currently writing" list
+(`data/works.ts`) both said "Summoned by Mistake... — Arc 3, ongoing". The
+Journal's own newest entry — *Arc 3 Is Done — A Short Break Before Arc 4*,
+Oct 3, 2026 — says Arc 3 wrapped and Arc 4 was starting the following week.
+The status line hadn't been updated to match, so the site was telling two
+different stories about the same book depending which page a reader was on.
+
+**Status:** Resolved. `AboutPage.vue` and `data/works.ts` now say "Arc 4,
+ongoing". The journal entries themselves were left untouched — they're
+dated posts describing what had already happened at the time, not a status
+line, so "Arc 3 Is Done..." is correct as written.
+
+### 11. Mobile nav was a cramped single-column list
+
+Below 900px wide, the nav dropdown sat inside `.wrap`, which is
+`position: relative` — meaning `.wrap`, not the full-width header, was the
+containing block for the dropdown's `position: absolute` panel. The panel's
+left/right edges lined up with `.wrap`'s padded content column instead of
+the screen edge, then added its own padding on top of that, so on a phone it
+rendered as a narrow, left-aligned list of plain text links — never using
+the width actually available.
+
+**Status:** Resolved. The dropdown now takes `header.site-header` (already
+`position: sticky`, a valid containing block) as its positioning context
+instead, so it runs edge-to-edge. The five links are laid out as a numbered
+two-column grid (brass index numbers over serif labels, in the site's
+existing type pairing) rather than a stacked list, with a single-column
+fallback under 420px. Files: `main.css`. Needs a browser check on a real
+phone width before being considered fully verified (see
+[0007](../proposals/0007-store-page-redesign.md) for why this came up
+alongside the site-wide motion proposal).
