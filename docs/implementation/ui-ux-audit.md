@@ -16,7 +16,7 @@
 | 6 | Feedback form is a `mailto:` launcher, disclosed late | Open |
 | 7 | Two parallel codebases in the repo | Open |
 | 8 | Heavy use of inline `style=""` | Open |
-| 9 | GitHub links point to a renamed repo | Open |
+| 9 | GitHub links point to a renamed repo | Partly resolved — see finding |
 
 ## Findings
 
@@ -88,3 +88,7 @@ Header, footer, and About page all link to
 `github.com/Rae-ARK/My-Portfolio`, while the repo is now `ARKfolio`.
 GitHub's redirect covers it for now, but it's a stale reference waiting to
 break.
+
+**Status:** The header, footer and About page links were updated to
+`Rae-ARK/ARKfolio` in commit `ecbf336`. `README.md` line 7 still points to
+`Rae-ARK/My-Portfolio`.

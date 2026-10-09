@@ -1,6 +1,6 @@
 # 0002 — Add a paperback card to "Where to Read" on the home page
 
-- **Status:** Proposed
+- **Status:** Implemented — see [changelog](../implementation/changelog.md)
 
 ## Problem
 

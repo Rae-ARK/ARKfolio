@@ -1,6 +1,6 @@
 # 0003 — Fix the cramped header just above the mobile breakpoint
 
-- **Status:** Proposed
+- **Status:** Implemented — see [changelog](../implementation/changelog.md)
 - **Type:** Bug
 
 ## Symptom
@@ -28,3 +28,9 @@ hold together as one unit when space gets tight.
 - Collapse the nav at a wider breakpoint than the current 700px.
 - Keep the brand on one unit that does not wrap or shrink.
 - Verify at widths from roughly 700px to 1000px.
+
+## Outcome
+
+Breakpoint moved to 900px and the brand set to not wrap or shrink. The
+900px value is an estimate from the CSS and has **not** yet been checked
+in a browser; confirm across 700-1000px.

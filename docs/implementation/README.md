@@ -7,6 +7,7 @@ Documents describing what is built **today** and how it measures up.
 | Document | Summary |
 | --- | --- |
 | [ui-ux-audit.md](ui-ux-audit.md) | Nine-point UI/UX audit of the live site, with status per finding |
+| [changelog.md](changelog.md) | Record of shipped changes that came out of proposals and the audit |
 
 ## Conventions
 
