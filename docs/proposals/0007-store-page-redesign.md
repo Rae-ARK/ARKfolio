@@ -4,7 +4,8 @@
   Journal/About (Rollout steps 4–5) shipped, see
   [changelog](../implementation/changelog.md); each still needs the
   per-page browser check described in Verification before being marked
-  `Implemented`. The optional View Transitions step (6) is not started.
+  `Implemented`. The optional View Transitions step (6) is decided (see
+  below) but still not implemented.
 - **Scope:** Widened from Store-only to the whole site. The motion
   primitives in this proposal are written as shared, reusable pieces
   (keyframes, custom properties, utility classes in `main.css`) from the
@@ -220,6 +221,28 @@ design" in what's actually shipping rather than a vague impression of it:
    ~340px); `text-wrap: balance` added to `.about-lead` (page headings
    already had it site-wide from step 1).
 6. View Transitions on Store → Feedback, only if steps 1–3 land well.
+   **Decided: go ahead.** Steps 1–3 have been live since the Store rollout
+   and the compatibility picture that made this "optional" has moved on —
+   same-document View Transitions now work across Chrome 111+, Edge 111+,
+   Safari 18+ and Firefox 144+, closing what used to be the last major gap
+   (Firefox). Not yet implemented; planned as:
+   - Wrap the "I'm waiting for…" `router-link` click handlers on the Store
+     page: if `document.startViewTransition` exists, call
+     `router.push(...)` inside it instead of letting the `router-link`
+     navigate directly; otherwise fall through to the normal navigation
+     unchanged. This keeps it an enhancement with no dependency on the API
+     existing, per the Progressive enhancement constraint above.
+   - Name the transitioning elements (`view-transition-name`) on the
+     clicked button and its counterpart on the Feedback page's submit
+     button, so the button appears to carry across rather than the whole
+     page cross-fading.
+   - Collapses to a plain navigation under `prefers-reduced-motion: reduce`
+     (View Transitions should be skipped outright there, not just have
+     their CSS reduced, since the browser-level transition itself is the
+     motion).
+   - Needs its own browser check (desktop, a phone width, dark theme,
+     reduced motion) before being marked `Implemented`, same as every other
+     step here.
 
 Each step can ship on its own and gets its own browser check before being
 marked `Implemented` (see Verification).

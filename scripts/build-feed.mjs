@@ -1,10 +1,17 @@
-// Writes dist/feed.xml (RSS 2.0) from src/data/journal.ts. Runs at the end of
-// `npm run build`; the app itself stays a plain client-rendered SPA.
+// Writes dist/feed.xml (RSS 2.0) from src/data/journal/*.md. Runs at the end
+// of `npm run build`; the app itself stays a plain client-rendered SPA.
 //
-// No new dependency: the data files are plain TypeScript, so they are
-// transpiled in memory with the `typescript` package that is already a
-// devDependency, then imported.
-import { readFile, writeFile, mkdir } from 'node:fs/promises'
+// No new dependency: the data files are plain TypeScript/Markdown, so the
+// TypeScript ones are transpiled in memory with the `typescript` package
+// that is already a devDependency, then imported.
+//
+// The journal entries themselves are read straight off disk and parsed with
+// journal/parseEntry.ts, rather than importing src/data/journal.ts, because
+// that file uses Vite's `import.meta.glob` to load its Markdown files — a
+// bundler macro this plain-Node script has no equivalent for.
+// parseEntry.ts has no imports of its own, so it's safe to load with the
+// same data-URL trick used for the other TS files below.
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import ts from 'typescript'
@@ -20,7 +27,13 @@ async function loadTs(relPath) {
 }
 
 const { SITE_ORIGIN } = await loadTs('src/seo/site.ts')
-const { journalEntries } = await loadTs('src/data/journal.ts')
+const { parseJournalEntry } = await loadTs('src/data/journal/parseEntry.ts')
+
+const journalDir = resolve(root, 'src/data/journal')
+const journalFiles = (await readdir(journalDir)).filter((f) => f.endsWith('.md')).sort()
+const journalEntries = await Promise.all(
+  journalFiles.map(async (f) => parseJournalEntry(await readFile(resolve(journalDir, f), 'utf8')))
+)
 
 const esc = (s) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')

@@ -1,5 +1,26 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { journalEntries } from '@/data/journal'
+
+type Filter = 'all' | 'sbm' | 'epmc' | 'stbf'
+
+const filters: { id: Filter; label: string }[] = [
+  { id: 'all', label: 'All' },
+  { id: 'sbm', label: 'SBM' },
+  { id: 'epmc', label: 'EPMC' },
+  { id: 'stbf', label: 'STBF' },
+]
+
+const activeFilter = ref<Filter>('all')
+
+// Filters against the entry's label rather than just its thumb, so an entry
+// tagged for more than one story (e.g. "SBM · EPMC · STBF") still shows up
+// under each of its stories' filters, not only the one that picked its thumb.
+const filteredEntries = computed(() =>
+  activeFilter.value === 'all'
+    ? journalEntries
+    : journalEntries.filter((entry) => entry.tags.label.includes(filters.find((f) => f.id === activeFilter.value)!.label))
+)
 </script>
 
 <template>
@@ -14,12 +35,28 @@ import { journalEntries } from '@/data/journal'
 
   <section class="page-body">
     <div class="wrap container-narrow">
-      <div class="timeline">
+      <div class="tag-filter" role="group" aria-label="Filter journal by story">
+        <button
+          v-for="f in filters"
+          :key="f.id"
+          type="button"
+          class="tag-filter-btn"
+          :class="{ active: activeFilter === f.id }"
+          :aria-pressed="activeFilter === f.id"
+          @click="activeFilter = f.id"
+        >
+          {{ f.label }}
+        </button>
+      </div>
+
+      <p v-if="filteredEntries.length === 0" class="journal-empty">No entries tagged for that story yet.</p>
+
+      <div class="timeline" v-else>
         <div
           class="journal-entry"
           v-reveal
           :style="{ '--i': index % 4 }"
-          v-for="(entry, index) in journalEntries"
+          v-for="(entry, index) in filteredEntries"
           :key="entry.date + entry.title"
         >
           <div class="journal-card">

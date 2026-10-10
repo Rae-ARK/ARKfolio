@@ -42,9 +42,9 @@
 5. **Load `neutralino.js` only in the desktop build.** *Shipped, untested on desktop (see changelog); done differently from this plan.* Original plan:
    have `neutralinoShell.ts` inject the script when the runtime's
    `NL_*` globals are present, then remove the tag from `index.html`.
-6. **Reveal check.** *(Done.)* Tested by the author on an iQOO Neo 10R and
-   it works, so the fade-out on scroll-back stays. That phone is upper
-   mid-range; a low-end phone hasn't been tried.
+6. **Reveal check.** *(Done.)* Tested by the author on an upper mid-range
+   phone and it works, so the fade-out on scroll-back stays. A low-end
+   phone hasn't been tried.
 
 ## Non-goals
 

@@ -1,6 +1,9 @@
 # 0011 — Content workflow and measurement (Stage 4 of the site review)
 
-- **Status:** Proposed
+- **Status:** Implemented — see [changelog](../implementation/changelog.md).
+  The analytics open question is resolved (yes, web build only); still
+  needs a real Cloudflare beacon token swapped in before it reports
+  anything, and the Verification list below hasn't been run in a browser.
 - **Priority:** 4 (as time allows)
 - **Constraint:** SPA, no runtime dependencies added.
 
@@ -33,13 +36,16 @@
 
 ## Open questions
 
-- The author is open to analytics but has not committed to it; this item
-  stays `Proposed` until that is decided.
-- Analytics changes what the site collects, so `PrivacyPolicyPage.vue` must
-  be updated in the same change. Confirm Cloudflare's beacon wording before
-  editing it.
+- ~~The author is open to analytics but has not committed to it~~ **Decided:
+  yes, web build only** (Android and desktop skip it — see changelog).
+- ~~Analytics changes what the site collects, so `PrivacyPolicyPage.vue`
+  must be updated in the same change~~ Done in the same change; wording
+  checked against Cloudflare's current docs (no cookies, no client-side
+  state, no PII).
 - Migrating existing entries to Markdown is a one-time copy; confirm
-  the author is happy to do that review.
+  the author is happy to do that review. (Done as a mechanical migration —
+  verified byte-for-byte via the RSS feed output — but still worth a quick
+  look since it moved every entry's text into a new file.)
 
 ## Verification
 

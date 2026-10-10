@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { works, currentlyWriting } from '@/data/works'
+import { journalEntries } from '@/data/journal'
 import WorkCard from '@/components/WorkCard.vue'
 import MoodCard from '@/components/MoodCard.vue'
+
+// journalEntries is kept newest-first, so the latest post is just its head.
+const latestEntry = journalEntries[0]
 
 // "Where to Read" platform cards, derived from the same story links the rest
 // of the site uses: platform -> one link per story hosted there.
@@ -57,6 +61,26 @@ const platforms = Object.entries(
           <span class="status-state" :class="{ paused: item.paused }">{{ item.state }}</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+
+  <section v-reveal v-if="latestEntry">
+    <div class="wrap container-narrow">
+      <div class="section-head">
+        <span class="eyebrow">From the Writing Desk</span>
+        <h2>Latest journal entry</h2>
+      </div>
+      <router-link to="/journal" class="journal-teaser">
+        <div class="work-thumb small" :class="latestEntry.tags.thumb" aria-hidden="true"></div>
+        <div>
+          <span class="journal-date">{{ latestEntry.date }}</span>
+          <h3>{{ latestEntry.title }}</h3>
+          <p class="journal-teaser-body">{{ latestEntry.body }}</p>
+          <span class="go">Read the full journal →</span>
+        </div>
+      </router-link>
     </div>
   </section>
 

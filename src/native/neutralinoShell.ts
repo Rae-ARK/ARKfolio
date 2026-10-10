@@ -43,6 +43,16 @@ function looksLikeDesktopShell(): boolean {
   return protocol === 'http:' && (hostname === 'localhost' || hostname === '127.0.0.1') && port !== ''
 }
 
+/** True once Neutralino has actually initialized, or before that if the
+ *  page is being served the way the desktop shell serves it (see
+ *  looksLikeDesktopShell above) — i.e. true for the whole desktop session,
+ *  not just after Neutralino.init() has run. Exported so other code that
+ *  needs to skip the desktop build (e.g. analytics.ts) doesn't have to
+ *  duplicate this detection. */
+export function isDesktopShell(): boolean {
+  return isNeutralino() || looksLikeDesktopShell()
+}
+
 /** Load the Neutralino client the same way index.html used to, but only on
  *  the desktop shell, so web and Android visits never request it. */
 function loadClientLibrary(): Promise<void> {

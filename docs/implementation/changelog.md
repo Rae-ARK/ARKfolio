@@ -4,6 +4,116 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Markdown journal, tag filter, latest-entry teaser, analytics — proposal [0011](../proposals/0011-maintainability.md)
+
+- **Markdown journal.** Entries moved from long strings in `data/journal.ts`
+  into one Markdown file per entry in `src/data/journal/`, each starting
+  with a small `date`/`tag`/`label`/`title` front-matter block followed by
+  the body as plain text. `src/data/journal/parseEntry.ts` is the
+  (dependency-free, `key: value`-only) parser; filenames use a zero-padded
+  numeric prefix (`001-…md` = newest) so the sort order is the display
+  order without having to parse the entries' own date strings, several of
+  which are vague ("Spring 2026", "2025 – 2026"). `src/data/journal.ts`
+  now just does `import.meta.glob('./journal/*.md', { query: '?raw',
+  import: 'default', eager: true })` + `parseJournalEntry`, so
+  `JournalPage.vue`/`HomePage.vue` needed no changes — `JournalEntry` is
+  still the shape they consume.
+  - `scripts/build-feed.mjs` could not keep importing `data/journal.ts`
+    for this: it runs under plain Node (via a transpile + `data:` URL
+    import), which has no equivalent for Vite's `import.meta.glob`. It now
+    reads `src/data/journal/*.md` off disk directly and reuses
+    `parseEntry.ts` (which has no imports of its own, so it's safe to load
+    with the same data-URL trick as the other `.ts` files there).
+  - Verified the migration byte-for-byte: built `feed.xml` from the old
+    `journal.ts` and from the new Markdown files and diffed them —
+    identical.
+- **Tag filter + latest-entry teaser.** The Journal page now has an
+  All/SBM/EPMC/STBF pill filter above the timeline (`JournalPage.vue`,
+  `.tag-filter`/`.tag-filter-btn` in `main.css`); it matches against each
+  entry's `label` rather than only its `thumb`, so a cross-tagged entry
+  ("SBM · EPMC · STBF") shows under every story's filter, not just one.
+  Home gets a new "Latest journal entry" section (`.journal-teaser`)
+  linking to `/journal`, built from `journalEntries[0]` (the array is kept
+  newest-first already).
+- **Analytics — decided: yes, web build only.** Cloudflare Web Analytics
+  beacon, loaded by `src/native/analytics.ts` and kicked off from
+  `main.ts`. Gated the same way `nativeShell.ts`/`neutralinoShell.ts` gate
+  their own platform: skipped when `Capacitor.isNativePlatform()` or the
+  (now-exported) `isDesktopShell()` from `neutralinoShell.ts` is true, and
+  skipped outside `PROD` so dev/preview traffic doesn't count. The beacon
+  itself sets no cookies and uses no client-side state (per Cloudflare's
+  current docs), so `PrivacyPolicyPage.vue`'s "What's collected" section
+  was updated in the same change rather than left stale, and "last
+  updated" moved to October 2026.
+  - **Needs a real token before this is live:** `CF_BEACON_TOKEN` in
+    `analytics.ts` is a placeholder (`REPLACE_WITH_CLOUDFLARE_BEACON_TOKEN`)
+    — swap in the real beacon token from the Cloudflare dashboard
+    (Analytics & Logs → Web Analytics → Manage Site) before this actually
+    reports anything.
+- Files: `src/data/journal.ts`, `src/data/journal/*.md` (new, 11 files),
+  `src/data/journal/parseEntry.ts` (new), `scripts/build-feed.mjs`,
+  `src/pages/JournalPage.vue`, `src/pages/HomePage.vue`,
+  `src/native/analytics.ts` (new), `src/native/neutralinoShell.ts`,
+  `src/main.ts`, `src/pages/PrivacyPolicyPage.vue`, `src/styles/main.css`.
+- Verification: `npm run build` (vue-tsc + vite + build-feed) passes.
+  `feed.xml` diffed identical against the pre-migration output. **Not
+  checked:** the tag filter and teaser in a browser (reduced motion, dark
+  theme, as proposal 0011's own Verification asks for), and the real
+  Cloudflare token hasn't been generated/swapped in yet.
+
+### AVIF cover art — revisits proposal [0010](../proposals/0010-accessibility-and-polish.md) item 4
+
+- 0010 shipped WebP-with-PNG-fallback and explicitly ruled out AVIF as "not
+  supported everywhere." That's no longer true — AVIF decoding is now
+  effectively universal in current browsers and WebViews — so this adds an
+  AVIF version of every cover (and the About-page profile photo) ahead of
+  the WebP entry in each `image-set()`: AVIF → WebP → PNG, same
+  progressive-enhancement shape as before, just with one more rung.
+  AVIF came out meaningfully smaller than the existing WebP files at
+  equivalent visual quality (e.g. the STBF cover: 55 KB WebP → 36 KB AVIF;
+  the SBM Arc 3 cover: 35 KB WebP → 22 KB AVIF). `profile.png`'s
+  transparency was preserved (it's the only one of the five that actually
+  uses alpha).
+- Files: `public/assets/images/avif/*.avif` (new, 5 files), `src/styles/main.css`.
+- Verification: visually spot-checked a couple of the new AVIF files
+  (including alpha on `profile.avif`, composited against a solid color to
+  confirm transparency survived). **Not checked:** an actual browser
+  render of the `image-set()` fallback chain, or the Android/desktop
+  builds.
+
+### Retailer buttons get the `--i` stagger — proposal [0007](../proposals/0007-store-page-redesign.md) polish
+
+- The Store's retailer buttons (`.retailer-primary` and the "Other
+  retailers" grid) now use `v-reveal` with a per-button `--i`, the same
+  primitive the Home "Where to Read" cards and Journal entries already
+  use. This was the one remaining spot on the Store page with no entrance
+  choreography at all. The primary "Buy" button is `--i: 0`; each button
+  in the "Other retailers" grid continues the count from there.
+- Files: `src/pages/StorePage.vue`.
+- Verification: `npm run build` passes. **Not checked** in a browser yet.
+
+### Decided: View Transitions on Store → Feedback — proposal [0007](../proposals/0007-store-page-redesign.md) item 6
+
+- Documentation-only change: the optional Rollout step 6 is now decided
+  ("go ahead") rather than left an open question, since the compatibility
+  gap that made it optional has closed — same-document View Transitions
+  now work across Chrome 111+, Edge 111+, Safari 18+ and Firefox 144+. The
+  proposal now also carries a short implementation plan (wrap the
+  "I'm waiting for…" click handlers in `document.startViewTransition` when
+  available, name the transitioning button/submit elements, skip outright
+  under reduced motion). **Not implemented yet** — this change is the
+  decision and the plan, not the code.
+- Files: `docs/` only.
+
+### Device name removed from docs — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 6 and its changelog entry
+
+- Replaced the two "iQOO Neo 10R" mentions (the proposal and the earlier
+  changelog entry below) with "upper mid-range phone", which is the
+  detail that actually mattered (it's near the top of the Android
+  performance range the scroll-reveal was checked against), without
+  naming the author's specific device in the repo.
+- Files: `docs/` only.
+
 ### Motion redesign rolls out past the Store — proposal [0007](../proposals/0007-store-page-redesign.md) steps 4–5
 
 - **Home** — hero (`eyebrow`/`h1`/`lede`/`MoodCard`/`cta-row`) now uses the
@@ -36,11 +146,10 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ### Scroll reveal checked on a phone — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 6
 
-- The author tested the scroll reveal on an iQOO Neo 10R and reports it
-  works, so the fade-out when scrolling back up stays as it is. No code
-  change.
-- That phone is upper mid-range (Snapdragon 8s Gen 3). A low-end phone was
-  not tried, so very slow devices are unconfirmed.
+- The author tested the scroll reveal on an upper mid-range phone and
+  reports it works, so the fade-out when scrolling back up stays as it is.
+  No code change.
+- A low-end phone was not tried, so very slow devices are unconfirmed.
 - Proposal 0010 is now fully shipped. It stays open only for its
   Verification list: a keyboard-only pass, a screen-reader pass over Home,
   Works and Store, and the Android and desktop builds (item 5 is untested

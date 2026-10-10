@@ -24,6 +24,11 @@ import('./native/neutralinoShell').then(({ initNeutralinoShell }) => {
   initNeutralinoShell()
 })
 
+// Privacy-friendly analytics (Cloudflare Web Analytics), hosted web build only.
+import('./native/analytics').then(({ initAnalytics }) => {
+  initAnalytics()
+})
+
 // Register the service worker for offline support + installability.
 // Skipped in dev so `npm run dev` never serves stale cached files.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

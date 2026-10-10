@@ -33,14 +33,23 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
           </template>
           <template v-else>
             <template v-for="main in [book.retailers.find((r) => r.primary)]" :key="'main'">
-              <a v-if="main" class="retailer-btn retailer-primary" :href="main.url" target="_blank" rel="noopener">
+              <a v-if="main" class="retailer-btn retailer-primary" v-reveal style="--i: 0" :href="main.url" target="_blank" rel="noopener">
                 <span>Buy on {{ main.label }}</span><span class="arrow">↗</span>
               </a>
             </template>
             <template v-if="book.retailers.some((r) => !r.primary)">
               <p class="retailer-group-label">Other retailers</p>
               <div class="retailer-grid tight">
-                <a v-for="r in book.retailers.filter((x) => !x.primary)" :key="r.label" class="retailer-btn" :href="r.url" target="_blank" rel="noopener">
+                <a
+                  v-for="(r, idx) in book.retailers.filter((x) => !x.primary)"
+                  :key="r.label"
+                  class="retailer-btn"
+                  v-reveal
+                  :style="{ '--i': idx + 1 }"
+                  :href="r.url"
+                  target="_blank"
+                  rel="noopener"
+                >
                   <span>{{ r.label }}</span><span class="arrow">↗</span>
                 </a>
               </div>

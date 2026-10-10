@@ -256,7 +256,7 @@ header.site-header {
 .avatar,
 .avatar-large {
   background-image: url('/assets/images/png/profile.png');
-  background-image: image-set(url('/assets/images/webp/profile.webp') type("image/webp"), url('/assets/images/png/profile.png') type("image/png"));
+  background-image: image-set(url('/assets/images/avif/profile.avif') type("image/avif"), url('/assets/images/webp/profile.webp') type("image/webp"), url('/assets/images/png/profile.png') type("image/png"));
 }
 
 .brand .name {
@@ -593,10 +593,15 @@ section.alt-bg {
 /* Cover: real artwork via background-image, with a colour fallback
    so a missing file never shows a broken-image icon. */
 
-/* Images ship as WebP with the original PNG next to it. Each rule first
-   declares the PNG, then an image-set() with a type() hint; a browser that
-   can't parse image-set()/type() ignores the second line and keeps the PNG,
-   and one that parses it but can't decode WebP picks the PNG entry. */
+/* Images ship as AVIF and WebP with the original PNG next to it. Each rule
+   first declares the PNG, then an image-set() with type() hints in
+   preference order (AVIF, then WebP, then PNG); a browser that can't parse
+   image-set()/type() ignores the second line and keeps the PNG, and one
+   that parses it but can't decode AVIF or WebP falls through to whichever
+   entry it does support. AVIF is listed first since it decodes smaller
+   than WebP at equivalent quality and is supported everywhere modern
+   browsers (and current Android WebView) are; the WebP entry stays as the
+   fallback for the few older WebViews that lack AVIF decoding. */
 
 .cover {
   position: relative;
@@ -609,19 +614,19 @@ section.alt-bg {
 
 .cover.epmc {
   background-image: url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png");
-  background-image: image-set(url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/Enigmatic Pathways Mystic Circuits vol 1.avif") type("image/avif"), url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
   background-color: #2e4a42;
 }
 
 .cover.sbm {
   background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
-  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/Summoned By Mistake, I Decided To Learn How To Live Arc 1.avif") type("image/avif"), url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .cover.stbf {
   background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png");
-  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/The Shadow I Cast Over Two Beautiful Flowers Act 1.avif") type("image/avif"), url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 
@@ -736,25 +741,25 @@ section.alt-bg {
 
 .work-thumb.epmc {
   background-image: url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png");
-  background-image: image-set(url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/Enigmatic Pathways Mystic Circuits vol 1.avif") type("image/avif"), url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
   background-color: #2e4a42;
 }
 
 .work-thumb.sbm {
   background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
-  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/Summoned By Mistake, I Decided To Learn How To Live Arc 1.avif") type("image/avif"), url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .work-thumb.sbm2 {
   background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png");
-  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 3.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/Summoned By Mistake, I Decided To Learn How To Live Arc 3.avif") type("image/avif"), url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 3.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .work-thumb.stbf {
   background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png");
-  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
+  background-image: image-set(url("/assets/images/avif/The Shadow I Cast Over Two Beautiful Flowers Act 1.avif") type("image/avif"), url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 
@@ -1090,6 +1095,99 @@ nav.main-nav a:focus-visible,
 }
 
 /* ---------------------- Journal (timeline) ---------------------- */
+
+/* Proposal 0011: tag filter above the timeline. Pill buttons reuse .badge's
+   shape; the active state derives from --accent via color-mix(), same
+   primitive as the work-status pills, so it stays in sync across themes. */
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.tag-filter-btn {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card-bg);
+  color: var(--ink-soft);
+  transition: all 0.18s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tag-filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-dark);
+  }
+}
+
+.tag-filter-btn.active {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+.journal-empty {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+/* Home's latest-entry teaser — a single card linking to /journal, built from
+   the same .work-thumb + journal-date pieces the Journal timeline uses. */
+.journal-teaser {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 22px;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .journal-teaser:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.journal-teaser h3 {
+  margin: 4px 0 8px;
+}
+
+.journal-teaser-body {
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.journal-teaser .go {
+  font-weight: 700;
+  color: var(--accent);
+}
+
+@media (max-width: 480px) {
+  .journal-teaser {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .journal-teaser .work-thumb {
+    margin: 0 auto;
+  }
+}
 
 .timeline {
   position: relative;

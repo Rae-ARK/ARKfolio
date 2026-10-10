@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const LAST_UPDATED = 'July 2026'
+const LAST_UPDATED = 'October 2026'
 const CONTACT_EMAIL = 'contact@rae-ark.example'
 </script>
 
@@ -23,11 +23,16 @@ const CONTACT_EMAIL = 'contact@rae-ark.example'
 
         <h3>What's collected</h3>
         <p>
-          The site itself does not run analytics, trackers, or advertising, and it does not create
-          accounts or store personal data on a server. The only place personal information can
-          enter the picture is the Feedback page, which opens your own email app with a pre-filled
-          address and subject — anything you write there is sent directly from your device using
-          your own email provider, under that provider's privacy policy, not ours.
+          The web version of this site uses Cloudflare Web Analytics to see which pages and
+          outbound links get used. It sets no cookies, stores nothing in your browser (no
+          localStorage, no fingerprinting), and reports only aggregate counts — it cannot identify
+          you individually, and nothing from it is sold or shared beyond that aggregate reporting.
+          The Android and desktop apps do not load it. Beyond that, the site runs no other
+          trackers or advertising, and does not create accounts or store personal data on a
+          server. The only place personal information can enter the picture is the Feedback page,
+          which opens your own email app with a pre-filled address and subject — anything you
+          write there is sent directly from your device using your own email provider, under that
+          provider's privacy policy, not ours.
         </p>
 
         <h3>App permissions (Android)</h3>
