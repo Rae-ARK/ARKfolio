@@ -70,7 +70,7 @@ export const notYetInPrint: UpcomingPrint[] = [
 ]
 
 export const notYetInPrintNote =
-  "Novels which is not available in print yet. If that changes, they'll appear here first."
+  "Novels which aren't available in print yet. If that changes, they'll appear here first."
 
 export const notYetInPrintCta =
   "Waiting on one of them? Tell me which — it opens an email to me, and it genuinely helps me decide what goes to print."
