@@ -26,8 +26,7 @@
   <meta name="twitter:title" content="Rae ARK — Web Novelist">
   <meta name="twitter:description" content="Fantasy and science-fantasy stories about people rebuilding themselves.">
   <meta name="twitter:image" content="https://rae-ark.horizonarkstudio.workers.dev/assets/images/og-card.jpg">
-  <meta name="theme-color" content="#f6f2e8" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#161512" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f2e8">
 
   <script>
     // Set the theme attribute before first paint so there's no flash of the
@@ -39,6 +38,8 @@
           ? stored
           : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
         document.documentElement.setAttribute('data-theme', theme)
+        // Browser/PWA status bar colour = --paper for the chosen theme.
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#17160f' : '#f6f2e8')
       } catch (e) {}
     })()
   </script>

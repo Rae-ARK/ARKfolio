@@ -20,8 +20,10 @@ const PAPER_DARK = '#17160f'
 async function syncStatusBar(theme: Theme) {
   if (!Capacitor.isNativePlatform()) return
   try {
-    // Light theme -> dark icons (Style.Dark draws dark icons on a light bg).
-    await StatusBar.setStyle({ style: theme === 'dark' ? Style.Light : Style.Dark })
+    // Capacitor's naming is about the *background*, not the icons:
+    //   Style.Dark  = light icons, for a dark background
+    //   Style.Light = dark icons, for a light background
+    await StatusBar.setStyle({ style: theme === 'dark' ? Style.Dark : Style.Light })
   } catch {
     // StatusBar can be unavailable on some OEM WebViews; never block the app on it.
   }

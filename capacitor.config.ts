@@ -14,13 +14,15 @@ const config: CapacitorConfig = {
     backgroundColor: '#f6f2e8',
   },
   plugins: {
-    // Kept dark-on-light by default; src/native/nativeShell.ts flips this to
-    // light-on-dark as soon as the app boots into a saved dark-mode preference.
+    // 'LIGHT' = dark icons for a light background (matches the paper splash).
+    // Capacitor names styles after the background, not the icons.
+    // src/native/nativeShell.ts switches to 'DARK' (light icons) as soon as
+    // the app boots into dark mode.
     // backgroundColor/overlaysWebView are intentionally omitted: Android 16+
     // (this app's targetSdk) enforces edge-to-edge and ignores them — see
     // the safe-area-inset padding in main.css instead.
     StatusBar: {
-      style: 'DARK',
+      style: 'LIGHT',
     },
     // We hide the splash manually from nativeShell.ts once Vue has mounted,
     // so it holds until the app is actually ready to paint instead of racing it.

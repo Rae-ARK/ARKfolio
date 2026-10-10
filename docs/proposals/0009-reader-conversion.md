@@ -1,7 +1,7 @@
 # 0009 — Turning visitors into readers (Stage 2 of the site review)
 
 - **Status:** Accepted — shipped (see [changelog](../implementation/changelog.md)).
-  Stays open until the mood-card copy is approved and the Verification
+  Stays open until the SBM/STBF mood prompts are approved and the Verification
   list is done by the author.
 - **Priority:** 2
 - **Constraint:** SPA. Everything here is client-side or a static file.
@@ -93,8 +93,10 @@
 
 ## Open questions
 
-- Mood copy: the three prompts in `data/works.ts` are a first draft and
-  need the author's wording (and a decision on which stories appear).
+- Mood copy: the EPMC prompt ("In the mood for something a bit different?")
+  is the author's own wording. The SBM and STBF prompts in `data/works.ts`
+  are reviewer drafts and still need the author's wording (and a decision on
+  which stories appear).
 - Should the card cycle by default? It does now; a static card with a
   "Show me another" button is the lower-motion alternative.
 - Feed items all link to `/journal` because journal entries have no

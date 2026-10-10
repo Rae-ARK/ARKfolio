@@ -14,14 +14,37 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 - Needs a browser check at desktop width, in the mobile menu, and in dark
   theme.
 
+### Status bar follows the in-app theme
+
+- **Android (`nativeShell.ts`):** the icon style was inverted. Capacitor's
+  `Style.Dark` means light icons for a dark background and `Style.Light`
+  means dark icons for a light background, but the code used the opposite,
+  so icons had the wrong contrast in both themes. Light theme now sends
+  `Style.Light`, dark theme `Style.Dark`. `capacitor.config.ts` default
+  changed from `DARK` to `LIGHT` (dark icons on the light paper splash,
+  which is what its comment already intended); needs
+  `npm run android:sync` to take effect.
+- **Web / PWA (`index.html`, `useTheme.ts`):** the two `theme-color` tags
+  were keyed to `prefers-color-scheme`, so the in-app toggle never changed
+  them, and the dark value (`#161512`) didn't match `--paper` (`#17160f`).
+  There is now one tag, set before first paint and again on every toggle
+  to `#f6f2e8` / `#17160f`.
+- **Not verified on a device.** Checked in headless Chromium that the tag
+  changes with the toggle and persists across reloads; the Android icon
+  fix is from Capacitor's documented semantics and its plugin source, not
+  from a phone. The installed-PWA title bar is also unchecked.
+- Files: `src/native/nativeShell.ts`, `capacitor.config.ts`, `index.html`,
+  `src/composables/useTheme.ts`.
+
 ### Reader conversion — proposal [0009](../proposals/0009-reader-conversion.md)
 
 - **Hero mood card:** new `MoodCard.vue` and a `moods` list in
   `data/works.ts` (EPMC, SBM, STBF; EPMC first). Cross-fading slides,
   auto-advance every 7 s that stops on hover/focus/interaction or Pause,
   arrows + dots + Pause/Play, no animation or auto-advance under reduced
-  motion. "Read the works" is now the secondary hero button. Prompt wording
-  is a **first draft for the author to approve**.
+  motion. "Read the works" is now the secondary hero button. The EPMC
+  prompt is the author's own wording; the SBM and STBF prompts are reviewer
+  drafts **for the author to approve**.
 - **Where to Read:** platform cards link straight to each story
   (derived from `works` links) instead of to `/works`.
 - **Store:** Amazon is the primary "Buy on Amazon" button; other retailers
