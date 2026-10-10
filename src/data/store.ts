@@ -7,12 +7,18 @@ export interface Retailer {
 
 export interface StoreBook {
   workSlug: 'sbm'
-  thumbClass: 'sbm'
+  thumbClass: 'sbm' | 'sbm2'
   edition: string
   title: string
   description: string
-  note: string
+  /** Publisher/ISBN line. Omitted for books that aren't in print yet. */
+  note?: string
   retailers: Retailer[]
+  /** Set on a volume that's announced but not yet purchasable. When set,
+   *  the Store renders an availability badge instead of the retailer grid. */
+  status?: 'coming-soon'
+  /** Shown on the badge when status is 'coming-soon', e.g. "Winter 2027". */
+  availability?: string
 }
 
 export const storeBooks: StoreBook[] = [
@@ -39,6 +45,16 @@ export const storeBooks: StoreBook[] = [
         note: 'Opens an author search rather than a direct product page — use it to check in-store availability.',
       },
     ],
+  },
+  {
+    workSlug: 'sbm',
+    thumbClass: 'sbm2',
+    edition: 'SBM · Volume 2',
+    title: 'Summoned by Mistake, I Decided to Learn How to Live',
+    description: 'Volume 2 — Arc 3. Paperback edition, following the same lightly formatted print run as Volume 1.',
+    retailers: [],
+    status: 'coming-soon',
+    availability: 'Coming soon — Winter 2027',
   },
 ]
 

@@ -6,31 +6,43 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
 <template>
   <section class="hero page-hero">
     <div class="wrap">
-      <span class="eyebrow">Paperbacks</span>
-      <h1>Store</h1>
-      <p class="lede">Every chapter is free to read online. These are the print editions, for anyone who'd rather have one on a shelf.</p>
+      <span class="eyebrow stagger-in" style="--i: 0">Paperbacks</span>
+      <h1 class="stagger-in" style="--i: 1">Store</h1>
+      <p class="lede stagger-in" style="--i: 2">Every chapter is free to read online. These are the print editions, for anyone who'd rather have one on a shelf.</p>
     </div>
   </section>
 
   <section class="page-body tight">
     <div class="wrap container-narrow">
-      <div class="store-book" v-reveal v-for="book in storeBooks" :key="book.title">
+      <div
+        class="store-book"
+        :class="{ 'is-coming-soon': book.status === 'coming-soon' }"
+        v-reveal
+        v-for="book in storeBooks"
+        :key="book.edition"
+      >
         <div class="work-thumb" :class="book.thumbClass"></div>
         <div>
           <span class="eyebrow">{{ book.edition }}</span>
           <h2>{{ book.title }}</h2>
           <p class="book-desc">{{ book.description }}</p>
-          <p class="retailer-note">{{ book.note }}</p>
-          <div class="retailer-grid">
-            <a v-for="r in book.retailers" :key="r.label" class="retailer-btn" :href="r.url" target="_blank" rel="noopener">
-              <span>{{ r.label }}</span><span class="arrow">↗</span>
-            </a>
-          </div>
-          <div class="retailer-notes">
-            <p v-for="r in book.retailers.filter(x => x.note)" :key="r.label" class="retailer-note">
-              <strong>{{ r.label }}:</strong> {{ r.note }}
-            </p>
-          </div>
+          <p v-if="book.note" class="retailer-note">{{ book.note }}</p>
+
+          <template v-if="book.status === 'coming-soon'">
+            <span class="coming-soon-badge">{{ book.availability }}</span>
+          </template>
+          <template v-else>
+            <div class="retailer-grid">
+              <a v-for="r in book.retailers" :key="r.label" class="retailer-btn" :href="r.url" target="_blank" rel="noopener">
+                <span>{{ r.label }}</span><span class="arrow">↗</span>
+              </a>
+            </div>
+            <div class="retailer-notes">
+              <p v-for="r in book.retailers.filter(x => x.note)" :key="r.label" class="retailer-note">
+                <strong>{{ r.label }}:</strong> {{ r.note }}
+              </p>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -44,15 +56,16 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
         <span class="eyebrow">Still to come</span>
         <p class="print-card-lead">{{ notYetInPrintNote }}</p>
         <p class="print-card-cta">{{ notYetInPrintCta }}</p>
-        <div class="waiting-links">
-          <router-link
-            v-for="item in notYetInPrint"
-            :key="item.slug"
-            class="btn btn-primary btn-small"
-            :to="{ path: '/feedback', query: { subject: waitingSubjects[item.slug] } }"
-          >
-            I'm waiting for {{ item.shortTitle }} →
-          </router-link>
+        <div class="ghost-shelf">
+          <div class="ghost-spine-group" v-for="item in notYetInPrint" :key="item.slug">
+            <div class="ghost-spine" :class="item.slug" :title="item.title"></div>
+            <router-link
+              class="btn btn-primary btn-small"
+              :to="{ path: '/feedback', query: { subject: waitingSubjects[item.slug] } }"
+            >
+              I'm waiting for {{ item.shortTitle }} →
+            </router-link>
+          </div>
         </div>
       </div>
     </div>

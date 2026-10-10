@@ -1,6 +1,8 @@
 # 0007 — Site-wide modern CSS motion, starting with the Store page
 
-- **Status:** Proposed
+- **Status:** Proposed — Store page (Rollout steps 1–2) shipped, see
+  [changelog](../implementation/changelog.md). Home/Works/Journal/About
+  and the optional View Transitions step are not started.
 - **Scope:** Widened from Store-only to the whole site. The motion
   primitives in this proposal are written as shared, reusable pieces
   (keyframes, custom properties, utility classes in `main.css`) from the
@@ -197,11 +199,14 @@ design" in what's actually shipping rather than a vague impression of it:
 
 ## Rollout
 
-1. Shared primitives land in `main.css` (entrance stagger, `text-wrap`,
+1. ✅ Shared primitives land in `main.css` (entrance stagger, `text-wrap`,
    `color-mix()` tokens) — low risk, no 3D or scroll-driven APIs yet.
-2. Store: book cover 3D, the card border highlight, ghost spines.
-3. Store: scroll-driven animation (with its fallback already in place from
-   step 1's primitives).
+2. ✅ Store: book cover 3D, the card border highlight, ghost spines.
+3. ✅ Store: scroll-driven animation (with its fallback already in place
+   from step 1's primitives — the `[data-reveal]` `@supports` rule applies
+   to every `v-reveal` element site-wide, so Store gets it automatically;
+   other pages still need their own stagger/container-query/`color-mix()`
+   treatment in steps 4–5 below).
 4. Home and Works adopt the shared primitives (staggered entrance,
    container queries, scroll-driven reveal, `color-mix()` status pills).
 5. Journal and About adopt the shared primitives (lightest touch).

@@ -2,6 +2,54 @@
 
 Shipped changes that resolve a proposal or an audit finding. Newest first.
 
+## 2026-10-10 (later)
+
+### Store page redesign (proposal 0007, steps 1–3) and SBM Volume 2 card
+
+- **Proposal [0007](../proposals/0007-store-page-redesign.md)** — shipped
+  Rollout steps 1–3 (Store only; Home/Works/Journal/About and the optional
+  View Transitions step remain open). New shared sections in `main.css`:
+  - **Staggered entrance** (`@keyframes reveal-stagger`, `.stagger-in`
+    utility driven by `--i`) — used for the Store hero's eyebrow/heading/
+    lede.
+  - **Scroll-driven reveal** (`animation-timeline: view()` behind
+    `@supports`), applied to every existing `v-reveal` element; the
+    IntersectionObserver fallback in `useScrollReveal.ts` is unchanged and
+    still carries browsers/WebViews without the feature.
+  - **`color-mix()` tint** (`--brass-glow`) feeding the new Store motion
+    below.
+  - **Container query** on `.store-book` (`container-type: inline-size`),
+    alongside the existing viewport media query rather than replacing it.
+  - **`text-wrap: balance`** on `h1`–`h4` and `.lede` site-wide.
+  - **Book tilt** — `.store-book .work-thumb` gets a spine and page-edge
+    from pseudo-elements and a `rotateY` lift on hover (pointer devices
+    only); touch devices get a flat cover with a one-time settle animation
+    instead.
+  - **Living border** on the "Still to come" card — a `@property --angle`
+    + `conic-gradient` ring that runs while the card is visible and pauses
+    on hover/focus.
+  - **Ghost spines** — EPMC and STBF now render as a shimmering spine on a
+    shelf line inside the card (`.ghost-shelf`), each with its own
+    "I'm waiting for…" button, replacing the plain `.waiting-links` row.
+  - All of the above collapses to the static look under
+    `prefers-reduced-motion: reduce`.
+  - Files: `src/styles/main.css`, `src/pages/StorePage.vue`. Needs a
+    browser check (desktop, phone width, dark theme, reduced motion) per
+    [Verification](../proposals/0007-store-page-redesign.md#verification)
+    before the proposal can move past `Proposed`.
+- **New volume** — added a Volume 2 card to the Store (Arc 3), using the
+  newly added cover art. Not yet purchasable, so it renders a
+  `coming-soon` badge ("Coming soon — Winter 2027") instead of a retailer
+  grid; `StoreBook.note`/`retailers` are now optional to support this.
+  Files: `src/data/store.ts`, `src/pages/StorePage.vue`,
+  `src/styles/main.css` (new `.work-thumb.sbm2` background,
+  `.coming-soon-badge`).
+- **Docs cleanup** — removed proposals 0001–0006: all were `Implemented`
+  and fully duplicated by their changelog entries, so they no longer
+  needed a standalone file. `docs/proposals/README.md` updated to match;
+  see that file's note on the convention going forward.
+- Verification: `npm install && npm run build` (vue-tsc + vite) passes.
+
 ## 2026-10-10
 
 ### Arc 3 → Arc 4, mobile nav redesign, and widened proposal 0007
