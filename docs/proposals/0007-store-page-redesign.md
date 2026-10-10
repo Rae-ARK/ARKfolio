@@ -1,8 +1,10 @@
 # 0007 — Site-wide modern CSS motion, starting with the Store page
 
-- **Status:** Accepted — Store page (Rollout steps 1–2) shipped, see
-  [changelog](../implementation/changelog.md). Home/Works/Journal/About
-  and the optional View Transitions step are not started.
+- **Status:** Accepted — Store page (Rollout steps 1–3) and Home/Works/
+  Journal/About (Rollout steps 4–5) shipped, see
+  [changelog](../implementation/changelog.md); each still needs the
+  per-page browser check described in Verification before being marked
+  `Implemented`. The optional View Transitions step (6) is not started.
 - **Scope:** Widened from Store-only to the whole site. The motion
   primitives in this proposal are written as shared, reusable pieces
   (keyframes, custom properties, utility classes in `main.css`) from the
@@ -203,9 +205,20 @@ design" in what's actually shipping rather than a vague impression of it:
    to every `v-reveal` element site-wide, so Store gets it automatically;
    other pages still need their own stagger/container-query/`color-mix()`
    treatment in steps 4–5 below).
-4. Home and Works adopt the shared primitives (staggered entrance,
-   container queries, scroll-driven reveal, `color-mix()` status pills).
-5. Journal and About adopt the shared primitives (lightest touch).
+4. ✅ Home and Works adopt the shared primitives: staggered entrance on
+   the Home hero and "Where to Read" cards (`stagger-in`, and `v-reveal`
+   with a per-card `--i` for the read-cards); a `work-card` container
+   query (narrows `.tagline` and stacks `.work-links` under ~260px); the
+   `Ongoing`/`On Hiatus`/`On Break` status pills now derive their
+   background from `color-mix()` against the existing tokens instead of
+   plain text color. Scroll-driven reveal on each work card/section was
+   already covered by step 1's site-wide `[data-reveal]` rule.
+5. ✅ Journal and About adopt the shared primitives (lightest touch):
+   staggered entrance per journal entry (`--i`, cycling every 4 so a long
+   timeline doesn't accumulate an ever-growing delay) and a
+   `journal-card` container query (stacks the date/tag row under
+   ~340px); `text-wrap: balance` added to `.about-lead` (page headings
+   already had it site-wide from step 1).
 6. View Transitions on Store → Feedback, only if steps 1–3 land well.
 
 Each step can ship on its own and gets its own browser check before being

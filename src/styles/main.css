@@ -559,6 +559,23 @@ section.alt-bg {
   flex-direction: column;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.25s ease, transform 0.25s ease;
+  /* Proposal 0007 step 4: container query so the card's internal layout
+     can respond to its own width (it already sits in a responsive grid —
+     3 columns down to 1 — but a container query also covers the card
+     being dropped into a narrower slot later without a new breakpoint). */
+  container-type: inline-size;
+  container-name: work-card;
+}
+
+@container work-card (max-width: 260px) {
+  .work-body .tagline {
+    font-size: 0.9rem;
+  }
+
+  .work-links {
+    flex-direction: column;
+    gap: 8px;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -794,16 +811,26 @@ section.alt-bg {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent);
   white-space: nowrap;
+  /* Proposal 0007 step 4: a status pill, background derived via
+     color-mix() from the existing tokens (same primitive as
+     --brass-glow) instead of a separate hard-coded value per state, so
+     both themes stay in sync automatically. Ongoing/On Hiatus/On Break
+     are the three states in data/works.ts's currentlyWriting list. */
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  border-radius: 999px;
+  padding: 4px 10px;
 }
 
 .status-state.hiatus {
   color: var(--ink-faint);
+  background: color-mix(in srgb, var(--ink-faint) 16%, transparent);
 }
 
 .status-state.paused {
   color: var(--brass-dark);
+  background: color-mix(in srgb, var(--brass-dark) 16%, transparent);
 }
 
 /* ---------------------- Philosophy / pull quote ---------------------- */
@@ -1121,6 +1148,18 @@ nav.main-nav a:focus-visible,
   border-radius: 8px;
   padding: 26px 28px;
   box-shadow: var(--shadow-sm);
+  /* Proposal 0007 step 5: container query, same vocabulary as .store-book
+     and .work-card, so the date/tag row can tighten on its own width. */
+  container-type: inline-size;
+  container-name: journal-card;
+}
+
+@container journal-card (max-width: 340px) {
+  .journal-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }
 
 .journal-tag-row {
@@ -1320,6 +1359,12 @@ nav.main-nav a:focus-visible,
     animation: reveal-stagger linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+    /* Same --i stagger used by .stagger-in, so a list of scroll-revealed
+       items (Journal entries, Where-to-Read cards) can cascade in rather
+       than all crossing the reveal threshold at once. Defaults to 0 so
+       nothing changes for the many [data-reveal] elements that don't set
+       --i (whole sections, single cards). */
+    animation-delay: calc(var(--i, 0) * 70ms);
   }
 }
 
@@ -1806,6 +1851,7 @@ section.page-body.flush {
 .about-lead {
   font-size: 1.08rem;
   color: var(--ink);
+  text-wrap: balance;
 }
 
 .about-divider {

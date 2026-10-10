@@ -4,6 +4,36 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Motion redesign rolls out past the Store — proposal [0007](../proposals/0007-store-page-redesign.md) steps 4–5
+
+- **Home** — hero (`eyebrow`/`h1`/`lede`/`MoodCard`/`cta-row`) now uses the
+  `stagger-in` entrance; each "Where to Read" card gets `v-reveal` with its
+  own `--i` so the row cascades in rather than revealing all at once.
+- **Works** — `.work-card` is now a `container-type: inline-size` query
+  container (tagline shrinks, link list stacks under ~260px), matching
+  `.store-book`. Scroll-driven reveal on each work card/section was
+  already covered by the site-wide `[data-reveal]` rule from step 1.
+- **Status pills** — `.status-state` (`Ongoing`/`On Hiatus`/`On Break` on
+  the Home "Currently Writing" panel) is now a pill with its background
+  from `color-mix()` against `--accent`/`--ink-faint`/`--brass-dark`,
+  rather than plain colored text with no shared derivation.
+- **Journal** — each entry gets a `--i` (cycling every 4) feeding the same
+  stagger used elsewhere; `.journal-card` is now a container query
+  container (date/tag row stacks under ~340px).
+- **About** — `text-wrap: balance` added to `.about-lead`; page headings
+  already had it site-wide from step 1, so this was the only gap.
+- The `[data-reveal]` scroll-driven rule (step 1) now also reads `--i`
+  for its `animation-delay`, so the same per-item stagger works whether
+  an element uses `stagger-in` (load) or `v-reveal` (scroll-linked).
+- No new runtime dependencies; reduced-motion, theme and Android
+  safe-area behavior are unchanged from the existing rules.
+- Files: `src/pages/HomePage.vue`, `src/pages/JournalPage.vue`,
+  `src/styles/main.css`.
+- Verification: `npm run build` (vue-tsc + vite) passes. Per-page browser
+  checks (desktop, a phone width, dark theme, reduced-motion on) from
+  proposal 0007's own Verification section are still outstanding — not
+  done in this change.
+
 ### Scroll reveal checked on a phone — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 6
 
 - The author tested the scroll reveal on an iQOO Neo 10R and reports it

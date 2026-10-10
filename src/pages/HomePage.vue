@@ -16,11 +16,11 @@ const platforms = Object.entries(
 <template>
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow">Fantasy · Science Fantasy · Slice of Life</span>
-      <h1>Stories about people learning how to live again.</h1>
-      <p class="lede">Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.</p>
-      <MoodCard />
-      <div class="cta-row">
+      <span class="eyebrow stagger-in" style="--i: 0">Fantasy · Science Fantasy · Slice of Life</span>
+      <h1 class="stagger-in" style="--i: 1">Stories about people learning how to live again.</h1>
+      <p class="lede stagger-in" style="--i: 2">Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.</p>
+      <MoodCard class="stagger-in" style="--i: 3" />
+      <div class="cta-row stagger-in" style="--i: 4">
         <router-link to="/works" class="btn btn-ghost">Read the works</router-link>
         <router-link to="/journal" class="btn btn-ghost">From the writing desk</router-link>
       </div>
@@ -78,11 +78,11 @@ const platforms = Object.entries(
         <h2>Read every chapter free, or keep a copy on your shelf</h2>
       </div>
       <div class="reads">
-        <div class="read-card" v-for="[site, links] in platforms" :key="site">
+        <div class="read-card" v-reveal :style="{ '--i': idx }" v-for="([site, links], idx) in platforms" :key="site">
           <span class="k">{{ site }}</span>
           <a v-for="link in links" :key="link.url" class="go" :href="link.url" target="_blank" rel="noopener">{{ link.name }} ↗</a>
         </div>
-        <div class="read-card">
+        <div class="read-card" v-reveal :style="{ '--i': platforms.length }">
           <span class="k">Paperback</span>
           <router-link class="go" to="/store">SBM, Vol. 1 →</router-link>
         </div>
