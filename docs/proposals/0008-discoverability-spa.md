@@ -52,7 +52,7 @@
 ## What shipped
 
 - Static Open Graph + Twitter tags in `index.html`, with
-  `public/assets/images/og-card.png` (1200×630).
+  `public/assets/images/og-card.jpg` (1200×630).
 - `public/robots.txt` and `public/sitemap.xml` (the eight real routes; the
   404 page is excluded). Both are copied into `dist/` by the build.
 - Catch-all route and `src/pages/NotFoundPage.vue`; `noindex` is applied
@@ -73,10 +73,13 @@
   out in three places: `index.html`, `public/sitemap.xml`,
   `public/robots.txt`, plus `SITE_ORIGIN` in `src/seo/structuredData.ts`.
   Update all of them if the address ever changes.
+- The share card was first saved as a 198 KB PNG and then recompressed to
+  a 59 KB JPEG. Scrapers need a raster image (they ignore SVG), so the
+  existing SVG logo mark could not be used for it.
 - The Book markup deliberately has no price or offer data; none is stored
   in `data/store.ts`. Rich-result eligibility may therefore be limited.
 - Files under `public/` are also bundled into the Android and desktop
-  builds, so they carry `og-card.png` (~200 KB) with them.
+  builds, so they carry `og-card.jpg` (~60 KB) with them.
 
 ## Non-goals
 
@@ -92,7 +95,7 @@
   a `main` entry to `wrangler.jsonc` and `run_worker_first` routing. Worth
   it only if per-page previews matter; not part of this stage.
 - ~~Which image should be the default share card?~~ Resolved for now:
-  `og-card.png` is generated from the EPMC cover (the author's number-one
+  `og-card.jpg` is generated from the EPMC cover (the author's number-one
   pick) beside the name and tagline. Swap the file at any time; the tags
   point at the path, not the content.
 

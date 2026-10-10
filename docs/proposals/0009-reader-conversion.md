@@ -1,6 +1,8 @@
 # 0009 — Turning visitors into readers (Stage 2 of the site review)
 
-- **Status:** Proposed (design decisions made, not yet built)
+- **Status:** Accepted — shipped (see [changelog](../implementation/changelog.md)).
+  Stays open until the mood-card copy is approved and the Verification
+  list is done by the author.
 - **Priority:** 2
 - **Constraint:** SPA. Everything here is client-side or a static file.
 
@@ -56,6 +58,34 @@
    button; other retailers grouped under "Other retailers" with the
    existing per-retailer notes unchanged.
 
+## What shipped
+
+- **Mood card** (`src/components/MoodCard.vue`, `moods` in `data/works.ts`):
+  three prompts, EPMC first. Each slide shows the story's own cover,
+  summary, a "Read on Royal Road ↗" button (first entry in its `links`) and
+  "Full synopsis →". All slides sit in one grid cell, so the card never
+  changes height and slide changes are a CSS cross-fade. Auto-advances
+  every 7 s; stops when the visitor hovers, focuses, uses any control, or
+  presses Pause. Previous/next arrows, dots and a Pause/Play button are
+  all real buttons with 44 px touch targets. With reduced motion there is
+  no auto-advance, no Pause button and no slide animation. Inactive slides
+  are `visibility: hidden`, so their links can't be tabbed to or read.
+- **Hero buttons:** "Read the works" is now the secondary (ghost) button.
+- **Where to Read:** each platform card now lists one link per story,
+  straight to that story's page (EPMC / SBM / STBF on Royal Road; EPMC /
+  SBM on Scribble Hub), derived from the `links` data. No author-profile
+  URL was invented, because none is stored.
+- **RSS:** `scripts/build-feed.mjs` runs at the end of `npm run build`
+  and writes `dist/feed.xml` (RSS 2.0). It transpiles the data files with
+  the `typescript` package already in devDependencies, so no new
+  dependency. Only entries with a full calendar date ("October 3, 2026")
+  get a `<pubDate>`; vague ones ("July 2026", "Spring 2026") are left
+  undated rather than guessed. `<link rel="alternate">` in `index.html`
+  and a "Follow by RSS ↗" link on the Journal page.
+- **Store:** `Retailer` gained `primary?: boolean`. Amazon renders as a
+  solid "Buy on Amazon" button; the rest sit under "Other retailers". All
+  per-retailer notes are unchanged.
+
 ## Non-goals
 
 - No change to retailer data or link targets.
@@ -63,11 +93,12 @@
 
 ## Open questions
 
-- Mood copy: one prompt per story (and which stories appear at all).
-  Needs the author's wording; a first pass can be drafted for review.
-- Should the card cycle at all by default, or only change on interaction?
-  The cycling version is specified above; a static card with a
+- Mood copy: the three prompts in `data/works.ts` are a first draft and
+  need the author's wording (and a decision on which stories appear).
+- Should the card cycle by default? It does now; a static card with a
   "Show me another" button is the lower-motion alternative.
+- Feed items all link to `/journal` because journal entries have no
+  anchors of their own.
 
 ## Verification
 

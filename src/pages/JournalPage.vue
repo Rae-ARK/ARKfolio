@@ -8,6 +8,7 @@ import { journalEntries } from '@/data/journal'
       <span class="eyebrow">From the Writing Desk</span>
       <h1>Journal</h1>
       <p class="lede">Not news. Just the process — the breaks, the doubts, the small wins — as it actually happens.</p>
+      <p class="rss-link"><a href="/feed.xml" target="_blank" rel="noopener">Follow by RSS ↗</a></p>
     </div>
   </section>
 

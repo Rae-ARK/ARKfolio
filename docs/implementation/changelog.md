@@ -14,10 +14,42 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 - Needs a browser check at desktop width, in the mobile menu, and in dark
   theme.
 
+### Reader conversion — proposal [0009](../proposals/0009-reader-conversion.md)
+
+- **Hero mood card:** new `MoodCard.vue` and a `moods` list in
+  `data/works.ts` (EPMC, SBM, STBF; EPMC first). Cross-fading slides,
+  auto-advance every 7 s that stops on hover/focus/interaction or Pause,
+  arrows + dots + Pause/Play, no animation or auto-advance under reduced
+  motion. "Read the works" is now the secondary hero button. Prompt wording
+  is a **first draft for the author to approve**.
+- **Where to Read:** platform cards link straight to each story
+  (derived from `works` links) instead of to `/works`.
+- **Store:** Amazon is the primary "Buy on Amazon" button; other retailers
+  are grouped under "Other retailers" (`Retailer.primary`).
+- **RSS:** `scripts/build-feed.mjs` (no new dependency) writes
+  `dist/feed.xml` at the end of `npm run build`; alternate link in
+  `index.html` and "Follow by RSS ↗" on the Journal page. Undated
+  ("July 2026", "Spring 2026") entries are left without `pubDate`.
+- **Also:** `SITE_ORIGIN` moved to `src/seo/site.ts` so the feed script can
+  share it; the share card was recompressed from a 198 KB PNG to a 59 KB
+  JPEG (`og-card.jpg`).
+- Verification: `npm run build` passes; `feed.xml` is valid XML (11 items,
+  6 dated). Checked in headless Chromium against the production preview:
+  slides advance, the router sets/removes JSON-LD and `noindex` correctly,
+  autoplay runs on a normal profile and not under reduced motion, hidden
+  slides have no focusable links, and the phone-width layout stacks.
+  **Not checked:** dark theme, a real phone, the Android/desktop shells, or
+  the feed in a real reader.
+- Files: `src/components/MoodCard.vue`, `src/pages/HomePage.vue`,
+  `src/pages/StorePage.vue`, `src/pages/JournalPage.vue`,
+  `src/data/works.ts`, `src/data/store.ts`, `src/seo/site.ts`,
+  `src/seo/structuredData.ts`, `scripts/build-feed.mjs`, `package.json`,
+  `index.html`, `src/styles/main.css`.
+
 ### Discoverability for the SPA — proposal [0008](../proposals/0008-discoverability-spa.md)
 
 - **Share cards:** static Open Graph + Twitter tags in `index.html` and a
-  new 1200×630 `public/assets/images/og-card.png` (EPMC cover, name and
+  new 1200×630 `public/assets/images/og-card.jpg` (EPMC cover, name and
   tagline). One card for the whole site, because link-preview scrapers do
   not run the SPA's JavaScript.
 - **Crawler files:** `public/robots.txt` and `public/sitemap.xml`.
@@ -34,7 +66,7 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
   running `buildJsonLd`. **Not yet checked in a browser or a link-preview /
   rich-results tool** — see the proposal's Verification list.
 - Files: `index.html`, `public/robots.txt`, `public/sitemap.xml`,
-  `public/assets/images/og-card.png`, `src/seo/structuredData.ts`,
+  `public/assets/images/og-card.jpg`, `src/seo/structuredData.ts`,
   `src/pages/NotFoundPage.vue`, `src/pages/WorksPage.vue`,
   `src/router/index.ts`, `src/data/store.ts`, `src/styles/main.css`.
 

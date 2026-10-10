@@ -32,11 +32,19 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
             <span class="coming-soon-badge">{{ book.availability }}</span>
           </template>
           <template v-else>
-            <div class="retailer-grid">
-              <a v-for="r in book.retailers" :key="r.label" class="retailer-btn" :href="r.url" target="_blank" rel="noopener">
-                <span>{{ r.label }}</span><span class="arrow">↗</span>
+            <template v-for="main in [book.retailers.find((r) => r.primary)]" :key="'main'">
+              <a v-if="main" class="retailer-btn retailer-primary" :href="main.url" target="_blank" rel="noopener">
+                <span>Buy on {{ main.label }}</span><span class="arrow">↗</span>
               </a>
-            </div>
+            </template>
+            <template v-if="book.retailers.some((r) => !r.primary)">
+              <p class="retailer-group-label">Other retailers</p>
+              <div class="retailer-grid tight">
+                <a v-for="r in book.retailers.filter((x) => !x.primary)" :key="r.label" class="retailer-btn" :href="r.url" target="_blank" rel="noopener">
+                  <span>{{ r.label }}</span><span class="arrow">↗</span>
+                </a>
+              </div>
+            </template>
             <div class="retailer-notes">
               <p v-for="r in book.retailers.filter(x => x.note)" :key="r.label" class="retailer-note">
                 <strong>{{ r.label }}:</strong> {{ r.note }}

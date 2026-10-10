@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { works, currentlyWriting } from '@/data/works'
 import WorkCard from '@/components/WorkCard.vue'
+import MoodCard from '@/components/MoodCard.vue'
+
+// "Where to Read" platform cards, derived from the same story links the rest
+// of the site uses: platform -> one link per story hosted there.
+const platforms = Object.entries(
+  works.reduce<Record<string, { name: string; url: string }[]>>((acc, work) => {
+    for (const link of work.links) (acc[link.label] ??= []).push({ name: work.shortTitle, url: link.url })
+    return acc
+  }, {})
+)
 </script>
 
 <template>
@@ -9,8 +19,9 @@ import WorkCard from '@/components/WorkCard.vue'
       <span class="eyebrow">Fantasy · Science Fantasy · Slice of Life</span>
       <h1>Stories about people learning how to live again.</h1>
       <p class="lede">Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.</p>
+      <MoodCard />
       <div class="cta-row">
-        <router-link to="/works" class="btn btn-primary">Read the works</router-link>
+        <router-link to="/works" class="btn btn-ghost">Read the works</router-link>
         <router-link to="/journal" class="btn btn-ghost">From the writing desk</router-link>
       </div>
     </div>
@@ -67,13 +78,9 @@ import WorkCard from '@/components/WorkCard.vue'
         <h2>Read every chapter free, or keep a copy on your shelf</h2>
       </div>
       <div class="reads">
-        <div class="read-card">
-          <span class="k">Royal Road</span>
-          <router-link class="go" to="/works">All three stories →</router-link>
-        </div>
-        <div class="read-card">
-          <span class="k">Scribble Hub</span>
-          <router-link class="go" to="/works">Two stories →</router-link>
+        <div class="read-card" v-for="[site, links] in platforms" :key="site">
+          <span class="k">{{ site }}</span>
+          <a v-for="link in links" :key="link.url" class="go" :href="link.url" target="_blank" rel="noopener">{{ link.name }} ↗</a>
         </div>
         <div class="read-card">
           <span class="k">X / Twitter</span>

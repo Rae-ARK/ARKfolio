@@ -3,6 +3,9 @@ export interface Retailer {
   url: string
   /** Shown under the buttons when the link isn't a plain product page. */
   note?: string
+  /** The one retailer shown as the main "Buy" button; the rest are grouped
+   *  under "Other retailers". */
+  primary?: boolean
 }
 
 export interface StoreBook {
@@ -39,6 +42,7 @@ export const storeBooks: StoreBook[] = [
     retailers: [
       {
         label: 'Amazon',
+        primary: true,
         url: 'https://www.royalroad.com/amazon/B0H62KQV8D?maas=&ref=',
         note: 'Opens through a Royal Road redirect link on its way to the Amazon listing.',
       },

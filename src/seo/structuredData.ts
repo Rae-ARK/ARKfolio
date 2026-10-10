@@ -1,8 +1,5 @@
 import { storeBooks } from '@/data/store'
-
-// The deployed address, used for absolute URLs in structured data.
-// Keep in sync with the og:* tags in index.html and public/sitemap.xml.
-export const SITE_ORIGIN = 'https://rae-ark.horizonarkstudio.workers.dev'
+import { SITE_ORIGIN } from './site'
 
 export type SchemaKind = 'person' | 'book'
 

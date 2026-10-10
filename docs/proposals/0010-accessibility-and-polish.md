@@ -18,6 +18,9 @@
   is "…Two Beautiful Flowers".
 - `index.html` loads `/neutralino.js` on every web visit; only the desktop
   build uses it.
+  Confirmed in a headless browser: every page load of the web build logs
+  `Failed to construct 'WebSocket': ... ws://localhost:undefined` console
+  errors, which come from that script finding no Neutralino runtime.
 - The scroll reveal replays in both directions; it respects reduced motion
   but is worth checking on slower phones.
 

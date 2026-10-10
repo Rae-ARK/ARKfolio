@@ -110,3 +110,20 @@ export const currentlyWriting = [
   { title: 'Summoned by Mistake, I Decided to Learn How to Live — Arc 4', note: 'Picked back up after a short break following Arc 3. New chapters continue on a regular cadence.', state: 'Ongoing' },
   { title: 'The Shadow I Cast Over Two Beautiful Flowers — Act 2', note: 'Resting until Volume 3 of Enigmatic Pathways Mystic Circuits is further along.', state: 'On Break', paused: true },
 ]
+
+/**
+ * Hero "mood card" (see proposal 0009). Each mood points at one story; the
+ * card shows that story's own summary and Royal Road link, so only the
+ * prompt is written here. EPMC is first and is the default card.
+ * Prompts are a first draft for the author to reword.
+ */
+export interface Mood {
+  prompt: string
+  workSlug: Work['slug']
+}
+
+export const moods: Mood[] = [
+  { prompt: 'In the mood for something a bit different?', workSlug: 'epmc' },
+  { prompt: 'Want something gentler — slow, human, a little strange?', workSlug: 'sbm' },
+  { prompt: 'Rather read something short, written to reach its ending?', workSlug: 'stbf' },
+]
