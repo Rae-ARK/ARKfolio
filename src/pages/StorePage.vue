@@ -21,7 +21,7 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
         v-for="book in storeBooks"
         :key="book.edition"
       >
-        <div class="work-thumb" :class="book.thumbClass"></div>
+        <div class="work-thumb" :class="book.thumbClass" role="img" :aria-label="`Cover of ${book.title} (${book.edition})`"></div>
         <div>
           <span class="eyebrow">{{ book.edition }}</span>
           <h2>{{ book.title }}</h2>
@@ -66,7 +66,7 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
         <p class="print-card-cta">{{ notYetInPrintCta }}</p>
         <div class="upcoming-shelf">
           <div class="store-book is-coming-soon" v-for="item in notYetInPrint" :key="item.slug">
-            <div class="work-thumb" :class="item.slug"></div>
+            <div class="work-thumb" :class="item.slug" role="img" :aria-label="`Cover of ${item.title}`"></div>
             <div>
               <span class="eyebrow">{{ item.shortTitle }}</span>
               <h2>{{ item.title }}</h2>

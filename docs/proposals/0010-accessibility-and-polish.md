@@ -26,13 +26,13 @@
 
 ## Proposed changes
 
-1. **Cover alt text.** Render covers through `role="img"` with an
+1. **Cover alt text.** *Shipped (role="img" + aria-label).* Render covers through `role="img"` with an
    `aria-label` (or an `<img>` element) in `WorkCard.vue`, `StorePage.vue`
    and the Works page, driven by `title` in the data files.
-2. **`:focus-visible` outlines** for `a`, `button`, `.icon-btn`,
+2. **`:focus-visible` outlines** *(shipped)* for `a`, `button`, `.icon-btn`,
    `nav.main-nav a` and `.btn`, using an existing brand colour with enough
    contrast in both themes.
-3. **Dynamic menu label** in `AppHeader.vue`:
+3. **Dynamic menu label** *(shipped)* in `AppHeader.vue`:
    `:aria-label="navOpen ? 'Close menu' : 'Open menu'"`.
 4. **Image optimisation.** *Shipped as WebP with the PNG kept as the
    fallback (not AVIF: it is newer and not supported everywhere).* The

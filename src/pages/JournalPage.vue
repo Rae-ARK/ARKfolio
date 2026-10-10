@@ -23,7 +23,7 @@ import { journalEntries } from '@/data/journal'
             <h3>{{ entry.title }}</h3>
             <p>{{ entry.body }}</p>
             <div class="journal-tag-row">
-              <div class="work-thumb small" :class="entry.tags.thumb"></div>
+              <div class="work-thumb small" :class="entry.tags.thumb" aria-hidden="true"></div>
               <span class="journal-tag">{{ entry.tags.label }}</span>
             </div>
           </div>

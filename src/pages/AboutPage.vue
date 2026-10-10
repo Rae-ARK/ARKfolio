@@ -42,7 +42,7 @@ const currentlyWriting = [
       </div>
 
       <aside class="about-side">
-        <div class="avatar-large"></div>
+        <div class="avatar-large" role="img" aria-label="Rae ARK's profile picture"></div>
         <h4>The name</h4>
         <p class="about-name">Rae ARK — 嵐久 怜.</p>
         <h4>Find the stories</h4>

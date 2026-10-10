@@ -35,7 +35,7 @@ export const storeBooks: StoreBook[] = [
     edition: 'SBM · June 2026 Edition',
     title: 'Summoned by Mistake, I Decided to Learn How to Live',
     description:
-      'Volume 1 — Unwanted Summoning / Of Names and New Beginnings (Arc 1 & 2). Lightly formatted paperback, limited run. Includes a QR code for a free PDF copy with purchase.',
+      'Volume 1 — Unwanted Summoning / Of Names and New Beginnings (Arc 1 & 2). Lightly formatted paperback, version 1 of this volume — it will be updated later. Includes a QR code for a free PDF copy with purchase.',
     note: 'Independently Published (unofficially under Horizon ARK Studio) · ISBN 979-8-1810-7869-7',
     isbn: '9798181078697',
     datePublished: '2026-06',

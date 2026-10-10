@@ -4,6 +4,51 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Accessibility, first half — proposal [0010](../proposals/0010-accessibility-and-polish.md) items 1–3
+
+- **Cover alt text:** covers drawn with CSS `background-image` now have
+  `role="img"` and an `aria-label` built from the data (`WorkCard`, Works
+  page, both Store shelves, About avatar). On `WorkCard` the label also
+  carries the kind and status, and the ribbon is `aria-hidden` so it isn't
+  read twice (children of `role="img"` aren't exposed anyway). The Journal
+  tag thumbnail and the hero mood-card cover stay hidden from assistive tech
+  because text beside them already says the same thing. The header avatar
+  link had no accessible name; it is now "About Rae ARK".
+- **Focus outlines:** one rule gives `a`, `button`, `.icon-btn`,
+  `nav.main-nav a` and `.btn` a 2 px `--accent` outline on `:focus-visible`
+  (mouse clicks don't trigger it).
+- **Menu button:** the label switches between "Open menu" and "Close menu".
+- Files: `src/components/WorkCard.vue`, `src/components/AppHeader.vue`,
+  `src/pages/WorksPage.vue`, `src/pages/StorePage.vue`,
+  `src/pages/JournalPage.vue`, `src/pages/AboutPage.vue`,
+  `src/styles/main.css`, `docs/`.
+- Verification: `npm run build` passes. In headless Chromium (light theme):
+  the menu label flips to "Close menu" on click, the first keyboard focus
+  gets a 2 px solid outline in `--accent`, and the Works covers expose their
+  labels. **Not checked:** a full keyboard-only pass, a screen reader, dark
+  theme contrast, or whether the outline looks right on the solid primary
+  buttons. Items 5 (neutralino.js) and 6 (reveal
+  check) are still open, as is the "Girls" file rename.
+
+### RSS cap, Store wording, X card removed from Where to Read
+
+- **RSS:** `build-feed.mjs` now publishes only the newest 20 journal
+  entries (`FEED_LIMIT`), taken in the order of `journalEntries`, which is
+  newest-first. There are 11 entries today, so the feed doesn't change yet;
+  the cap starts to matter at entry 21. The build log reads
+  `feed.xml: 11 of 11 entries`. The journal page itself still lists every
+  entry.
+- **Store:** "limited run" removed from the Volume 1 description. With KDP
+  expanded distribution on, the paperback is listed widely and isn't a
+  scarce print run, which is what "limited run" implies. It now reads
+  "version 1 of this volume — it will be updated later", which is what the
+  author meant.
+- **Where to Read:** the "X / Twitter" card is gone: it isn't somewhere to
+  read. X is still linked from the header. Platforms and Paperback remain.
+- Files: `scripts/build-feed.mjs`, `src/data/journal.ts`,
+  `src/data/store.ts`, `src/pages/HomePage.vue`, `docs/`.
+- Not checked on screen: the Where to Read row now has three cards.
+
 ### Images sorted into `png/` and `webp/`
 
 - `public/assets/images/` is now `png/` (profile, logo and the four covers,

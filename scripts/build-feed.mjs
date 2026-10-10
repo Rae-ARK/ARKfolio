@@ -37,7 +37,13 @@ function pubDate(label) {
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
-const items = journalEntries
+// Only the newest FEED_LIMIT entries are published. journalEntries is kept
+// newest-first (the Journal page shows it in that order), and some entries
+// have vague dates that can't be sorted, so the array order is the order used.
+const FEED_LIMIT = 20
+const feedEntries = journalEntries.slice(0, FEED_LIMIT)
+
+const items = feedEntries
   .map((e) => {
     const date = pubDate(e.date)
     return [
@@ -69,4 +75,4 @@ ${items}
 const out = resolve(root, 'dist/feed.xml')
 await mkdir(dirname(out), { recursive: true })
 await writeFile(out, xml)
-console.log(`feed.xml: ${journalEntries.length} entries -> dist/feed.xml`)
+console.log(`feed.xml: ${feedEntries.length} of ${journalEntries.length} entries -> dist/feed.xml`)

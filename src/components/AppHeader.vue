@@ -16,8 +16,8 @@ const { theme, toggleTheme } = useTheme()
   <header class="site-header">
     <div class="wrap">
       <div class="brand-row">
-        <router-link to="/about">
-          <div class="avatar"></div>
+        <router-link to="/about" aria-label="About Rae ARK">
+          <div class="avatar" aria-hidden="true"></div>
         </router-link>
         <div class="brand">
           <span class="name">
@@ -79,7 +79,7 @@ const { theme, toggleTheme } = useTheme()
         </div>
       </nav>
 
-      <button class="nav-toggle" aria-label="Open menu" :aria-expanded="navOpen" @click="navOpen = !navOpen">
+      <button class="nav-toggle" :aria-label="navOpen ? 'Close menu' : 'Open menu'" :aria-expanded="navOpen" @click="navOpen = !navOpen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>

@@ -41,7 +41,7 @@ const officialSites = Object.entries(
       <div class="wrap container-narrow">
         <span class="eyebrow">{{ work.kind }} &middot; {{ work.status }}</span>
         <div class="work-heading-row">
-          <div class="work-thumb" :class="work.coverClass"></div>
+          <div class="work-thumb" :class="work.coverClass" role="img" :aria-label="`Cover of ${work.title}`"></div>
           <div>
             <h2 class="work-title">{{ work.title }}</h2>
             <span class="work-short">{{ work.shortTitle }}</span>

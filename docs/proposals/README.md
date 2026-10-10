@@ -12,7 +12,7 @@ yet implemented**. Each proposal carries a status.
 | [0007](0007-store-page-redesign.md) | Site-wide modern CSS motion, starting with the Store page | Proposed (Store shipped) |
 | [0008](0008-discoverability-spa.md) | Discoverability for a client-rendered SPA (review stage 1) | Accepted (shipped, awaiting browser check) |
 | [0009](0009-reader-conversion.md) | Turning visitors into readers, incl. hero mood card (review stage 2) | Accepted (shipped, awaiting author verification) |
-| [0010](0010-accessibility-and-polish.md) | Accessibility and polish (review stage 3) | Proposed (item 4, WebP, shipped) |
+| [0010](0010-accessibility-and-polish.md) | Accessibility and polish (review stage 3) | Proposed (items 1–4 shipped; 5–6 open) |
 | [0011](0011-maintainability.md) | Content workflow and measurement (review stage 4) | Proposed |
 
 Proposals 0001–0006 were implemented and have been removed from this

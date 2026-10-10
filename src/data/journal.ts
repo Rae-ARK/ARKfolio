@@ -6,6 +6,7 @@ export interface JournalEntry {
 }
 
 // Newest first. Entries are drawn from the author's own posts on Royal Road.
+/** Newest first. The RSS feed (scripts/build-feed.mjs) publishes only the first 20, in this order. */
 export const journalEntries: JournalEntry[] = [
   {
     date: 'October 3, 2026',

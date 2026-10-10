@@ -6,8 +6,13 @@ defineProps<{ work: Work }>()
 
 <template>
   <article class="work-card" v-reveal>
-    <div class="cover" :class="work.coverClass">
-      <span class="status-ribbon" :class="{ mature: work.mature }">{{ work.kind }} &middot; {{ work.status }}</span>
+    <div
+      class="cover"
+      :class="work.coverClass"
+      role="img"
+      :aria-label="`Cover of ${work.title} (${work.kind} · ${work.status})`"
+    >
+      <span class="status-ribbon" :class="{ mature: work.mature }" aria-hidden="true">{{ work.kind }} &middot; {{ work.status }}</span>
     </div>
     <div class="work-body">
       <p class="tagline">{{ work.tagline }}</p>

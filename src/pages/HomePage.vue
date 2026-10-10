@@ -83,10 +83,6 @@ const platforms = Object.entries(
           <a v-for="link in links" :key="link.url" class="go" :href="link.url" target="_blank" rel="noopener">{{ link.name }} ↗</a>
         </div>
         <div class="read-card">
-          <span class="k">X / Twitter</span>
-          <a class="go" href="https://x.com/Rae7866" target="_blank" rel="noopener">@Rae7866 ↗</a>
-        </div>
-        <div class="read-card">
           <span class="k">Paperback</span>
           <router-link class="go" to="/store">SBM, Vol. 1 →</router-link>
         </div>
