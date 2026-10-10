@@ -1,6 +1,6 @@
 # 0007 — Site-wide modern CSS motion, starting with the Store page
 
-- **Status:** Proposed — Store page (Rollout steps 1–2) shipped, see
+- **Status:** Accepted — Store page (Rollout steps 1–2) shipped, see
   [changelog](../implementation/changelog.md). Home/Works/Journal/About
   and the optional View Transitions step are not started.
 - **Scope:** Widened from Store-only to the whole site. The motion
@@ -11,10 +11,6 @@
   clear job (turn a reader into a buyer) and the least amount of running
   text to disturb — but Home, Works, Journal and About are in scope for
   the same primitives once the Store step lands and gets a browser check.
-- **Relates to:** [0006](0006-print-interest-via-feedback.md),
-  [UI/UX audit](../implementation/ui-ux-audit.md), the mobile-nav redesign
-  shipped alongside this revision (see the changelog and audit finding 10),
-  and the header nav icon pass described under References below.
 
 ## Problem
 
@@ -231,7 +227,7 @@ marked `Implemented` (see Verification).
 
 ## Verification
 
-As with [0003](0003-header-nav-breakpoint-bug.md), the CSS is written from
+As of commit [fe60a56](https://github.com/Rae-ARK/ARKfolio/commit/fe60a560a4345054ad54a548db6f215107f61548), the CSS is written from 
 reading the stylesheet, so each step in Rollout needs a browser check
 (desktop, a phone width, dark theme, reduced-motion on) on every page it
 touches before that step is marked `Implemented`.
