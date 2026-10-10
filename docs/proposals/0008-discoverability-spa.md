@@ -79,7 +79,7 @@
 - The Book markup deliberately has no price or offer data; none is stored
   in `data/store.ts`. Rich-result eligibility may therefore be limited.
 - Files under `public/` are also bundled into the Android and desktop
-  builds, so they carry `og-card.jpg` (~60 KB) with them.
+  builds, so they carry `og-card.jpg` (~70 KB) with them.
 
 ## Non-goals
 
@@ -95,9 +95,10 @@
   a `main` entry to `wrangler.jsonc` and `run_worker_first` routing. Worth
   it only if per-page previews matter; not part of this stage.
 - ~~Which image should be the default share card?~~ Resolved for now:
-  `og-card.jpg` is generated from the EPMC cover (the author's number-one
-  pick) beside the name and tagline. Swap the file at any time; the tags
-  point at the path, not the content.
+  `og-card.jpg` shows the author's profile picture beside the name and
+  tagline (it first used the EPMC cover). Swap the file at any time; the
+  tags point at the path, so bump the `?v=` on the `og:image` and
+  `twitter:image` URLs when the content changes.
 
 ## Verification
 

@@ -115,8 +115,8 @@ export const currentlyWriting = [
  * Hero "mood card" (see proposal 0009). Each mood points at one story; the
  * card shows that story's own summary and Royal Road link, so only the
  * prompt is written here. EPMC is first and is the default card.
- * The EPMC prompt is the author's own wording; the SBM and STBF prompts
- * are reviewer drafts for the author to reword.
+ * The EPMC prompt is the author's own wording. The SBM and STBF prompts
+ * were reworded at the author's request (no longer reviewer drafts).
  */
 export interface Mood {
   prompt: string
@@ -125,6 +125,6 @@ export interface Mood {
 
 export const moods: Mood[] = [
   { prompt: 'In the mood for something a bit different?', workSlug: 'epmc' },
-  { prompt: 'Want something gentler — slow, human, a little strange?', workSlug: 'sbm' },
-  { prompt: 'Rather read something short, written to reach its ending?', workSlug: 'stbf' },
+  { prompt: 'Want something quieter — a fresh start, with an AI for company?', workSlug: 'sbm' },
+  { prompt: 'Want a shorter story, built from the start to reach its ending?', workSlug: 'stbf' },
 ]

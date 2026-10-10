@@ -34,11 +34,12 @@
    contrast in both themes.
 3. **Dynamic menu label** in `AppHeader.vue`:
    `:aria-label="navOpen ? 'Close menu' : 'Open menu'"`.
-4. **Image optimisation.** Convert covers to WebP at their displayed
-   sizes and keep the PNGs only where Android launcher/splash assets need
-   them. Rename the "Girls" file to match the title and update the `url()`
-   references in `main.css` and the note in `public/assets/images/README.txt`.
-   Bump `CACHE_VERSION` in `public/sw.js` if cached paths change.
+4. **Image optimisation.** *Shipped as WebP with the PNG kept as the
+   fallback (not AVIF: it is newer and not supported everywhere).* The
+   remaining part: rename the "Girls" file to match the title and update the
+   `url()` references in `main.css` and the note in
+   `public/assets/images/README.txt`; bump `CACHE_VERSION` in
+   `public/sw.js` if cached paths change.
 5. **Load `neutralino.js` only in the desktop build.** Preferred approach:
    have `neutralinoShell.ts` inject the script when the runtime's
    `NL_*` globals are present, then remove the tag from `index.html`.

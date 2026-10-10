@@ -4,6 +4,39 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### WebP images, new share card, mood prompts reworded
+
+- **WebP with PNG fallback (proposal [0010](../proposals/0010-accessibility-and-polish.md) item 4, partly):**
+  the four covers and `profile.png` now have a `.webp` copy beside the
+  original (cover payload 91+143+380+257 KB of PNG → 25+40+33+53 KB of
+  WebP; profile 70 → 31 KB). Every `background-image: url(...png)` in
+  `main.css` is followed by an `image-set()` with `type("image/webp")` and
+  `type("image/png")`, so a browser that can't parse it, or can't decode
+  WebP, keeps the PNG. AVIF was not used: it is newer and not supported
+  everywhere. Not done: renaming the "Girls" cover file.
+- **Share card:** `og-card.jpg` re-rendered with the profile picture
+  (circle, brass ring, same dark-green backdrop as the site avatar) in place
+  of the EPMC cover; text and layout unchanged. It stays a JPEG because
+  link-preview scrapers don't all read WebP. The `og:image` and
+  `twitter:image` URLs gained `?v=2`, because the filename is unchanged and
+  `/assets/*` is cached as immutable, so scrapers and browsers would
+  otherwise keep the old card.
+- **Mood prompts:** the SBM and STBF prompts were reworded at the author's
+  request ("Want something quieter — a fresh start, with an AI for
+  company?" and "Want a shorter story, built from the start to reach its
+  ending?"). The comment in `data/works.ts` and proposal 0009 no longer
+  call them drafts.
+- Files: `src/styles/main.css`, `src/data/works.ts`, `index.html`,
+  `public/assets/images/` (5 new `.webp`, new `og-card.jpg`, `README.txt`),
+  `docs/`.
+- Verification: `npm run build` passes; the minified CSS keeps both the
+  PNG line and the `image-set()` line for every rule. In headless Chromium
+  against the production preview, the covers and avatar were requested as
+  `.webp` (200) and the first mood prompt renders. **Not checked:** the
+  PNG fallback in a browser without WebP or `image-set()` `type()` support,
+  Safari, a real phone, the Android/desktop shells, the SBM/STBF prompts on
+  screen (only the data was changed), or the card in a link-preview tool.
+
 ### YouTube button in the header
 
 - Added a YouTube icon button to the header's icon group (between X and
