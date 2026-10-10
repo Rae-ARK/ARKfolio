@@ -56,15 +56,22 @@ import { waitingSubjects } from '@/composables/useFeedbackForm'
         <span class="eyebrow">Still to come</span>
         <p class="print-card-lead">{{ notYetInPrintNote }}</p>
         <p class="print-card-cta">{{ notYetInPrintCta }}</p>
-        <div class="ghost-shelf">
-          <div class="ghost-spine-group" v-for="item in notYetInPrint" :key="item.slug">
-            <div class="ghost-spine" :class="item.slug" :title="item.title"></div>
-            <router-link
-              class="btn btn-primary btn-small"
-              :to="{ path: '/feedback', query: { subject: waitingSubjects[item.slug] } }"
-            >
-              I'm waiting for {{ item.shortTitle }} →
-            </router-link>
+        <div class="upcoming-shelf">
+          <div class="store-book is-coming-soon" v-for="item in notYetInPrint" :key="item.slug">
+            <div class="work-thumb" :class="item.slug"></div>
+            <div>
+              <span class="eyebrow">{{ item.shortTitle }}</span>
+              <h2>{{ item.title }}</h2>
+              <span class="coming-soon-badge">Not yet in print</span>
+              <div class="upcoming-cta">
+                <router-link
+                  class="btn btn-primary btn-small"
+                  :to="{ path: '/feedback', query: { subject: waitingSubjects[item.slug] } }"
+                >
+                  I'm waiting for {{ item.shortTitle }} →
+                </router-link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

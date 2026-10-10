@@ -81,7 +81,7 @@ import WorkCard from '@/components/WorkCard.vue'
         </div>
         <div class="read-card">
           <span class="k">Paperback</span>
-          <router-link class="go" to="/store">Summoned by Mistake, Vol. 1 →</router-link>
+          <router-link class="go" to="/store">SBM, Vol. 1 →</router-link>
         </div>
       </div>
     </div>
