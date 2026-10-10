@@ -1,8 +1,8 @@
 // Desktop (Linux/Windows/macOS) shell — makes the app behave like a native
 // window instead of "a website in a box" when it's running inside
-// Neutralino. Everything here is a no-op on the web/Android build (there's
-// no window.Neutralino global there), so this file is safe to import
-// unconditionally from main.ts.
+// Neutralino. Everything here is a no-op on the web/Android build (it never
+// loads neutralino.js, so there's no window.Neutralino global), so this file
+// is safe to import unconditionally from main.ts.
 declare global {
   interface Window {
     Neutralino?: {
@@ -29,6 +29,32 @@ export function isNeutralino(): boolean {
   return typeof window !== 'undefined' && typeof window.Neutralino !== 'undefined'
 }
 
+/** True when the page is served by the desktop shell. Neutralino's built-in
+ *  server answers on http://localhost:<random port>/ (neutralino.config.json:
+ *  enableServer, port 0). The hosted site is https on its own domain, and the
+ *  Android WebView is https://localhost with no port, so neither matches.
+ *  `npm run dev` / `preview` also match (http + localhost + port); there the
+ *  script loads, finds no runtime and logs the old console error, which is
+ *  harmless. We can't just test for the NL_* globals: they come from
+ *  neutralino.js itself, because the Neutralino server fills them in when it
+ *  serves that file. */
+function looksLikeDesktopShell(): boolean {
+  const { protocol, hostname, port } = window.location
+  return protocol === 'http:' && (hostname === 'localhost' || hostname === '127.0.0.1') && port !== ''
+}
+
+/** Load the Neutralino client the same way index.html used to, but only on
+ *  the desktop shell, so web and Android visits never request it. */
+function loadClientLibrary(): Promise<void> {
+  return new Promise((resolve) => {
+    const script = document.createElement('script')
+    script.src = '/neutralino.js'
+    script.onload = () => resolve()
+    script.onerror = () => resolve() // isNeutralino() decides what happens next
+    document.head.appendChild(script)
+  })
+}
+
 /** Open outbound links (GitHub, X, retailers) with the OS's default browser
  *  instead of letting the embedded WebKitGTK/WebView2 window try (and fail)
  *  to handle target="_blank" itself. Neutralino's webview has no popup/tab
@@ -49,6 +75,7 @@ function wireExternalLinks() {
 }
 
 export async function initNeutralinoShell() {
+  if (!isNeutralino() && looksLikeDesktopShell()) await loadClientLibrary()
   if (!isNeutralino()) return
   const Neutralino = window.Neutralino!
 

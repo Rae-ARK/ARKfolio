@@ -4,6 +4,45 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Desktop-only `neutralino.js`, cover file renamed — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 5 and the rest of item 4
+
+- **`neutralino.js` no longer loads on the web.** The `<script
+  src="/neutralino.js">` tag is gone from `index.html`. `neutralinoShell.ts`
+  now loads it on demand, only when the page is served as
+  `http://localhost:<port>/` (Neutralino's built-in server). The hosted site
+  (https, own domain) and the Android WebView (`https://localhost`, no port)
+  never request it, which removes the `WebSocket ... ws://localhost:undefined`
+  console errors there.
+- **Different from the plan in the proposal:** the proposal said to inject
+  the script "when the `NL_*` globals are present", but those globals come
+  from `neutralino.js` itself (the Neutralino server fills them in when it
+  serves that file), so there is nothing to test for before loading it. The
+  check is the address instead. Neutralino's own `injectGlobals` /
+  `injectClientLibrary` window options were the other candidate; they are in
+  the current docs, but I couldn't confirm that the pinned 6.3.0 framework
+  supports them, so they're not used.
+- **Side effects:** the script now loads after the app starts instead of
+  before, so the title/show/close wiring runs a moment later (the window
+  isn't created hidden, so nothing flashes). `npm run dev` and `preview`
+  also look like the desktop shell (http, localhost, port) and still log the
+  old console error; it is harmless.
+- **Cover file renamed:** "…Two Beautiful Girls Act 1" → "…Two Beautiful
+  Flowers Act 1" (PNG and WebP), with the CSS rules updated.
+  `CACHE_VERSION` in `public/sw.js` went from `arkfolio-v1` to `arkfolio-v2`,
+  so old cached image paths (this rename and the earlier `png/`/`webp/`
+  move) are cleaned up on the next visit.
+- Files: `index.html`, `src/native/neutralinoShell.ts`, `src/styles/main.css`,
+  `public/sw.js`, `public/assets/images/{png,webp}/` (renames), `docs/`.
+- Verification: `npm run build` passes. In headless Chromium with the built
+  files on a non-local host (standing in for the live site): no request for
+  `neutralino.js`, no console errors, and the renamed Flowers cover loads as
+  WebP. On `localhost:<port>` the script is requested, as it should be for the
+  desktop shell (and, as noted, logs the old harmless error in a plain
+  browser). **Not checked:** the desktop build itself (no
+  `neu run` / `neu build` here), so whether the title, show-window, clean
+  exit and external-link handling still work there is unconfirmed; the
+  Android build.
+
 ### Accessibility, first half — proposal [0010](../proposals/0010-accessibility-and-polish.md) items 1–3
 
 - **Cover alt text:** covers drawn with CSS `background-image` now have

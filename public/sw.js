@@ -10,7 +10,7 @@
 //
 // Bump CACHE_VERSION whenever this file's caching *behavior* changes,
 // so old caches get cleaned up on activate.
-const CACHE_VERSION = 'arkfolio-v1'
+const CACHE_VERSION = 'arkfolio-v2'
 const CORE_CACHE = `${CACHE_VERSION}-core`
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`
 

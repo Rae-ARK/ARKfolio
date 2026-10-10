@@ -603,8 +603,8 @@ section.alt-bg {
 }
 
 .cover.stbf {
-  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
-  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
+  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png");
+  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 
@@ -736,8 +736,8 @@ section.alt-bg {
 }
 
 .work-thumb.stbf {
-  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
-  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
+  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png");
+  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Flowers Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Flowers Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 
