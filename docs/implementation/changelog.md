@@ -14,6 +14,30 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 - Needs a browser check at desktop width, in the mobile menu, and in dark
   theme.
 
+### Discoverability for the SPA — proposal [0008](../proposals/0008-discoverability-spa.md)
+
+- **Share cards:** static Open Graph + Twitter tags in `index.html` and a
+  new 1200×630 `public/assets/images/og-card.png` (EPMC cover, name and
+  tagline). One card for the whole site, because link-preview scrapers do
+  not run the SPA's JavaScript.
+- **Crawler files:** `public/robots.txt` and `public/sitemap.xml`.
+- **404 page:** catch-all route and `NotFoundPage.vue`; the router sets
+  `<meta name="robots" content="noindex">` there and removes it on every
+  other route. The host still answers HTTP 200 for unknown paths.
+- **Structured data:** `src/seo/structuredData.ts` plus a router
+  `afterEach` hook injecting JSON-LD (`Person` on Home/About, `Book` on
+  Store). `StoreBook` gained optional `isbn` and `datePublished`.
+- **Works page:** an "Official sources" notice built from the `links` data.
+- **Also:** `routes` typed as `RouteRecordRaw[]`.
+- Verification: `npm run build` (vue-tsc + vite) passes; `robots.txt` and
+  `sitemap.xml` land in `dist/`; the generated JSON-LD was checked by
+  running `buildJsonLd`. **Not yet checked in a browser or a link-preview /
+  rich-results tool** — see the proposal's Verification list.
+- Files: `index.html`, `public/robots.txt`, `public/sitemap.xml`,
+  `public/assets/images/og-card.png`, `src/seo/structuredData.ts`,
+  `src/pages/NotFoundPage.vue`, `src/pages/WorksPage.vue`,
+  `src/router/index.ts`, `src/data/store.ts`, `src/styles/main.css`.
+
 ## 2026-10-10 (later)
 
 ### Store page redesign (proposal 0007, steps 1–3) and SBM Volume 2 card

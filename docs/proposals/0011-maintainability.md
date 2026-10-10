@@ -33,6 +33,8 @@
 
 ## Open questions
 
+- The author is open to analytics but has not committed to it; this item
+  stays `Proposed` until that is decided.
 - Analytics changes what the site collects, so `PrivacyPolicyPage.vue` must
   be updated in the same change. Confirm Cloudflare's beacon wording before
   editing it.

@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { buildJsonLd, type SchemaKind } from '@/seo/structuredData'
 
 // Augment vue-router's RouteMeta so `to.meta.title` / `to.meta.description`
 // are typed instead of `unknown` under strict mode.
@@ -6,6 +7,10 @@ declare module 'vue-router' {
   interface RouteMeta {
     title: string
     description: string
+    /** Adds <meta name="robots" content="noindex"> while this route is active. */
+    noindex?: boolean
+    /** Injects the matching JSON-LD block (see seo/structuredData.ts). */
+    schema?: SchemaKind
   }
 }
 
@@ -14,12 +19,12 @@ const DEFAULT_DESCRIPTION =
 
 // Stage 1: simple flat route table matching the original static pages 1:1.
 // Stage 2: each route carries its own <title>/description for SEO.
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
     component: () => import('@/pages/HomePage.vue'),
-    meta: { title: 'Rae ARK — Web Novelist', description: DEFAULT_DESCRIPTION },
+    meta: { title: 'Rae ARK — Web Novelist', description: DEFAULT_DESCRIPTION, schema: 'person' },
   },
   {
     path: '/works',
@@ -38,6 +43,7 @@ const routes = [
     meta: {
       title: 'Store — Rae ARK',
       description: 'Paperback editions of Rae ARK\u2019s web novels, with links to retailers as titles go to print.',
+      schema: 'book',
     },
   },
   {
@@ -56,6 +62,7 @@ const routes = [
     meta: {
       title: 'About — Rae ARK',
       description: 'Rae ARK writes character-driven fantasy and science fantasy about people rebuilding themselves. Read about the author and the stories behind the stories.',
+      schema: 'person',
     },
   },
   {
@@ -85,6 +92,18 @@ const routes = [
       description: 'Terms of use for the Rae ARK site and Android app.',
     },
   },
+  // Catch-all, must stay last. The host serves index.html (HTTP 200) for any
+  // unknown path, so this page tells crawlers not to index it (a "soft 404" fix).
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/pages/NotFoundPage.vue'),
+    meta: {
+      title: 'Page not found — Rae ARK',
+      description: 'This page could not be found.',
+      noindex: true,
+    },
+  },
 ]
 
 const router = createRouter({
@@ -106,9 +125,34 @@ function setMetaTag(name: string, content: string) {
   tag.setAttribute('content', content)
 }
 
+function setRobots(noindex: boolean) {
+  const existing = document.head.querySelector<HTMLMetaElement>('meta[name="robots"]')
+  if (noindex) setMetaTag('robots', 'noindex')
+  else existing?.remove()
+}
+
+const JSON_LD_ID = 'route-json-ld'
+
+function setJsonLd(data: Record<string, unknown> | null) {
+  let tag = document.getElementById(JSON_LD_ID)
+  if (!data) {
+    tag?.remove()
+    return
+  }
+  if (!tag) {
+    tag = document.createElement('script')
+    tag.id = JSON_LD_ID
+    tag.setAttribute('type', 'application/ld+json')
+    document.head.appendChild(tag)
+  }
+  tag.textContent = JSON.stringify(data)
+}
+
 router.afterEach((to) => {
   document.title = to.meta.title ?? 'Rae ARK — Web Novelist'
   setMetaTag('description', to.meta.description ?? DEFAULT_DESCRIPTION)
+  setRobots(to.meta.noindex === true)
+  setJsonLd(to.meta.schema ? buildJsonLd(to.meta.schema) : null)
 })
 
 export default router

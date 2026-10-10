@@ -1387,6 +1387,20 @@ section.alt-bg {
   margin-bottom: 28px;
 }
 
+.official-sources {
+  margin-bottom: 0;
+}
+
+.official-sources p {
+  margin: 4px 0 0;
+}
+
+.official-sources a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .form-field {
   margin-bottom: 20px;
 }

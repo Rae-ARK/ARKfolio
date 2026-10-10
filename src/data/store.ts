@@ -13,6 +13,10 @@ export interface StoreBook {
   description: string
   /** Publisher/ISBN line. Omitted for books that aren't in print yet. */
   note?: string
+  /** Bare ISBN-13 (digits only) and publication month (YYYY-MM). Feed the
+   *  Book structured data; omitted for books that aren't in print yet. */
+  isbn?: string
+  datePublished?: string
   retailers: Retailer[]
   /** Set on a volume that's announced but not yet purchasable. When set,
    *  the Store renders an availability badge instead of the retailer grid. */
@@ -30,6 +34,8 @@ export const storeBooks: StoreBook[] = [
     description:
       'Volume 1 — Unwanted Summoning / Of Names and New Beginnings (Arc 1 & 2). Lightly formatted paperback, limited run. Includes a QR code for a free PDF copy with purchase.',
     note: 'Independently Published (unofficially under Horizon ARK Studio) · ISBN 979-8-1810-7869-7',
+    isbn: '9798181078697',
+    datePublished: '2026-06',
     retailers: [
       {
         label: 'Amazon',
