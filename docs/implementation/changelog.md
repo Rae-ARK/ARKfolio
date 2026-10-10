@@ -4,6 +4,20 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Images sorted into `png/` and `webp/`
+
+- `public/assets/images/` is now `png/` (profile, logo and the four covers,
+  the originals and the fallback), `webp/` (the WebP copies, same base
+  names) and `og-card.jpg` at the top level, so the share-card URL stays the
+  same. `main.css`, `structuredData.ts` and `README.txt` point at the new
+  paths. Nothing else changed in the files.
+- **Old image URLs no longer exist** (`/assets/images/profile.png` and the
+  cover PNGs). Anything outside this repo that links to them directly, such
+  as a hotlink from another site or an already-indexed structured-data
+  image, will 404 until it is updated or recrawled.
+- Files: `src/styles/main.css`, `src/seo/structuredData.ts`,
+  `public/assets/images/` (moves), `docs/`.
+
 ### EPMC mood prompt reworded
 
 - The EPMC prompt on the hero mood card changed from "In the mood for

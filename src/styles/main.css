@@ -255,8 +255,8 @@ header.site-header {
 
 .avatar,
 .avatar-large {
-  background-image: url('/assets/images/profile.png');
-  background-image: image-set(url('/assets/images/profile.webp') type("image/webp"), url('/assets/images/profile.png') type("image/png"));
+  background-image: url('/assets/images/png/profile.png');
+  background-image: image-set(url('/assets/images/webp/profile.webp') type("image/webp"), url('/assets/images/png/profile.png') type("image/png"));
 }
 
 .brand .name {
@@ -591,20 +591,20 @@ section.alt-bg {
 }
 
 .cover.epmc {
-  background-image: url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png");
-  background-image: image-set(url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
+  background-image: url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png");
+  background-image: image-set(url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
   background-color: #2e4a42;
 }
 
 .cover.sbm {
-  background-image: url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
-  background-image: image-set(url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
+  background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
+  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .cover.stbf {
-  background-image: url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
-  background-image: image-set(url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
+  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
+  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 
@@ -718,26 +718,26 @@ section.alt-bg {
 }
 
 .work-thumb.epmc {
-  background-image: url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png");
-  background-image: image-set(url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
+  background-image: url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png");
+  background-image: image-set(url("/assets/images/webp/Enigmatic Pathways Mystic Circuits vol 1.webp") type("image/webp"), url("/assets/images/png/Enigmatic Pathways Mystic Circuits vol 1.png") type("image/png"));
   background-color: #2e4a42;
 }
 
 .work-thumb.sbm {
-  background-image: url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
-  background-image: image-set(url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
+  background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png");
+  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 1.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .work-thumb.sbm2 {
-  background-image: url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png");
-  background-image: image-set(url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 3.webp") type("image/webp"), url("/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png") type("image/png"));
+  background-image: url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png");
+  background-image: image-set(url("/assets/images/webp/Summoned By Mistake, I Decided To Learn How To Live Arc 3.webp") type("image/webp"), url("/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png") type("image/png"));
   background-color: #3b4a46;
 }
 
 .work-thumb.stbf {
-  background-image: url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
-  background-image: image-set(url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
+  background-image: url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
+  background-image: image-set(url("/assets/images/webp/The Shadow I Cast Over Two Beautiful Girls Act 1.webp") type("image/webp"), url("/assets/images/png/The Shadow I Cast Over Two Beautiful Girls Act 1.png") type("image/png"));
   background-color: #6b3a3a;
 }
 

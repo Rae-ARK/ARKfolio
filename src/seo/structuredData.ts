@@ -20,7 +20,7 @@ export function buildJsonLd(kind: SchemaKind): Record<string, unknown> | null {
       ...AUTHOR,
       '@id': `${SITE_ORIGIN}/about#author`,
       jobTitle: 'Web novelist',
-      image: `${SITE_ORIGIN}/assets/images/profile.png`,
+      image: `${SITE_ORIGIN}/assets/images/png/profile.png`,
       sameAs: ['https://x.com/Rae7866', 'https://www.youtube.com/@Rae0611'],
     }
   }
@@ -33,7 +33,7 @@ export function buildJsonLd(kind: SchemaKind): Record<string, unknown> | null {
     name: book.title,
     description: book.description,
     url: `${SITE_ORIGIN}/store`,
-    image: encodeURI(`${SITE_ORIGIN}/assets/images/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png`),
+    image: encodeURI(`${SITE_ORIGIN}/assets/images/png/Summoned By Mistake, I Decided To Learn How To Live Arc 1.png`),
     isbn: book.isbn,
     bookFormat: 'https://schema.org/Paperback',
     inLanguage: 'en',
