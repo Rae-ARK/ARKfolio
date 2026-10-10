@@ -2,6 +2,18 @@
 
 Shipped changes that resolve a proposal or an audit finding. Newest first.
 
+## 2026-10-10 (latest)
+
+### YouTube button in the header
+
+- Added a YouTube icon button to the header's icon group (between X and
+  GitHub), linking to <https://www.youtube.com/@Rae0611>. It uses the
+  existing `.icon-btn` styling and `target="_blank"`, so the Android and
+  desktop shells open it externally with no extra wiring.
+- Files: `src/components/AppHeader.vue`.
+- Needs a browser check at desktop width, in the mobile menu, and in dark
+  theme.
+
 ## 2026-10-10 (later)
 
 ### Store page redesign (proposal 0007, steps 1–3) and SBM Volume 2 card
