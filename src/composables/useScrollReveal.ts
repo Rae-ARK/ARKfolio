@@ -11,10 +11,12 @@ function getObserver(): IntersectionObserver {
     observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer?.unobserve(entry.target)
-          }
+          // Toggle rather than one-shot add + unobserve, so the reveal
+          // replays on the way back up too, not just scrolling down.
+          // Keeps this fallback in sync with the animation-timeline: view()
+          // primitive above, which is scroll-position-linked and so
+          // already reverses/replays in both directions for free.
+          entry.target.classList.toggle('is-visible', entry.isIntersecting)
         }
       },
       { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
@@ -24,9 +26,10 @@ function getObserver(): IntersectionObserver {
 }
 
 // Usage: <section v-reveal>...</section>
-// Fades/slides an element in the first time it scrolls into view, then
-// stops watching it. Elements are shown immediately (no animation) if the
-// visitor has requested reduced motion.
+// Fades/slides an element in each time it scrolls into view — forward or
+// backward — and fades it back out when it scrolls back past the
+// threshold, rather than revealing once and staying. Elements are shown
+// immediately (no animation) if the visitor has requested reduced motion.
 export const vReveal: Directive<HTMLElement> = {
   mounted(el) {
     if (prefersReducedMotion()) {
