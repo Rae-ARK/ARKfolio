@@ -28,8 +28,8 @@ export const storeBooks: StoreBook[] = [
     edition: 'SBM · June 2026 Edition',
     title: 'Summoned by Mistake, I Decided to Learn How to Live',
     description:
-      'Volume 1 — Unwanted Summoning / Of Names and New Beginnings (Arc 1–2). Lightly formatted paperback, limited run. Includes a QR code for a free PDF copy with purchase.',
-    note: 'Published under Horizon ARK Studio · ISBN 979-8-1810-7869-7',
+      'Volume 1 — Unwanted Summoning / Of Names and New Beginnings (Arc 1 & 2). Lightly formatted paperback, limited run. Includes a QR code for a free PDF copy with purchase.',
+    note: 'Independently Published (unofficially under Horizon ARK Studio) · ISBN 979-8-1810-7869-7',
     retailers: [
       {
         label: 'Amazon',
@@ -70,7 +70,7 @@ export const notYetInPrint: UpcomingPrint[] = [
 ]
 
 export const notYetInPrintNote =
-  "Enigmatic Pathways Mystic Circuits and The Shadow I Cast Over Two Beautiful Flowers aren't in print yet. If that changes, they'll appear here first."
+  "Novels which is not available in print yet. If that changes, they'll appear here first."
 
 export const notYetInPrintCta =
   "Waiting on one of them? Tell me which — it opens an email to me, and it genuinely helps me decide what goes to print."
