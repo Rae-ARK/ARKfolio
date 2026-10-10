@@ -1,6 +1,7 @@
 # 0010 — Accessibility and polish (Stage 3 of the site review)
 
-- **Status:** Proposed
+- **Status:** Implemented — items 1–6 shipped. Stays open until the
+  Verification list below is done (item 5 untested on desktop).
 - **Priority:** 3
 - **Constraint:** SPA, and it must keep working in the Capacitor Android
   WebView and the Neutralino desktop shell.
@@ -41,8 +42,9 @@
 5. **Load `neutralino.js` only in the desktop build.** *Shipped, untested on desktop (see changelog); done differently from this plan.* Original plan:
    have `neutralinoShell.ts` inject the script when the runtime's
    `NL_*` globals are present, then remove the tag from `index.html`.
-6. **Reveal check.** Test the scroll reveal on a mid-range phone and
-   decide whether fade-out on scroll-back should stay.
+6. **Reveal check.** *(Done.)* Tested by the author on an iQOO Neo 10R and
+   it works, so the fade-out on scroll-back stays. That phone is upper
+   mid-range; a low-end phone hasn't been tried.
 
 ## Non-goals
 

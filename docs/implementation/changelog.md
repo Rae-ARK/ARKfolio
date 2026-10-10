@@ -4,6 +4,19 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### Scroll reveal checked on a phone — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 6
+
+- The author tested the scroll reveal on an iQOO Neo 10R and reports it
+  works, so the fade-out when scrolling back up stays as it is. No code
+  change.
+- That phone is upper mid-range (Snapdragon 8s Gen 3). A low-end phone was
+  not tried, so very slow devices are unconfirmed.
+- Proposal 0010 is now fully shipped. It stays open only for its
+  Verification list: a keyboard-only pass, a screen-reader pass over Home,
+  Works and Store, and the Android and desktop builds (item 5 is untested
+  on desktop).
+- Files: `docs/` only.
+
 ### Desktop-only `neutralino.js`, cover file renamed — proposal [0010](../proposals/0010-accessibility-and-polish.md) item 5 and the rest of item 4
 
 - **`neutralino.js` no longer loads on the web.** The `<script
