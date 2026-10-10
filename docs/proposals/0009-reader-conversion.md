@@ -92,10 +92,9 @@
 
 ## Open questions
 
-- Mood copy: the EPMC prompt ("In the mood for something a bit different?")
-  is the author's own wording. The SBM and STBF prompts in `data/works.ts`
-  were reworded at the author's request; which stories appear is settled
-  (all three).
+- Mood copy: all three prompts in `data/works.ts` were reworded at the
+  author's request (the EPMC line was originally "In the mood for something
+  a bit different?"); which stories appear is settled (all three).
 - Should the card cycle by default? It does now; a static card with a
   "Show me another" button is the lower-motion alternative.
 - Feed items all link to `/journal` because journal entries have no

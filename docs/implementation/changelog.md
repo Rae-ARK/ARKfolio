@@ -4,6 +4,16 @@ Shipped changes that resolve a proposal or an audit finding. Newest first.
 
 ## 2026-10-10 (latest)
 
+### EPMC mood prompt reworded
+
+- The EPMC prompt on the hero mood card changed from "In the mood for
+  something a bit different?" to "Want a story about a second life in a
+  world of magic?", at the author's request. It is still the first and
+  default card. The comment in `data/works.ts` and proposal 0009 now say all
+  three prompts were reworded.
+- Files: `src/data/works.ts`, `docs/`.
+- Not checked on screen: the longer line wrapping at phone width.
+
 ### WebP images, new share card, mood prompts reworded
 
 - **WebP with PNG fallback (proposal [0010](../proposals/0010-accessibility-and-polish.md) item 4, partly):**
