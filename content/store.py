@@ -7,13 +7,20 @@ STORE_BOOKS = [
         "edition": "SBM \u00b7 June 2026 Edition",
         "title": "Summoned by Mistake, I Decided to Learn How to Live",
         "description": (
-            "Volume 1 \u2014 Unwanted Summoning / Of Names and New Beginnings (Arc 1\u20132). "
-            "Lightly formatted paperback, limited run. Includes a QR code for a free PDF "
-            "copy with purchase."
+            "Volume 1 \u2014 Unwanted Summoning / Of Names and New Beginnings (Arc 1 & 2). "
+            "Lightly formatted paperback, version 1 of this volume \u2014 it will be updated "
+            "later. Includes a QR code for a free PDF copy with purchase."
         ),
-        "note": "Published under Horizon ARK Studio \u00b7 ISBN 979-8-1810-7869-7",
+        "note": (
+            "Independently Published (unofficially under Horizon ARK Studio) \u00b7 "
+            "ISBN 979-8-1810-7869-7"
+        ),
         "retailers": [
-            {"label": "Amazon", "url": "https://www.royalroad.com/amazon/B0H62KQV8D?maas=&ref="},
+            {
+                "label": "Amazon",
+                "url": "https://www.royalroad.com/amazon/B0H62KQV8D?maas=&ref=",
+                "note": "Opens through a Royal Road redirect link on its way to the Amazon listing.",
+            },
             {
                 "label": "Walmart",
                 "url": (
@@ -33,12 +40,28 @@ STORE_BOOKS = [
                     "https://www.booksamillion.com/search?query=Rae%20Ark&filters%5Bauthors%5D="
                     "Rae%20Ark&filters%5Bavailable_in_stores%5D=1"
                 ),
+                "note": (
+                    "Opens an author search rather than a direct product page \u2014 use it "
+                    "to check in-store availability."
+                ),
             },
         ],
-        "retailer_note": (
-            "Books-A-Million link opens an author search rather than a direct product page "
-            "\u2014 use it to check in-store availability."
+    },
+    {
+        # A volume that's announced but not purchasable yet: no `retailers`,
+        # and the page shows `availability` instead of the retailer grid.
+        # Delete `status`/`availability` and fill in `retailers` when it ships.
+        "work_slug": "sbm",
+        "thumb_class": "sbm2",
+        "edition": "SBM \u00b7 Volume 2",
+        "title": "Summoned by Mistake, I Decided to Learn How to Live",
+        "description": (
+            "Volume 2 \u2014 Arc 3. Paperback edition, following the same lightly formatted "
+            "print run as Volume 1."
         ),
+        "retailers": [],
+        "status": "coming-soon",
+        "availability": "Coming soon \u2014 Winter 2027",
     },
 ]
 

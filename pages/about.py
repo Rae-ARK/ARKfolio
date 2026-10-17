@@ -13,6 +13,7 @@ from arklight import Page, Section, Container, Span, Heading, Text, Link, Image,
 from components.nav import nav
 from components.footer import footer
 from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVICON
+from content.site import GITHUB_URL
 
 READ_LINKS = [
     {"site": "Royal Road", "title": "Enigmatic Pathways Mystic Circuits", "url": "https://www.royalroad.com/fiction/114101/enigmatic-pathways-mystic-circuits/"},
@@ -25,7 +26,7 @@ READ_LINKS = [
 
 CURRENTLY_WRITING_SHORT = [
     "Enigmatic Pathways Mystic Circuits \u2014 Vol. 3, in progress",
-    "Summoned by Mistake, I Decided to Learn How to Live \u2014 Arc 3, ongoing",
+    "Summoned by Mistake, I Decided to Learn How to Live \u2014 Arc 4, ongoing",
     "The Shadow I Cast Over Two Beautiful Flowers \u2014 Act 2, on break",
 ]
 
@@ -128,7 +129,7 @@ def about():
                         ),
                         Link(
                             "This site's source on GitHub",
-                            href="https://github.com/Rae-ARK/My-Portfolio",
+                            href=GITHUB_URL,
                             target="_blank",
                             class_name="source-credit",
                         ),

@@ -405,6 +405,14 @@ def register_styles(site):
         "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M18.9 2H22l-7.6 "
         "8.7L23 22h-6.9l-5.4-6.6L4.4 22H1.3l8.1-9.3L1 2h7l4.9 6z'/%3E%3C/svg%3E\")"
     )
+    ICON_YOUTUBE = (
+        "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
+        "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M23.5 6.2a3 3 0 0 "
+        "0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 "
+        "8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 "
+        "0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 "
+        "15.6V8.4l6.2 3.6-6.2 3.6Z'/%3E%3C/svg%3E\")"
+    )
     ICON_GITHUB = (
         "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
         "viewBox='0 0 24 24' fill='%23635b4c'%3E%3Cpath d='M12 2C6.48 2 2 "
@@ -432,6 +440,7 @@ def register_styles(site):
         "8.5 0 1 1 8.7 3.4a7 7 0 0 0 11.9 11.9Z'/%3E%3C/svg%3E\")"
     )
     site.style_selector(".icon-btn.icon-x", {"background-image": ICON_X})
+    site.style_selector(".icon-btn.icon-youtube", {"background-image": ICON_YOUTUBE})
     site.style_selector(".icon-btn.icon-github", {"background-image": ICON_GITHUB})
     # Light mode (default, `theme !== 'dark'`) starts on the moon glyph
     # -- matching AppHeader.vue's `v-else` branch, which renders the

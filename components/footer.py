@@ -14,6 +14,8 @@ varies by page.
 
 from arklight import Footer, Container, Text, Span, Image, Link
 
+from content.site import X_URL, GITHUB_URL
+
 FOOTER_QUOTE = (
     "\u201cI hope for people to hold the book in their hands someday, "
     "and to sit on the shelves.\u201d"
@@ -43,8 +45,8 @@ def footer():
                     Link("Feedback", href="/feedback"),
                     Link("Privacy", href="/privacy"),
                     Link("Terms", href="/terms"),
-                    Link("X", href="https://x.com/Rae7866", target="_blank"),
-                    Link("GitHub", href="https://github.com/Rae-ARK/My-Portfolio", target="_blank"),
+                    Link("X", href=X_URL, target="_blank"),
+                    Link("GitHub", href=GITHUB_URL, target="_blank"),
                     class_name="footer-links",
                 ),
                 class_name="footer-bottom",

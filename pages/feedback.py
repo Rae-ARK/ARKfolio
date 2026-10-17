@@ -46,6 +46,10 @@ FEEDBACK_SUBJECTS = [
     "Feedback on the website",
     "Feedback on a paperback",
     "Feedback about the author",
+    # Same strings as `waitingSubjects` in main's useFeedbackForm.ts; the
+    # Store's "I'm waiting for ..." buttons (not ported yet) target these.
+    "Waiting for the EPMC paperback",
+    "Waiting for the STBF paperback",
 ]
 
 

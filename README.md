@@ -28,14 +28,20 @@ against the original site's 8 routes:
 
 | Page | Status | Notes |
 |---|---|---|
-| Home | ✅ ported | static content + `on_reveal="reveal"` |
-| Works | ✅ ported | static content + `on_reveal="reveal"` |
-| Store | ✅ ported | static content + `on_reveal="reveal"` |
-| Journal | ✅ ported | static content + `on_reveal="reveal"` |
-| About | ✅ ported | static content + `on_reveal="reveal"` |
-| Privacy | ✅ ported | static content + `on_reveal="reveal"` |
-| Terms | ✅ ported | static content + `on_reveal="reveal"` |
-| Feedback | ⚠️ intentionally not 1:1 | see "Known gaps" below — this one's a real, permanent trade-off, not a "not built yet" |
+| Home | ⚠️ behind `main` | everything but the hero mood-card carousel (never ported; see "Behind `main`") |
+| Works | ⚠️ behind `main` | data in sync; the "Official sources" notice box is not ported |
+| Store | ⚠️ partly synced | data in sync (incl. the coming-soon Volume 2); the upcoming-print shelf + "I'm waiting for…" buttons and the primary/other retailer split are not ported |
+| Journal | ⚠️ partly synced | all 11 entries; no RSS link or per-story tag filter |
+| About | ✅ ported | wrong GitHub link and "Arc 3" wording fixed 2026-10-17 |
+| Privacy | ⚠️ decision needed | `main`'s copy now discloses Cloudflare Web Analytics; this build runs none — see "Behind `main`" |
+| Terms | ✅ ported | date and copy match `main` |
+| Feedback | ⚠️ intentionally not 1:1 | permanent composer-form trade-off below; the subject list is now in sync (6 subjects) |
+
+All 8 routes exist and build (checked against ARKlight `v0.70.0`).
+"Ported" means "was in step with `main` at the time of the port";
+`main` has since moved on. Statuses above come from an audit of this
+branch against `main` on 2026-10-17 — see "Behind `main`" below and
+`docs/PROGRESS.md`.
 
 Theme-toggle persistence, scroll-reveal, app-shell navigation, PWA
 support, and the Android wrapper are all done — see "Resolved" below.
@@ -58,6 +64,75 @@ support, and the Android wrapper are all done — see "Resolved" below.
 
 Nothing above blocks anything else; it's scoped entirely to the
 Feedback page's subject-line customization and name pre-fill.
+
+### Behind `main` (audit, 2026-10-17)
+
+Separate from the permanent Feedback trade-off above: this branch was
+last brought to parity before several `main` updates landed (Arc 4,
+the mood card, store redesign, journal feed/filter, polish passes).
+An audit on 2026-10-17 compared every page, the shared nav/footer, and
+all `content/*.py` arrays against `main`. Everything that is purely
+*data* was synced the same day; what remains needs template/CSS work
+or a decision. None of it is a compiler limitation unless noted.
+
+**Synced 2026-10-17 (data and wiring):**
+
+- `content/site.py` (new) holds the external links (X, YouTube,
+  GitHub). The header, footer and About page all read from it, which
+  fixes the old `Rae-ARK/My-Portfolio` GitHub link that was
+  hardcoded in three places (now `Rae-ARK/ARKfolio`).
+- YouTube icon added to the header (`components/nav.py` +
+  `components/styles.py`).
+- "Arc 3" -> "Arc 4" in `CURRENTLY_WRITING` (`content/works.py`) and
+  `CURRENTLY_WRITING_SHORT` (`pages/about.py`). The dated journal
+  entry that mentions Arc 3 is correct history and was left alone.
+- `content/journal.py`: the two missing entries (*Arc 3 Is Done...*,
+  *Unauthorised Copies on a Mirror Site*), so 11 of 11.
+- `content/store.py`: Volume 1 description/note wording, per-retailer
+  notes (replacing the book-level `retailer_note`), and the
+  coming-soon Volume 2 entry. `pages/store.py` renders optional
+  `note`, per-retailer notes, and `status: "coming-soon"` (availability
+  badge instead of the retailer grid); the Volume 2 cover and the
+  badge CSS were copied from `main`.
+- `pages/feedback.py`: the two "Waiting for the EPMC / STBF paperback"
+  subjects.
+- `content/works.py` `WORKS` was diffed against `main` and already
+  matched; no change needed.
+
+**Still open:**
+
+- **Home:** `MoodCard.vue` (hero mood-card carousel, `main`'s proposal
+  0009) was never ported and was not previously logged as a gap.
+- **Works:** the "Official sources" notice box. It can be derived
+  from `WORKS[*]["links"]` the way `main` does, but needs its CSS
+  (`.official-sources`) ported.
+- **Store template:** the "Still to come" shelf for EPMC/STBF with
+  "I'm waiting for ..." buttons (needs `.print-card` /
+  `.upcoming-shelf` CSS, and the Feedback page to accept a subject),
+  and the primary-retailer button vs. "Other retailers" grouping.
+  `NOT_YET_IN_PRINT_NOTE` keeps its arklight-specific wording until
+  that lands.
+- **Journal:** "Follow by RSS" link (`/feed.xml`) and the per-story tag
+  filter (all / SBM / EPMC / STBF). The filter may run into the closed
+  `Action`/`Show` vocabulary; check `arklight search` first.
+- **Privacy — decision needed, not a plain sync.** `main`'s "What's
+  collected" paragraph now says the web version uses Cloudflare Web
+  Analytics (and that the Android/desktop apps don't). This build runs
+  no analytics, so its current "does not run analytics" wording is
+  accurate as it stands, and the "last updated" date
+  (`"July 2026"`; `main` says `"October 2026"`) was deliberately *not*
+  bumped. Port the copy and date only if this build is also going to
+  load the beacon. (For reference, `main`'s `src/native/analytics.ts`
+  currently has a placeholder beacon token.)
+- **Footer (decision):** `main`'s footer is the quote, attribution,
+  imprint and Feedback/Privacy/Terms only; this one adds the full nav
+  plus X and GitHub. Match `main` or keep it on purpose and say why.
+- **Not audited yet:** `main`'s `NotFoundPage.vue` (no 404 route is
+  registered here), SEO/structured data (`src/seo/*`), and the
+  generated `feed.xml` (`scripts/build-feed.mjs`). Minor: `main`
+  renamed the STBF cover to "...Two Beautiful *Flowers*..."; this
+  branch still uses the old "...*Girls*..." filename (works, just
+  inconsistent).
 
 ## Resolved
 
@@ -110,7 +185,8 @@ site.py             entry point — registers every @site.page(...) route,
 pages/              one function per route (home, works, store, journal, ...)
 components/         shared pieces (nav, footer, work card, styles, ...)
 content/            plain Python data — works, journal entries, store listings
-                    (ported 1:1 from the original src/data/*.ts)
+                    (ported 1:1 from the original src/data/*.ts); site.py
+                    holds the shared external links (X, YouTube, GitHub)
 assets/             images, icons — copied into the build output as-is
 scripts/build.sh    arklight build + arklight pwa in one step
 android-project/    `arklight android scaffold` output (native WebView app)

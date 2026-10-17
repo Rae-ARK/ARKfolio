@@ -5,6 +5,49 @@ list. Dates are UTC.
 
 ## [Unreleased]
 
+### Changed (2026-10-17 -- catch-up with `main`: data arrays)
+- **New `content/site.py`** holds the external links (X, YouTube,
+  GitHub); `components/nav.py`, `components/footer.py` and
+  `pages/about.py` read from it. **Fixes the GitHub link**, which
+  pointed at `Rae-ARK/My-Portfolio` in all three places and now points
+  at `Rae-ARK/ARKfolio`.
+- **YouTube icon added to the header** (`components/nav.py`, CSS
+  data-URI in `components/styles.py`, same pattern as the X/GitHub
+  icons).
+- **"Arc 3" -> "Arc 4"** in `content/works.py` (`CURRENTLY_WRITING`,
+  note text now matches `main`) and `pages/about.py`
+  (`CURRENTLY_WRITING_SHORT`).
+- **Journal:** added *Arc 3 Is Done -- A Short Break Before Arc 4*
+  and *Unauthorised Copies on a Mirror Site* to
+  `content/journal.py` (11 entries, same as `main`).
+- **Store:** `content/store.py` Volume 1 description/note reworded to
+  match `main`; retailer notes moved from the book-level
+  `retailer_note` to per-retailer `note`; added the coming-soon
+  Volume 2 listing. `pages/store.py` now renders an optional `note`,
+  per-retailer notes, and `status: "coming-soon"` (availability badge
+  in place of the retailer grid). Copied `main`'s Volume 2 cover into
+  `assets/images/` and added `.work-thumb.sbm2` plus the coming-soon
+  badge rules to `assets/site.css`.
+- **Feedback:** added the two "Waiting for the EPMC / STBF paperback"
+  subjects to `FEEDBACK_SUBJECTS` (`pages/feedback.py`).
+- **Not changed on purpose:** Privacy copy/date (`main` now discloses
+  Cloudflare Web Analytics; this build runs none) and the footer
+  link-set -- both need a decision, see `docs/PROGRESS.md` Open items A.
+
+### Documented (2026-10-17 -- audit of this branch against `main`)
+- **`README.md`, `docs/PROGRESS.md`:** status tables corrected --
+  Home, Works, Store, Journal, About, Privacy, header/footer and
+  Feedback were all shown as done/ported but were behind `main`.
+  Added a "Behind `main`" section to the README's known gaps and a
+  prioritized "Catch up with `main`" list to the PROGRESS open items.
+- Gaps newly recorded and still open after the data sync: Home
+  mood-card carousel; Works "Official sources" notice; Journal RSS
+  link and tag filter; Store upcoming-print shelf/CTA and
+  primary/other retailer split; Privacy copy decision; footer
+  decision; 404 / SEO / `feed.xml` not yet compared.
+- Baseline and after: `arklight build site.py` on ARKlight `v0.70.0`
+  compiles all 8 pages; `tests/` passes.
+
 ### Changed (this session -- ARKlight upgrade: `v0.069` (`v0.6616`) -> `v0.70.0`)
 - **`android-project/` and `.github/workflows/android-build.yml`
   regenerated from a fresh build**, via the same documented command

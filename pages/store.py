@@ -15,32 +15,50 @@ from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVIC
 from content.store import STORE_BOOKS, NOT_YET_IN_PRINT_NOTE
 
 
+def _retailer_grid(book: dict):
+    return Container(
+        *[
+            Link(
+                f"{r['label']} \u2197",
+                href=r["url"],
+                target="_blank",
+                class_name="retailer-btn",
+            )
+            for r in book["retailers"]
+        ],
+        class_name="retailer-grid",
+    )
+
+
 def _book(book: dict):
+    """One store listing, driven entirely by content/store.py.
+
+    A book with `status == "coming-soon"` shows its `availability` text
+    instead of the retailer grid; any retailer with a `note` gets a
+    "<label>: <note>" line under the grid.
+    """
+    coming_soon = book.get("status") == "coming-soon"
     body = [
         Span(book["edition"], class_name="eyebrow"),
         Heading(book["title"], level=2),
         Text(book["description"]),
-        Text(book["note"], class_name="retailer-note"),
-        Container(
-            *[
-                Link(
-                    f"{r['label']} \u2197",
-                    href=r["url"],
-                    target="_blank",
-                    class_name="retailer-btn",
-                )
-                for r in book["retailers"]
-            ],
-            class_name="retailer-grid",
-        ),
     ]
-    if book.get("retailer_note"):
-        body.append(Text(book["retailer_note"], class_name="retailer-note"))
+    if book.get("note"):
+        body.append(Text(book["note"], class_name="retailer-note"))
+    if coming_soon:
+        body.append(Span(book["availability"], class_name="coming-soon-badge"))
+    else:
+        body.append(_retailer_grid(book))
+        body.extend(
+            Text(f"{r['label']}: {r['note']}", class_name="retailer-note")
+            for r in book["retailers"]
+            if r.get("note")
+        )
 
     return Container(
         Container(class_name=f"work-thumb {book['thumb_class']}"),
         Container(*body),
-        class_name="store-book",
+        class_name="store-book is-coming-soon" if coming_soon else "store-book",
         on_reveal="reveal",
     )
 

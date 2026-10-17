@@ -260,6 +260,11 @@ nav.main-nav a,
   background-color: #3b4a46;
 }
 
+.work-thumb.sbm2 {
+  background-image: url("images/Summoned By Mistake, I Decided To Learn How To Live Arc 3.png");
+  background-color: #3b4a46;
+}
+
 .work-thumb.stbf {
   background-image: url("images/The Shadow I Cast Over Two Beautiful Girls Act 1.png");
   background-color: #6b3a3a;
@@ -957,4 +962,24 @@ nav.main-nav a,
 
 .feedback-subject-btn {
   text-align: center;
+}
+
+/* Store: announced-but-not-yet-purchasable volume (content/store.py,
+   status "coming-soon"). Ported from main's main.css. */
+.store-book.is-coming-soon .work-thumb {
+  opacity: 0.85;
+}
+
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 18px;
+  padding: 10px 16px;
+  border: 1px dashed var(--brass);
+  border-radius: 6px;
+  color: var(--brass-dark);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

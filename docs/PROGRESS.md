@@ -9,14 +9,16 @@ every work session. For the plain version-history record, see
 
 | Page/Feature       | Status      | Notes |
 |---------------------|-------------|-------|
-| Home                | DONE        | hero, 3 work cards, currently-writing panel, pull quote, "where to read" |
-| Works               | DONE        | full synopses, content notices, expect/don't-expect rows |
-| Store               | DONE        | paperback listing, retailer grid |
-| Journal             | DONE        | 9 entries, newest first |
-| About               | DONE        | bio + sidebar; "find the stories" list restructured, see below |
-| Privacy             | DONE        | static legal copy |
+| Home                | BEHIND MAIN | hero, 3 work cards, currently-writing panel (now Arc 4), pull quote, "where to read"; **mood-card carousel never ported** |
+| Works               | BEHIND MAIN | full synopses, content notices, expect/don't-expect rows (data matches `main`); **"Official sources" notice box missing** |
+| Store               | PARTLY SYNCED | data synced with `main` (incl. coming-soon Volume 2, per-retailer notes); **no upcoming-print shelf/CTA, no primary/other retailer split** |
+| Journal             | PARTLY SYNCED | 11 of 11 entries, newest first; **no RSS link, no tag filter** |
+| About               | DONE        | bio + sidebar; "find the stories" list restructured, see below; GitHub link + "Arc 4" wording fixed 2026-10-17 |
+| Privacy             | DECISION NEEDED | static legal copy; `main` now discloses Cloudflare Web Analytics, this build runs none — see Open items A.3 |
 | Terms               | DONE        | static legal copy |
-| Feedback            | PARTIAL, on purpose | mailto-per-subject links; not a single composer form, and now confirmed that isn't reachable at all yet — see below |
+| Feedback            | PARTIAL, on purpose | mailto-per-subject links (6 subjects, in sync with `main`); not a single composer form (permanent, see below) |
+| Header / footer     | PARTLY SYNCED | YouTube icon + corrected GitHub URL (shared `content/site.py`); footer link-set still differs from `main` (decision needed) |
+| 404 page / SEO / `feed.xml` | NOT AUDITED | no 404 route registered here; `main`'s `src/seo/*` and `scripts/build-feed.mjs` not compared yet |
 | Theme toggle (UI)   | DONE        | `Action.toggle_bool` + `Bind.when` |
 | Theme persistence   | DONE        | native `State(persist=True)` — see below |
 | Mobile hamburger nav| DONE        | native `"toggle"` behavior, no `State` needed |
@@ -64,6 +66,42 @@ every work session. For the plain version-history record, see
 
 ## Open items, in rough priority order
 
+### A. Catch up with `main` (found in the 2026-10-17 audit)
+
+Details and file pointers are in `README.md`'s "Behind `main`".
+
+**Done 2026-10-17** (data arrays and the wiring they needed): wrong
+GitHub URL (now one constant in `content/site.py`); "Arc 3" -> "Arc 4"
+in `CURRENTLY_WRITING` / `CURRENTLY_WRITING_SHORT`; the 2 missing
+journal entries; Store data sync + coming-soon Volume 2 (cover, badge
+CSS, small `pages/store.py` change); the 2 "Waiting for ..." Feedback
+subjects; YouTube header icon. `WORKS` was diffed and already matched.
+
+**Still open**, mechanical-first:
+
+1. **Works "Official sources" notice.** Derive from `WORKS[*]["links"]`
+   as `main` does; port `.official-sources` CSS.
+2. **Store template, rest of proposal 0007.** "Still to come" shelf +
+   "I'm waiting for ..." buttons (needs `.print-card`/`.upcoming-shelf`
+   CSS and a way to pass a subject to Feedback), primary-retailer
+   button vs. "Other retailers".
+3. **Privacy: decide first.** `main`'s copy now discloses Cloudflare
+   Web Analytics; this build loads none, so today's "does not run
+   analytics" wording is true for it. Port the copy + bump
+   `LAST_UPDATED` to `"October 2026"` only if the beacon is added here
+   too. Do not bump the date alone.
+4. **Journal RSS link + tag filter.** The filter may hit the closed
+   `Action`/`Show` vocabulary; check `arklight search` first.
+5. **Home mood card.** Largest piece; same caveat as 4.
+6. **Footer: decide, then act.** Match `main` (quote, attribution,
+   imprint, Feedback/Privacy/Terms) or keep the richer nav footer on
+   purpose and record why.
+7. **Audit what was skipped:** 404 route, `src/seo/*` structured data,
+   `feed.xml` generation; also the STBF cover filename ("Girls" here,
+   "Flowers" on `main`).
+
+### B. Longer-standing items
+
 1. **Native CSS port, remaining pages.** Work cards, journal timeline,
    store/retailer grid, about/legal/feedback styling is still in
    `assets/site.css` rather than `components/styles.py`. Same pattern
@@ -102,6 +140,36 @@ see the session log below for how):
 ## Session log
 
 Newest first.
+
+### 2026-10-17 -- Audit of `arklight` against `main`, then data sync
+
+Cloned `Rae-ARK/ARKfolio` twice (`main` and `arklight`), installed
+ARKlight `alpha` (`v0.70.0`) in a venv, and compared every page, the
+shared nav/footer, and the content/data files side by side. Built the
+branch before and after: all 8 pages compile, `tests/` passes.
+
+**Audit findings** (each re-checked against the files, not carried
+over from earlier notes) -- see `README.md`'s "Behind `main`".
+Corrections to the first-pass notes: Works *data* needed no change;
+the Privacy gap is a real copy change (Cloudflare Web Analytics), not
+just a date; the Store drift also included reworded description/note
+text and per-retailer notes; the single journal body that differs
+from `main` differs only in straight vs. curly quotes (left as is).
+
+**Then synced the data arrays** (no new structure beyond what the data
+needed): `content/site.py` (new, shared links), `content/journal.py`,
+`content/store.py`, `content/works.py` (`CURRENTLY_WRITING`),
+`pages/about.py` (`CURRENTLY_WRITING_SHORT`), `pages/feedback.py`
+(`FEEDBACK_SUBJECTS`); small wiring in `components/nav.py`,
+`components/footer.py`, `components/styles.py` (YouTube icon),
+`pages/store.py` (optional note / per-retailer notes / coming-soon),
+and `assets/site.css` (`.work-thumb.sbm2`, coming-soon badge); copied
+`main`'s Volume 2 cover into `assets/images/`.
+
+**Deliberately not changed:** Privacy copy and date (see Open items
+A.3) and the footer link-set (A.6) -- both are decisions, not syncs.
+The structural pieces (mood card, journal filter/RSS, Works notice,
+Store shelf) are untouched and still listed above.
 
 ### ARKlight upgrade: `v0.048` → `v0.069` (`v0.06616`) -- parity pass
 

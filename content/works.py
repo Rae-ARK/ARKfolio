@@ -152,8 +152,11 @@ CURRENTLY_WRITING = [
         "paused": False,
     },
     {
-        "title": "Summoned by Mistake, I Decided to Learn How to Live \u2014 Arc 3",
-        "note": "The ruins exploration arc. New chapters continue on a regular cadence.",
+        "title": "Summoned by Mistake, I Decided to Learn How to Live \u2014 Arc 4",
+        "note": (
+            "Picked back up after a short break following Arc 3. New chapters continue "
+            "on a regular cadence."
+        ),
         "state": "Ongoing",
         "paused": False,
     },

@@ -48,6 +48,8 @@ Ported from ARKfolio's AppHeader.vue. Things that don't carry over
 
 from arklight import Header, Nav, Link, Container, Image, Span, Button, Action, Bind
 
+from content.site import X_URL, YOUTUBE_URL, GITHUB_URL
+
 
 def _asterism():
     """The site's signature motif (\u2042) next to the wordmark.
@@ -107,14 +109,21 @@ def nav(theme_state: str | None = None, current_route: str | None = None):
         # `components/styles.py` -- is the only thing sighted users see.
         Link(
             "X",
-            href="https://x.com/Rae7866",
+            href=X_URL,
             target="_blank",
             class_name="icon-btn icon-x",
             aria_label="Follow on X",
         ),
         Link(
+            "YouTube",
+            href=YOUTUBE_URL,
+            target="_blank",
+            class_name="icon-btn icon-youtube",
+            aria_label="Watch on YouTube",
+        ),
+        Link(
             "GitHub",
-            href="https://github.com/Rae-ARK/My-Portfolio",
+            href=GITHUB_URL,
             target="_blank",
             class_name="icon-btn icon-github",
             aria_label="View source on GitHub",
