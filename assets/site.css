@@ -749,6 +749,31 @@ nav.main-nav a,
   margin-bottom: 28px;
 }
 
+.rss-link {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-top: -1em;
+}
+
+.rss-link a {
+  color: var(--accent);
+}
+
+.official-sources {
+  margin-bottom: 0;
+}
+
+.official-sources p,
+.official-sources .inline-text {
+  margin: 4px 0 0;
+}
+
+.official-sources a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .form-field {
   margin-bottom: 20px;
 }

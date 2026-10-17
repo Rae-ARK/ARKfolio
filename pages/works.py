@@ -14,6 +14,37 @@ from components.common import section_divider, PAGE_STYLESHEET_LINKS, PAGE_FAVIC
 from content.works import WORKS
 
 
+def _official_sites():
+    """Official reading platforms, derived from the same WORKS[*]['links']
+    used below so the notice can't drift out of date: platform -> the
+    stories hosted there. Mirrors WorksPage.vue's `officialSites` reduce,
+    preserving first-seen platform order (plain dict insertion order).
+    """
+    grouped = {}
+    for work in WORKS:
+        for link in work["links"]:
+            grouped.setdefault(link["label"], []).append(work["short_title"])
+    return list(grouped.items())
+
+
+def _official_sources_notice():
+    sites = _official_sites()
+    sites_text = ", ".join(f"{site_name} ({', '.join(titles)})" for site_name, titles in sites)
+
+    return Container(
+        Strong("Official sources"),
+        Container(
+            Span(f"These are the only authorised places to read or buy these stories: {sites_text}, and the paperback through the "),
+            Link("Store", href="/store"),
+            Span(". A complete copy hosted anywhere else is unauthorised \u2014 see the "),
+            Link("Journal", href="/journal"),
+            Span(" for why this matters."),
+            class_name="inline-text",
+        ),
+        class_name="notice-box official-sources",
+    )
+
+
 def works():
     sections = []
     for i, work in enumerate(WORKS):
@@ -94,6 +125,10 @@ def works():
                     class_name="wrap",
                 ),
                 class_name="hero",
+            ),
+            Section(
+                Container(_official_sources_notice(), class_name="wrap container-narrow"),
+                class_name="page-body tight",
             ),
             *sections,
             footer(),

@@ -25,6 +25,14 @@ ARK_DIR="${1:-ARK}"
 
 arklight build site.py -o "$ARK_DIR" --no-open
 
+# RSS feed: not a page ARKlight's own build knows how to emit, so it's
+# a second pass over the output dir, same division of labour as the
+# original Vue site's scripts/build-feed.mjs. See pages/journal.py's
+# "/feed.xml" link and arklight.config.py's overdrive note for why the
+# link-check lets that href through even though nothing above
+# generates it.
+python3 "$(dirname "$0")/build_feed.py" "$ARK_DIR"
+
 arklight pwa "$ARK_DIR" \
   --name "Rae ARK — Web Novelist" \
   --short-name "Rae ARK" \
