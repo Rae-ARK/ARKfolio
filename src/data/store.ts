@@ -43,8 +43,8 @@ export const storeBooks: StoreBook[] = [
       {
         label: 'Amazon',
         primary: true,
-        url: 'https://www.royalroad.com/amazon/B0H62KQV8D?maas=&ref=',
-        note: 'Opens through a Royal Road redirect link on its way to the Amazon listing.',
+        url: 'https://www.amazon.com/dp/B0H62KQV8D',
+        note: 'Opens Amazon.com listing.',
       },
       { label: 'Walmart', url: 'https://www.walmart.com/ip/Summoned-by-Mistake-I-Decided-to-Learn-How-to-Live-Volume-1-Unwanted-Summoning-Of-Names-and-New-Beginnings-Arc-1-2-Paperback-9798181078697/20471956500' },
       { label: 'eBay (AU)', url: 'https://www.ebay.com.au/itm/137466978621' },
