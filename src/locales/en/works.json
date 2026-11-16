@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "eyebrow": "The Works",
+    "title": "Three stories, read in full elsewhere",
+    "lede": "Every chapter lives on Royal Road and Scribble Hub — this page is just the map. Synopses below, links to the real thing at the end of each."
+  },
+  "notice": {
+    "title": "Official sources",
+    "intro": "These are the only authorised places to read or buy these stories:",
+    "and": "and the paperback through the",
+    "unauthorized": "A complete copy hosted anywhere else is unauthorised — see the",
+    "whyMatters": "for why this matters."
+  },
+  "contentNoticeTitle": "Content notice — 18+",
+  "readOn": "Read on {platform} ↗"
+}

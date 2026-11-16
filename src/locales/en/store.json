@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "eyebrow": "Paperbacks",
+    "title": "Store",
+    "lede": "Every chapter is free to read online. These are the print editions, for anyone who'd rather have one on a shelf."
+  },
+  "buyOn": "Buy on {retailer}",
+  "otherRetailers": "Other retailers",
+  "stillToCome": {
+    "eyebrow": "Still to come"
+  },
+  "notYetInPrint": "Not yet in print",
+  "waitingFor": "I'm waiting for {title} →"
+}

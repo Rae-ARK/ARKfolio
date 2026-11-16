@@ -1,0 +1,33 @@
+{
+  "hero": {
+    "eyebrow": "Fantasy · Science Fantasy · Slice of Life",
+    "title": "Stories about people learning how to live again.",
+    "lede": "Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.",
+    "ctaWorks": "Read the works",
+    "ctaJournal": "From the writing desk"
+  },
+  "works": {
+    "eyebrow": "Featured Works",
+    "title": "Three stories, one question",
+    "lede": "Each begins differently — a second life, a wrong world, a body that isn't yours — but all of them ask the same thing: what does it take to actually live, not just survive?"
+  },
+  "writing": {
+    "eyebrow": "Currently Writing",
+    "title": "What's alive on the desk right now"
+  },
+  "journal": {
+    "eyebrow": "From the Writing Desk",
+    "title": "Latest journal entry",
+    "readMore": "Read the full journal →"
+  },
+  "quote": {
+    "text": "\"I believe stories deserve endings. Some of mine span years; others are written short and focused, on purpose — so I can keep learning how to bring a narrative to a close I actually believe in.\"",
+    "attrib": "— Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists"
+  },
+  "reads": {
+    "eyebrow": "Where to Read",
+    "title": "Read every chapter free, or keep a copy on your shelf",
+    "paperbackLabel": "Paperback",
+    "paperbackLink": "SBM, Vol. 1 →"
+  }
+}

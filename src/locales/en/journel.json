@@ -1,0 +1,13 @@
+{
+  "hero": {
+    "eyebrow": "From the Writing Desk",
+    "title": "Journal",
+    "lede": "Not news. Just the process — the breaks, the doubts, the small wins — as it actually happens.",
+    "rss": "Follow by RSS ↗"
+  },
+  "filterAriaLabel": "Filter journal by story",
+  "filters": {
+    "all": "All"
+  },
+  "empty": "No entries tagged for that story yet."
+}

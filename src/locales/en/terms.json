@@ -1,0 +1,32 @@
+{
+  "hero": {
+    "eyebrow": "Legal",
+    "title": "Terms &amp; Conditions",
+    "lastUpdated": "Last updated: {date}"
+  },
+  "intro": "By using this site or the Rae ARK Android app, you agree to the terms below. If you don't agree, the simplest option is not to use it — nothing here is gated behind acceptance of anything more involved than reading a webpage or opening an app.",
+  "content": {
+    "heading": "The content",
+    "body": "All original writing, artwork, and branding on this site and app — including the web novels, journal entries, and cover art — belongs to Rae ARK (Horizon ARK Studio) unless stated otherwise. You're welcome to read, link to, and share pages, but reposting, republishing, or using the writing or art commercially without permission isn't allowed."
+  },
+  "thirdParty": {
+    "heading": "Third-party platforms",
+    "body": "Royal Road, Scribble Hub, X/Twitter, and any retailers linked from the Store page are independent platforms with their own terms of service. Reading, purchasing, or creating an account on those platforms is governed by their rules, not these ones."
+  },
+  "warranty": {
+    "heading": "No warranty",
+    "body": "This site and app are provided \"as is.\" Every reasonable effort is made to keep content accurate and the app functioning, but no guarantee is made that it will be uninterrupted, error-free, or available at all times."
+  },
+  "ageNotices": {
+    "heading": "Age and content notices",
+    "body": "Some works are tagged \"Mature Content\" on the Works page and carry appropriate content warnings there. Please check those tags before reading if that matters to you."
+  },
+  "changes": {
+    "heading": "Changes",
+    "body": "These terms may be updated occasionally; continued use after a change means you accept the updated terms. Material changes will update the \"last updated\" date above."
+  },
+  "contact": {
+    "heading": "Contact",
+    "body": "Questions about these terms can be sent via the {feedbackLink} page."
+  }
+}
