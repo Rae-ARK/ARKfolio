@@ -1,0 +1,1 @@
+"Stage 2 done: nav, the header's icon-button labels, the footer, the feedback form, and the 404 page are now real keys in both locales. Longer page content (Home, Works, Store, Journal, About, Privacy, Terms) stays hardcoded English for now — that's prose, not UI chrome, and is its own stage."

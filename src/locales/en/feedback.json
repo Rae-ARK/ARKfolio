@@ -1,0 +1,28 @@
+{
+  "eyebrow": "Get in Touch",
+  "title": "Feedback",
+  "lede": "Thoughts on a story, the site, or anything else — this goes straight to my inbox.",
+  "notice": "This form opens your own email app with the message ready to send to {recipient} — nothing is sent from this page, and nothing is stored. No email app? Use the copy buttons under the form. Please pick the subject that fits, so your message isn't lost in a crowded inbox.",
+  "subjectLabel": "Subject",
+  "nameLabel": "Your name",
+  "optional": "(optional)",
+  "namePlaceholder": "So I know who to thank",
+  "messageLabel": "Message",
+  "messagePlaceholder": "Whatever's on your mind...",
+  "submit": "Send Feedback",
+  "noEmailApp": "No email app?",
+  "copyAddress": "Copy address",
+  "copyMessage": "Copy message",
+  "copiedAddress": "Address copied.",
+  "copiedMessage": "Subject and message copied.",
+  "copyFailed": "Couldn't copy automatically — the address is {recipient}.",
+  "sendHint": "Send it from any email service you like.",
+  "subjects": {
+    "writing": "Feedback on the writing",
+    "website": "Feedback on the website",
+    "paperback": "Feedback on a paperback",
+    "author": "Feedback about the author",
+    "waitingEpmc": "Waiting for the EPMC paperback",
+    "waitingStbf": "Waiting for the STBF paperback"
+  }
+}
