@@ -1,6 +1,6 @@
 <p> 
   <p align="left">
-    <h1>ARKfolio</h1>
+    <b>ARKfolio</b>
   </p>
   <p align="right">
   <a href="## What's here">What's Here</a> •
