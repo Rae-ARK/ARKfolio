@@ -36,8 +36,8 @@ function wireBackButton(router: Router) {
   App.addListener('backButton', () => {
     if (window.history.state?.back) {
       router.back()
-    } else if (router.currentRoute.value.path !== '/') {
-      router.push('/')
+    } else if (!['/', '/ja'].includes(router.currentRoute.value.path)) {
+      router.push(router.currentRoute.value.meta.locale === 'ja' ? '/ja' : '/')
     } else {
       App.exitApp()
     }

@@ -45,13 +45,13 @@
   </script>
   <script>
     // Set lang before first paint, same reasoning as the theme script above.
-    // I18n.ts and useLocale.ts both read this same attribute back on init.
+    // The URL decides the language: /ja and /ja/... are Japanese, everything
+    // else is English. I18n.ts and useLocale.ts both read this same attribute
+    // back on init, and the router keeps it in sync on later navigations.
     (function () {
-      try {
-        var stored = localStorage.getItem('ark-locale')
-        var locale = stored === 'en' || stored === 'ja' ? stored : 'en'
-        document.documentElement.setAttribute('lang', locale)
-      } catch (e) {}
+      var p = window.location.pathname
+      var locale = p === '/ja' || p.indexOf('/ja/') === 0 ? 'ja' : 'en'
+      document.documentElement.setAttribute('lang', locale)
     })()
   </script>
 </head>

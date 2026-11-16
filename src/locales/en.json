@@ -1,8 +1,5 @@
 {
   "_stage": "Stage 2 done: nav, the header's icon-button labels, the footer, the feedback form, and the 404 page are now real keys in both locales. Longer page content (Home, Works, Store, Journal, About, Privacy, Terms) stays hardcoded English for now — that's prose, not UI chrome, and is its own stage.",
-  "lang": {
-    "switchTo": "日本語"
-  },
   "nav": {
     "home": "Home",
     "works": "Works",
@@ -18,9 +15,7 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "switchToLight": "Switch to light theme",
-    "switchToDark": "Switch to dark theme",
-    "switchToEnglish": "Switch to English",
-    "switchToJapanese": "Switch to Japanese"
+    "switchToDark": "Switch to dark theme"
   },
   "footer": {
     "quote": "\"I hope for people to hold the book in their hands someday, and to sit on the shelves.\"",

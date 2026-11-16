@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
-import { useLocale } from '@/composables/useLocale'
 
 // Stage 1: mobile nav open/close now lives in Vue state instead of
 // DOM classList toggling — same CSS class ("open"), same behavior.
@@ -12,7 +11,6 @@ function closeNav() {
 }
 
 const { theme, toggleTheme } = useTheme()
-const { locale, toggleLocale } = useLocale()
 const { t } = useI18n()
 </script>
 
@@ -79,14 +77,6 @@ const { t } = useI18n()
             <svg v-else viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.6 15.3A8.5 8.5 0 1 1 8.7 3.4a7 7 0 0 0 11.9 11.9Z"/>
             </svg>
-          </button>
-          <button
-            type="button"
-            class="icon-btn lang-toggle"
-            @click="toggleLocale"
-            :aria-label="locale === 'ja' ? t('header.switchToEnglish') : t('header.switchToJapanese')"
-          >
-            <span class="lang-label" aria-hidden="true">{{ t('lang.switchTo') }}</span>
           </button>
         </div>
       </nav>

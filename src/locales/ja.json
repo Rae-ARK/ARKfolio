@@ -1,8 +1,5 @@
 {
   "_stage": "ステージ2完了: ナビゲーション、ヘッダーのアイコンボタンのラベル、フッター、フィードバックフォーム、404ページを両ロケールの実キーとして抽出した。Home・Works・Store・Journal・About・Privacy・Termsなどの長い本文はまだ英語のまま — あれは地の文であってUIの骨組みではないので、別のステージで扱う。",
-  "lang": {
-    "switchTo": "English"
-  },
   "nav": {
     "home": "ホーム",
     "works": "作品",
@@ -18,9 +15,7 @@
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
     "switchToLight": "ライトテーマに切り替え",
-    "switchToDark": "ダークテーマに切り替え",
-    "switchToEnglish": "英語に切り替え",
-    "switchToJapanese": "日本語に切り替え"
+    "switchToDark": "ダークテーマに切り替え"
   },
   "footer": {
     "quote": "「いつか本を手に取って、本棚に並べてもらえたら」",
