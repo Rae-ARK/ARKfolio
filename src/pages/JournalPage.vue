@@ -1,15 +1,22 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { journalEntries } from '@/data/journal'
+
+const { t } = useI18n()
 
 type Filter = 'all' | 'sbm' | 'epmc' | 'stbf'
 
-const filters: { id: Filter; label: string }[] = [
-  { id: 'all', label: 'All' },
+// Story abbreviations (SBM / EPMC / STBF) are the works' own short titles and
+// stay the same across locales; only the "All" filter has a translation.
+// Kept as a computed (not a plain const) so the label stays correct if the
+// locale changes via client-side navigation rather than a fresh page load.
+const filters = computed<{ id: Filter; label: string }[]>(() => [
+  { id: 'all', label: t('journal.filters.all') },
   { id: 'sbm', label: 'SBM' },
   { id: 'epmc', label: 'EPMC' },
   { id: 'stbf', label: 'STBF' },
-]
+])
 
 const activeFilter = ref<Filter>('all')
 
@@ -19,23 +26,23 @@ const activeFilter = ref<Filter>('all')
 const filteredEntries = computed(() =>
   activeFilter.value === 'all'
     ? journalEntries
-    : journalEntries.filter((entry) => entry.tags.label.includes(filters.find((f) => f.id === activeFilter.value)!.label))
+    : journalEntries.filter((entry) => entry.tags.label.includes(filters.value.find((f) => f.id === activeFilter.value)!.label))
 )
 </script>
 
 <template>
   <section class="hero page-hero">
     <div class="wrap">
-      <span class="eyebrow">From the Writing Desk</span>
-      <h1>Journal</h1>
-      <p class="lede">Not news. Just the process — the breaks, the doubts, the small wins — as it actually happens.</p>
-      <p class="rss-link"><a href="/feed.xml" target="_blank" rel="noopener">Follow by RSS ↗</a></p>
+      <span class="eyebrow">{{ t('journal.hero.eyebrow') }}</span>
+      <h1>{{ t('journal.hero.title') }}</h1>
+      <p class="lede">{{ t('journal.hero.lede') }}</p>
+      <p class="rss-link"><a href="/feed.xml" target="_blank" rel="noopener">{{ t('journal.hero.rss') }}</a></p>
     </div>
   </section>
 
   <section class="page-body">
     <div class="wrap container-narrow">
-      <div class="tag-filter" role="group" aria-label="Filter journal by story">
+      <div class="tag-filter" role="group" :aria-label="t('journal.filterAriaLabel')">
         <button
           v-for="f in filters"
           :key="f.id"
@@ -49,7 +56,7 @@ const filteredEntries = computed(() =>
         </button>
       </div>
 
-      <p v-if="filteredEntries.length === 0" class="journal-empty">No entries tagged for that story yet.</p>
+      <p v-if="filteredEntries.length === 0" class="journal-empty">{{ t('journal.empty') }}</p>
 
       <div class="timeline" v-else>
         <div

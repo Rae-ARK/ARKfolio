@@ -1,64 +1,44 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const LAST_UPDATED = 'July 2026'
 </script>
 
 <template>
   <section class="hero page-hero">
     <div class="wrap">
-      <span class="eyebrow">Legal</span>
-      <h1>Terms &amp; Conditions</h1>
-      <p class="lede">Last updated: {{ LAST_UPDATED }}</p>
+      <span class="eyebrow">{{ t('terms.hero.eyebrow') }}</span>
+      <h1>{{ t('terms.hero.title') }}</h1>
+      <p class="lede">{{ t('terms.hero.lastUpdated', { date: LAST_UPDATED }) }}</p>
     </div>
   </section>
 
   <section class="page-body" v-reveal>
     <div class="wrap container-narrow">
       <div class="legal-card">
-        <p>
-          By using this site or the Rae ARK Android app, you agree to the terms below. If you
-          don't agree, the simplest option is not to use it — nothing here is gated behind
-          acceptance of anything more involved than reading a webpage or opening an app.
-        </p>
+        <p>{{ t('terms.intro') }}</p>
 
-        <h3>The content</h3>
-        <p>
-          All original writing, artwork, and branding on this site and app — including the web
-          novels, journal entries, and cover art — belongs to Rae ARK (Horizon ARK Studio) unless
-          stated otherwise. You're welcome to read, link to, and share pages, but reposting,
-          republishing, or using the writing or art commercially without permission isn't allowed.
-        </p>
+        <h3>{{ t('terms.content.heading') }}</h3>
+        <p>{{ t('terms.content.body') }}</p>
 
-        <h3>Third-party platforms</h3>
-        <p>
-          Royal Road, Scribble Hub, X/Twitter, and any retailers linked from the Store page are
-          independent platforms with their own terms of service. Reading, purchasing, or creating
-          an account on those platforms is governed by their rules, not these ones.
-        </p>
+        <h3>{{ t('terms.thirdParty.heading') }}</h3>
+        <p>{{ t('terms.thirdParty.body') }}</p>
 
-        <h3>No warranty</h3>
-        <p>
-          This site and app are provided "as is." Every reasonable effort is made to keep content
-          accurate and the app functioning, but no guarantee is made that it will be uninterrupted,
-          error-free, or available at all times.
-        </p>
+        <h3>{{ t('terms.warranty.heading') }}</h3>
+        <p>{{ t('terms.warranty.body') }}</p>
 
-        <h3>Age and content notices</h3>
-        <p>
-          Some works are tagged "Mature Content" on the Works page and carry appropriate content
-          warnings there. Please check those tags before reading if that matters to you.
-        </p>
+        <h3>{{ t('terms.ageNotices.heading') }}</h3>
+        <p>{{ t('terms.ageNotices.body') }}</p>
 
-        <h3>Changes</h3>
-        <p>
-          These terms may be updated occasionally; continued use after a change means you accept
-          the updated terms. Material changes will update the "last updated" date above.
-        </p>
+        <h3>{{ t('terms.changes.heading') }}</h3>
+        <p>{{ t('terms.changes.body') }}</p>
 
-        <h3>Contact</h3>
-        <p>
-          Questions about these terms can be sent via the <router-link to="/feedback">Feedback</router-link>
-          page.
-        </p>
+        <h3>{{ t('terms.contact.heading') }}</h3>
+        <i18n-t keypath="terms.contact.body" tag="p">
+          <template #feedbackLink><router-link to="/feedback">{{ t('footer.feedback') }}</router-link></template>
+        </i18n-t>
       </div>
     </div>
   </section>

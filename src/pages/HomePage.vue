@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { works, currentlyWriting } from '@/data/works'
 import { journalEntries } from '@/data/journal'
 import WorkCard from '@/components/WorkCard.vue'
 import MoodCard from '@/components/MoodCard.vue'
+
+const { t } = useI18n()
 
 // journalEntries is kept newest-first, so the latest post is just its head.
 const latestEntry = journalEntries[0]
@@ -20,13 +23,13 @@ const platforms = Object.entries(
 <template>
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow stagger-in" style="--i: 0">Fantasy · Science Fantasy · Slice of Life</span>
-      <h1 class="stagger-in" style="--i: 1">Stories about people learning how to live again.</h1>
-      <p class="lede stagger-in" style="--i: 2">Reincarnation, isekai, and the quiet, unglamorous work of rebuilding a life — told through people who are imperfect, lost, and trying anyway.</p>
+      <span class="eyebrow stagger-in" style="--i: 0">{{ t('home.hero.eyebrow') }}</span>
+      <h1 class="stagger-in" style="--i: 1">{{ t('home.hero.title') }}</h1>
+      <p class="lede stagger-in" style="--i: 2">{{ t('home.hero.lede') }}</p>
       <MoodCard class="stagger-in" style="--i: 3" />
       <div class="cta-row stagger-in" style="--i: 4">
-        <router-link to="/works" class="btn btn-ghost">Read the works</router-link>
-        <router-link to="/journal" class="btn btn-ghost">From the writing desk</router-link>
+        <router-link to="/works" class="btn btn-ghost">{{ t('home.hero.ctaWorks') }}</router-link>
+        <router-link to="/journal" class="btn btn-ghost">{{ t('home.hero.ctaJournal') }}</router-link>
       </div>
     </div>
   </section>
@@ -34,9 +37,9 @@ const platforms = Object.entries(
   <section id="works" v-reveal>
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Featured Works</span>
-        <h2>Three stories, one question</h2>
-        <p>Each begins differently — a second life, a wrong world, a body that isn't yours — but all of them ask the same thing: what does it take to actually live, not just survive?</p>
+        <span class="eyebrow">{{ t('home.works.eyebrow') }}</span>
+        <h2>{{ t('home.works.title') }}</h2>
+        <p>{{ t('home.works.lede') }}</p>
       </div>
       <div class="card-grid">
         <WorkCard v-for="work in works" :key="work.slug" :work="work" />
@@ -49,8 +52,8 @@ const platforms = Object.entries(
   <section class="alt-bg" v-reveal>
     <div class="wrap container-narrow">
       <div class="section-head">
-        <span class="eyebrow">Currently Writing</span>
-        <h2>What's alive on the desk right now</h2>
+        <span class="eyebrow">{{ t('home.writing.eyebrow') }}</span>
+        <h2>{{ t('home.writing.title') }}</h2>
       </div>
       <div class="status-panel">
         <div class="status-row" v-for="item in currentlyWriting" :key="item.title">
@@ -69,8 +72,8 @@ const platforms = Object.entries(
   <section v-reveal v-if="latestEntry">
     <div class="wrap container-narrow">
       <div class="section-head">
-        <span class="eyebrow">From the Writing Desk</span>
-        <h2>Latest journal entry</h2>
+        <span class="eyebrow">{{ t('home.journal.eyebrow') }}</span>
+        <h2>{{ t('home.journal.title') }}</h2>
       </div>
       <router-link to="/journal" class="journal-teaser">
         <div class="work-thumb small" :class="latestEntry.tags.thumb" aria-hidden="true"></div>
@@ -78,7 +81,7 @@ const platforms = Object.entries(
           <span class="journal-date">{{ latestEntry.date }}</span>
           <h3>{{ latestEntry.title }}</h3>
           <p class="journal-teaser-body">{{ latestEntry.body }}</p>
-          <span class="go">Read the full journal →</span>
+          <span class="go">{{ t('home.journal.readMore') }}</span>
         </div>
       </router-link>
     </div>
@@ -88,8 +91,8 @@ const platforms = Object.entries(
 
   <section v-reveal>
     <div class="wrap pull-quote">
-      <blockquote>"I believe stories deserve endings. Some of mine span years; others are written short and focused, on purpose — so I can keep learning how to bring a narrative to a close I actually believe in."</blockquote>
-      <cite>— Rae ARK, on why The Shadow I Cast Over Two Beautiful Flowers exists</cite>
+      <blockquote>{{ t('home.quote.text') }}</blockquote>
+      <cite>{{ t('home.quote.attrib') }}</cite>
     </div>
   </section>
 
@@ -98,8 +101,8 @@ const platforms = Object.entries(
   <section class="alt-bg" v-reveal>
     <div class="wrap">
       <div class="section-head">
-        <span class="eyebrow">Where to Read</span>
-        <h2>Read every chapter free, or keep a copy on your shelf</h2>
+        <span class="eyebrow">{{ t('home.reads.eyebrow') }}</span>
+        <h2>{{ t('home.reads.title') }}</h2>
       </div>
       <div class="reads">
         <div class="read-card" v-reveal :style="{ '--i': idx }" v-for="([site, links], idx) in platforms" :key="site">
@@ -107,8 +110,8 @@ const platforms = Object.entries(
           <a v-for="link in links" :key="link.url" class="go" :href="link.url" target="_blank" rel="noopener">{{ link.name }} ↗</a>
         </div>
         <div class="read-card" v-reveal :style="{ '--i': platforms.length }">
-          <span class="k">Paperback</span>
-          <router-link class="go" to="/store">SBM, Vol. 1 →</router-link>
+          <span class="k">{{ t('home.reads.paperbackLabel') }}</span>
+          <router-link class="go" to="/store">{{ t('home.reads.paperbackLink') }}</router-link>
         </div>
       </div>
     </div>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { works } from '@/data/works'
+
+const { t } = useI18n()
 
 // Official reading platforms, derived from the same links used below so the
 // notice can't drift out of date: platform -> the stories hosted there.
@@ -14,23 +17,23 @@ const officialSites = Object.entries(
 <template>
   <section class="hero page-hero roomy">
     <div class="wrap">
-      <span class="eyebrow">The Works</span>
-      <h1>Three stories, read in full elsewhere</h1>
-      <p class="lede">Every chapter lives on Royal Road and Scribble Hub — this page is just the map. Synopses below, links to the real thing at the end of each.</p>
+      <span class="eyebrow">{{ t('works.hero.eyebrow') }}</span>
+      <h1>{{ t('works.hero.title') }}</h1>
+      <p class="lede">{{ t('works.hero.lede') }}</p>
     </div>
   </section>
 
   <section class="page-body tight">
     <div class="wrap container-narrow">
       <div class="notice-box official-sources">
-        <strong>Official sources</strong>
+        <strong>{{ t('works.notice.title') }}</strong>
         <p>
-          These are the only authorised places to read or buy these stories:
+          {{ t('works.notice.intro') }}
           <template v-for="([site, titles], idx) in officialSites" :key="site">
             <template v-if="idx > 0">, </template>{{ site }} ({{ titles.join(', ') }})
-          </template>, and the paperback through the <router-link to="/store">Store</router-link>.
-          A complete copy hosted anywhere else is unauthorised — see the
-          <router-link to="/journal">Journal</router-link> for why this matters.
+          </template>, {{ t('works.notice.and') }} <router-link to="/store">{{ t('nav.store') }}</router-link>.
+          {{ t('works.notice.unauthorized') }}
+          <router-link to="/journal">{{ t('nav.journal') }}</router-link> {{ t('works.notice.whyMatters') }}
         </p>
       </div>
     </div>
@@ -53,7 +56,7 @@ const officialSites = Object.entries(
         </div>
 
         <div v-if="work.contentNotice" class="content-notice">
-          <strong>Content notice — 18+</strong>
+          <strong>{{ t('works.contentNoticeTitle') }}</strong>
           <p>{{ work.contentNotice }}</p>
         </div>
 
@@ -64,7 +67,7 @@ const officialSites = Object.entries(
         </div>
 
         <div class="work-links">
-          <a v-for="link in work.links" :key="link.label" :href="link.url" target="_blank" rel="noopener">Read on {{ link.label }} ↗</a>
+          <a v-for="link in work.links" :key="link.label" :href="link.url" target="_blank" rel="noopener">{{ t('works.readOn', { platform: link.label }) }}</a>
         </div>
       </div>
     </section>
