@@ -12,6 +12,7 @@ dist/
 
 # Patch files (used ad-hoc during development, never meant to be committed)
 *.patch
+*.txt
 
 # Logs
 npm-debug.log*

@@ -1,0 +1,62 @@
+{
+  "hero": {
+    "eyebrow": "自己紹介",
+    "title": "Rae ARK"
+  },
+  "bio": {
+    "lead": "キャラクターを軸にしたファンタジーやサイエンス・ファンタジーを書いています。生まれ変わりや異世界、あるいは厳しい境遇を通して、自分自身を立て直していく人々を描く物語です。後悔や好奇心、責任、そして生き方を少しずつ学んでいく過程をテーマにしています。",
+    "p2": "私の物語は、世界を救うことを中心に据えることはあまりありません。むしろ、その世界で生きる人々に目を向けています。不完全で、迷いながらも、それでも自分の居場所を見つけようとしている人たちです。",
+    "p3": "じっくり計画を練ってから始める作品もあれば、頭から離れないたった一つのアイデアから始まる作品もあります。どちらにしても、物語を最初から完成された形で用意するというより、読者の皆さんと一緒に見つけていくことが多いです。読者の皆さんが今読んでいるものも、間違いも含めて、実際には初稿に近いことがよくあります。",
+    "p4": "執筆は趣味で、ほかのことの合間に見つけた自由時間を使って書いています。そのため、更新スケジュールは変わることがありますし、大きな区切りまで書き終えたあとは、しっかり休むこともあります。もうすっかり恒例行事みたいなものですね。でも、始めた物語を途中で投げ出すつもりはありません。続いている物語は、ゆっくりでもちゃんと続けていきます。"
+  },
+  "why": {
+    "title": "こうした物語を書く理由",
+    "p1": "『Enigmatic Pathways Mystic Circuits』（エニグマティック・パスウェイズ・ミスティック・サーキッツ）は、あるアニメの鑑賞会が、才能だけではない家族のあり方についての本格的な話し合いに発展したことをきっかけに生まれました。『Re:ゼロから始める異世界生活』と『無職転生 ～異世界行ったら本気だす～』は、やり直す機会や、時間をかけて苦労しながら育んでいく心の成長について、私の考え方に大きな影響を与えました。力を手に入れることだけを描く物語ではなく、自分に起きたことを受け止め、それを背負って生きていく人々の物語です。",
+    "p2": "『Summoned by Mistake, I Decided to Learn How to Live』（サモンド・バイ・ミステイク、アイ・ディサイデッド・トゥ・ラーン・ハウ・トゥ・リヴ）は、ほかの作品には収まりきらなかったアイデアを書き留める場所になりました。もっと自由で、気楽に書ける作品です。一方、『The Shadow I Cast Over Two Beautiful Flowers』（ザ・シャドウ・アイ・キャスト・オーヴァー・トゥー・ビューティフル・フラワーズ）には、まったく別の理由があります。主に自分自身に証明したかったんです。物語を最後まで書き切り、きちんと納得できる結末にたどり着けるということを。"
+  },
+  "side": {
+    "nameHeading": "名前について",
+    "name": "Rae ARK — 嵐久 怜。",
+    "findHeading": "作品を読む",
+    "writingHeading": "現在執筆中",
+    "imprint": "Horizon ARK Studio",
+    "sourceCredit": "このサイトのソースコード（GitHub）↗"
+  },
+  "readLinks": [
+    {
+      "site": "Royal Road",
+      "title": "Enigmatic Pathways Mystic Circuits",
+      "url": "https://www.royalroad.com/fiction/114101/enigmatic-pathways-mystic-circuits/"
+    },
+    {
+      "site": "Royal Road",
+      "title": "Summoned by Mistake, I Decided to Learn How to Live",
+      "url": "https://www.royalroad.com/fiction/163034/summoned-by-mistake-i-decided-to-learn-how-to"
+    },
+    {
+      "site": "Royal Road",
+      "title": "The Shadow I Cast Over Two Beautiful Flowers",
+      "url": "https://www.royalroad.com/fiction/173205/the-shadow-i-cast-over-two-beautiful-flowers/"
+    },
+    {
+      "site": "Scribble Hub",
+      "title": "Enigmatic Pathways Mystic Circuits",
+      "url": "https://www.scribblehub.com/series/2312083/enigmatic-pathways-mystic-circuits/"
+    },
+    {
+      "site": "Scribble Hub",
+      "title": "Summoned by Mistake, I Decided to Learn How to Live",
+      "url": "https://www.scribblehub.com/series/2312017/summoned-by-mistake-i-decided-to-learn-how-to-live/"
+    },
+    {
+      "site": "X / Twitter",
+      "title": "{'@'}Rae7866",
+      "url": "https://x.com/Rae7866"
+    }
+  ],
+  "currentlyWriting": [
+    "Enigmatic Pathways Mystic Circuits — 第3巻・執筆中",
+    "Summoned by Mistake, I Decided to Learn How to Live — 第4アーク・連載中",
+    "The Shadow I Cast Over Two Beautiful Flowers — 第2幕・休止中"
+  ]
+}

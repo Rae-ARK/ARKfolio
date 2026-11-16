@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "eyebrow": "ペーパーバック",
+    "title": "ストア",
+    "lede": "すべての章はオンラインで無料で読めます。こちらは紙の書籍版で、本棚に置いておきたい方向けです。"
+  },
+  "buyOn": "{retailer}で購入",
+  "otherRetailers": "その他の取扱店",
+  "stillToCome": {
+    "eyebrow": "これから"
+  },
+  "notYetInPrint": "紙書籍はまだありません",
+  "waitingFor": "{title}の紙書籍を待っています →"
+}
