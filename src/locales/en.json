@@ -1,6 +1,69 @@
 {
-  "_stage": "Stage 1 ships the vue-i18n plumbing only. Short UI strings (nav, footer, form labels, etc.) are extracted into real keys in Stage 2 — until then every component keeps its hardcoded English text and this file only needs to exist so fallbackLocale: 'en' has something to resolve against.",
+  "_stage": "Stage 2 extracts short, reusable UI chrome into real keys: the nav, the header's icon-button labels, the footer, the feedback form, and the 404 page. Longer page content (Home, Works, Store, Journal, About, Privacy, Terms) stays hardcoded English for now — that's prose, not UI chrome, and is its own stage.",
   "lang": {
     "switchTo": "日本語"
+  },
+  "nav": {
+    "home": "Home",
+    "works": "Works",
+    "store": "Store",
+    "journal": "Journal",
+    "about": "About"
+  },
+  "header": {
+    "aboutAvatar": "About Rae ARK",
+    "followX": "Follow on X",
+    "watchYoutube": "Watch on YouTube",
+    "viewSource": "View source on GitHub",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme",
+    "switchToEnglish": "Switch to English",
+    "switchToJapanese": "Switch to Japanese"
+  },
+  "footer": {
+    "quote": "\"I hope for people to hold the book in their hands someday, and to sit on the shelves.\"",
+    "attrib": "— Rae ARK",
+    "imprint": "Published under Horizon ARK Studio",
+    "copyright": "© 2026 Rae ARK",
+    "feedback": "Feedback",
+    "privacy": "Privacy",
+    "terms": "Terms"
+  },
+  "feedback": {
+    "eyebrow": "Get in Touch",
+    "title": "Feedback",
+    "lede": "Thoughts on a story, the site, or anything else — this goes straight to my inbox.",
+    "notice": "This form opens your own email app with the message ready to send to {recipient} — nothing is sent from this page, and nothing is stored. No email app? Use the copy buttons under the form. Please pick the subject that fits, so your message isn't lost in a crowded inbox.",
+    "subjectLabel": "Subject",
+    "nameLabel": "Your name",
+    "optional": "(optional)",
+    "namePlaceholder": "So I know who to thank",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Whatever's on your mind...",
+    "submit": "Send Feedback",
+    "noEmailApp": "No email app?",
+    "copyAddress": "Copy address",
+    "copyMessage": "Copy message",
+    "copiedAddress": "Address copied.",
+    "copiedMessage": "Subject and message copied.",
+    "copyFailed": "Couldn't copy automatically — the address is {recipient}.",
+    "sendHint": "Send it from any email service you like.",
+    "subjects": {
+      "writing": "Feedback on the writing",
+      "website": "Feedback on the website",
+      "paperback": "Feedback on a paperback",
+      "author": "Feedback about the author",
+      "waitingEpmc": "Waiting for the EPMC paperback",
+      "waitingStbf": "Waiting for the STBF paperback"
+    }
+  },
+  "notFound": {
+    "eyebrow": "404",
+    "title": "That page isn't here",
+    "lede": "The address may be mistyped, or the page may have moved. The stories are all still where they were.",
+    "backHome": "Back to the start",
+    "browseWorks": "Browse the works"
   }
 }
