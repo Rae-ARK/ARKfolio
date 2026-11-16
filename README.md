@@ -1,15 +1,17 @@
-<p> 
-  <div align="left">
-    <h1>ARKfolio</h1>
-  </div>
-  <div align="right">
-  <a href="## What's here">What's Here</a> •
-  <a href="## Local development">Local Development</a> •
-  <a href="## Deploying the site">Deploying The Site</a> •
-  <a href="## Android app">Android App</a> •
-  <a href="## Project structure">Project Structure</a>
-  </div>
-</p>
+<table width="100%">
+  <tr>
+    <td align="left">
+      <h1>ARKfolio</h1>
+    </td>
+    <td align="right">
+      <a href="#whats-here">What's Here</a> •
+      <a href="#local-development">Local Development</a> •
+      <a href="#deploying-the-site">Deploying The Site</a> •
+      <a href="#android-app">Android App</a> •
+      <a href="#project-structure">Project Structure</a>
+    </td>
+  </tr>
+</table>
 
 # ARKfolio
 
