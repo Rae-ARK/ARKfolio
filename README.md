@@ -1,13 +1,14 @@
 <p> 
-  <p align="left">
+  <div align="left">
     <h1>ARKfolio</h1>
-  </p>
-  <p align="right">
+  </div>
+  <div align="right">
   <a href="## What's here">What's Here</a> •
   <a href="## Local development">Local Development</a> •
   <a href="## Deploying the site">Deploying The Site</a> •
   <a href="## Android app">Android App</a> •
   <a href="## Project structure">Project Structure</a>
+  </div>
 </p>
 
 # ARKfolio
