@@ -116,7 +116,7 @@ const pages: PageDef[] = [
         schema: 'person',
       },
       ja: {
-        title: '作者について — Rae ARK',
+        title: '自己紹介 — Rae ARK',
         description: 'Rae ARKは、自分を作り直していく人々を描く、キャラクター重視のファンタジー／サイエンスファンタジーを執筆しています。作者と物語の背景をご紹介します。',
         schema: 'person',
       },
