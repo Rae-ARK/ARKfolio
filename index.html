@@ -43,6 +43,17 @@
       } catch (e) {}
     })()
   </script>
+  <script>
+    // Set lang before first paint, same reasoning as the theme script above.
+    // I18n.ts and useLocale.ts both read this same attribute back on init.
+    (function () {
+      try {
+        var stored = localStorage.getItem('ark-locale')
+        var locale = stored === 'en' || stored === 'ja' ? stored : 'en'
+        document.documentElement.setAttribute('lang', locale)
+      } catch (e) {}
+    })()
+  </script>
 </head>
 <body>
   <div id="app"></div>

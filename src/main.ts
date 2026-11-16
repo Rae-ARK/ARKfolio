@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import { i18n } from './I18n'
 import { vReveal } from './composables/useScrollReveal'
 import { useTheme } from './composables/useTheme'
 import './styles/fonts.css'
@@ -8,6 +9,7 @@ import './styles/main.css'
 
 const app = createApp(App)
 app.use(router)
+app.use(i18n)
 app.directive('reveal', vReveal)
 app.mount('#app')
 

@@ -383,6 +383,17 @@ nav.main-nav a.active::after {
   height: 17px;
 }
 
+/* Japanese localization (0012), stage 1: text label standing in for an
+   icon in the same 44px circular button — sized down so "日本語"/"English"
+   fit without the button growing, letter-spacing reset for the same reason
+   as the :lang(ja) block below. */
+.lang-toggle .lang-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
 .nav-toggle {
   display: none;
   background: none;
