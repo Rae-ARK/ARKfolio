@@ -1,23 +1,28 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const RECIPIENT = 'horizonarkstudio@gmail.com'
 
 // Subjects used by the Store page's "I'm waiting for ..." buttons, which link
-// to /feedback?subject=<one of these> so the form opens pre-selected.
+// to /feedback?subject=<one of these keys> so the form opens pre-selected.
+// Keys map to src/locales/*.json's feedback.subjects.* — the subject text
+// itself is translated, so it travels as a key rather than display text.
 export const waitingSubjects = {
-  epmc: 'Waiting for the EPMC paperback',
-  stbf: 'Waiting for the STBF paperback',
+  epmc: 'waitingEpmc',
+  stbf: 'waitingStbf',
 } as const
 
-export const feedbackSubjects = [
-  'Feedback on the writing',
-  'Feedback on the website',
-  'Feedback on a paperback',
-  'Feedback about the author',
-  waitingSubjects.epmc,
-  waitingSubjects.stbf,
+export const feedbackSubjectKeys = [
+  'writing',
+  'website',
+  'paperback',
+  'author',
+  'waitingEpmc',
+  'waitingStbf',
 ] as const
+
+export type FeedbackSubjectKey = (typeof feedbackSubjectKeys)[number]
 
 type CopyTarget = 'address' | 'message'
 
@@ -26,13 +31,20 @@ type CopyTarget = 'address' | 'message'
 // email app configured.
 export function useFeedbackForm() {
   const route = useRoute()
-  const requested = route.query.subject
-  const initial = feedbackSubjects.find((s) => s === requested) ?? feedbackSubjects[0]
+  const { t } = useI18n()
 
-  const subject = ref<string>(initial)
+  const requested = route.query.subject
+  const initial =
+    feedbackSubjectKeys.find((s) => s === requested) ?? feedbackSubjectKeys[0]
+
+  const subject = ref<FeedbackSubjectKey>(initial)
   const name = ref('')
   const message = ref('')
   const copied = ref<CopyTarget | 'failed' | null>(null)
+
+  function subjectText() {
+    return t(`feedback.subjects.${subject.value}`)
+  }
 
   function body() {
     return (name.value.trim() ? `From: ${name.value.trim()}\n\n` : '') + message.value.trim()
@@ -40,12 +52,12 @@ export function useFeedbackForm() {
 
   function submit() {
     const mailto =
-      `mailto:${RECIPIENT}?subject=${encodeURIComponent(subject.value)}&body=${encodeURIComponent(body())}`
+      `mailto:${RECIPIENT}?subject=${encodeURIComponent(subjectText())}&body=${encodeURIComponent(body())}`
     window.location.href = mailto
   }
 
   async function copy(target: CopyTarget) {
-    const text = target === 'address' ? RECIPIENT : `Subject: ${subject.value}\n\n${body()}`
+    const text = target === 'address' ? RECIPIENT : `Subject: ${subjectText()}\n\n${body()}`
     try {
       await navigator.clipboard.writeText(text)
       copied.value = target

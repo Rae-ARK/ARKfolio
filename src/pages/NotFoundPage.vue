@@ -1,12 +1,18 @@
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+</script>
+
 <template>
   <section class="hero page-hero">
     <div class="wrap">
-      <span class="eyebrow">404</span>
-      <h1>That page isn't here</h1>
-      <p class="lede">The address may be mistyped, or the page may have moved. The stories are all still where they were.</p>
+      <span class="eyebrow">{{ t('notFound.eyebrow') }}</span>
+      <h1>{{ t('notFound.title') }}</h1>
+      <p class="lede">{{ t('notFound.lede') }}</p>
       <div class="cta-row">
-        <router-link to="/" class="btn btn-primary">Back to the start</router-link>
-        <router-link to="/works" class="btn btn-ghost">Browse the works</router-link>
+        <router-link to="/" class="btn btn-primary">{{ t('notFound.backHome') }}</router-link>
+        <router-link to="/works" class="btn btn-ghost">{{ t('notFound.browseWorks') }}</router-link>
       </div>
     </div>
   </section>

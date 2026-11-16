@@ -20,7 +20,7 @@ const { t } = useI18n()
   <header class="site-header">
     <div class="wrap">
       <div class="brand-row">
-        <router-link to="/about" aria-label="About Rae ARK">
+        <router-link to="/about" :aria-label="t('header.aboutAvatar')">
           <div class="avatar" aria-hidden="true"></div>
         </router-link>
         <div class="brand">
@@ -37,40 +37,40 @@ const { t } = useI18n()
       <nav class="main-nav" :class="{ open: navOpen }">
         <router-link to="/" active-class="active" exact-active-class="active" @click="closeNav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.5 10v9.5h13V10"/><path d="M9.75 19.5V13.5h4.5v6"/></svg>
-          <span>Home</span>
+          <span>{{ t('nav.home') }}</span>
         </router-link>
         <router-link to="/works" active-class="active" @click="closeNav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5h6a2 2 0 0 1 2 2V20a2 2 0 0 0-2-1.5H4Z"/><path d="M20 4.5h-6a2 2 0 0 0-2 2V20a2 2 0 0 1 2-1.5h6Z"/></svg>
-          <span>Works</span>
+          <span>{{ t('nav.works') }}</span>
         </router-link>
         <router-link to="/store" active-class="active" @click="closeNav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8.5h14l-1 11.5H6Z"/><path d="M8.5 8.5V6a3.5 3.5 0 0 1 7 0v2.5"/></svg>
-          <span>Store</span>
+          <span>{{ t('nav.store') }}</span>
         </router-link>
         <router-link to="/journal" active-class="active" @click="closeNav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5h10.5a1.5 1.5 0 0 1 1.5 1.5v15.5H7.5A1.5 1.5 0 0 1 6 19Z"/><path d="M6 19a1.5 1.5 0 0 1 1.5-1.5H18"/><path d="M9.5 8h5M9.5 11.5h5"/></svg>
-          <span>Journal</span>
+          <span>{{ t('nav.journal') }}</span>
         </router-link>
         <router-link to="/about" active-class="active" @click="closeNav">
           <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.25" r="3.25"/><path d="M5.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/></svg>
-          <span>About</span>
+          <span>{{ t('nav.about') }}</span>
         </router-link>
 
         <div class="nav-icons">
-          <a class="icon-btn" href="https://x.com/Rae7866" target="_blank" rel="noopener" aria-label="Follow on X">
+          <a class="icon-btn" href="https://x.com/Rae7866" target="_blank" rel="noopener" :aria-label="t('header.followX')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-6.6L4.4 22H1.3l8.1-9.3L1 2h7l4.9 6z"/></svg>
           </a>
-          <a class="icon-btn" href="https://www.youtube.com/@Rae0611" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+          <a class="icon-btn" href="https://www.youtube.com/@Rae0611" target="_blank" rel="noopener" :aria-label="t('header.watchYoutube')">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg>
           </a>
-          <a class="icon-btn" href="https://github.com/Rae-ARK/ARKfolio" target="_blank" rel="noopener" aria-label="View source on GitHub">
+          <a class="icon-btn" href="https://github.com/Rae-ARK/ARKfolio" target="_blank" rel="noopener" :aria-label="t('header.viewSource')">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.17c0 4.47 2.87 8.26 6.84 9.6.5.1.68-.22.68-.5v-1.94c-2.78.62-3.37-1.36-3.37-1.36-.46-1.2-1.11-1.52-1.11-1.52-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.9 1.55 2.36 1.1 2.93.84.09-.66.35-1.1.64-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.74 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.9-1.33 2.75-1.05 2.75-1.05.55 1.43.2 2.48.1 2.74.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .28.18.6.69.5A10.19 10.19 0 0 0 22 12.17C22 6.58 17.52 2 12 2Z"/></svg>
           </a>
           <button
             type="button"
             class="icon-btn theme-toggle"
             @click="toggleTheme"
-            :aria-label="theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+            :aria-label="theme === 'dark' ? t('header.switchToLight') : t('header.switchToDark')"
           >
             <svg v-if="theme === 'dark'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="4.5"/>
@@ -84,14 +84,14 @@ const { t } = useI18n()
             type="button"
             class="icon-btn lang-toggle"
             @click="toggleLocale"
-            :aria-label="locale === 'ja' ? 'Switch to English' : 'Switch to Japanese'"
+            :aria-label="locale === 'ja' ? t('header.switchToEnglish') : t('header.switchToJapanese')"
           >
             <span class="lang-label" aria-hidden="true">{{ t('lang.switchTo') }}</span>
           </button>
         </div>
       </nav>
 
-      <button class="nav-toggle" :aria-label="navOpen ? 'Close menu' : 'Open menu'" :aria-expanded="navOpen" @click="navOpen = !navOpen">
+      <button class="nav-toggle" :aria-label="navOpen ? t('header.closeMenu') : t('header.openMenu')" :aria-expanded="navOpen" @click="navOpen = !navOpen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
