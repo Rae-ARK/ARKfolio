@@ -9,6 +9,15 @@
  *   Fraunces:      variable (opsz + wght axes), weights 400/500/600/700
  *   Work Sans:     400/500/600
  *   IBM Plex Mono: 400/500
+ *
+ * Japanese localization (0012), stage 1:
+ *   Fraunces and IBM Plex Mono carry no CJK glyphs, so under :lang(ja) they
+ *   would silently fall back to whatever serif/monospace font the system
+ *   happens to have — unreviewed and inconsistent across platforms. Noto
+ *   Sans/Serif JP are added as the next entry in --sans/--serif/--mono (see
+ *   main.css) so Japanese text gets a deliberate, self-hosted face instead.
+ *   Weights mirror the Latin pairing: Noto Sans JP ~ Work Sans (400/500/600),
+ *   Noto Serif JP ~ Fraunces (400/500/600/700, used for headings).
  */
 @import '@fontsource-variable/fraunces/opsz.css';
 @import '@fontsource/work-sans/400.css';
@@ -16,3 +25,10 @@
 @import '@fontsource/work-sans/600.css';
 @import '@fontsource/ibm-plex-mono/400.css';
 @import '@fontsource/ibm-plex-mono/500.css';
+@import '@fontsource/noto-sans-jp/400.css';
+@import '@fontsource/noto-sans-jp/500.css';
+@import '@fontsource/noto-sans-jp/600.css';
+@import '@fontsource/noto-serif-jp/400.css';
+@import '@fontsource/noto-serif-jp/500.css';
+@import '@fontsource/noto-serif-jp/600.css';
+@import '@fontsource/noto-serif-jp/700.css';

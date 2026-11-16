@@ -2317,3 +2317,36 @@ section.page-body.flush {
     transform: none;
   }
 }
+
+/* ================================================================
+   Japanese localization (0012), stage 1
+   ----------------------------------------------------------------
+   Font stacks: Noto Sans/Serif JP (loaded in fonts.css) take over as
+   the next fallback as soon as :lang(ja) applies, ahead of the Latin
+   faces and the system default — same var(--serif)/var(--sans)/
+   var(--mono) used everywhere already, so no component needs to
+   change.
+
+   Typography: every eyebrow/label/badge style in this file pairs
+   var(--mono) with a wide letter-spacing and an uppercase transform.
+   Both read as mistakes on CJK text — letter-spacing pushes kanji/
+   kana apart unnaturally, and uppercase has no defined effect on
+   non-Latin scripts (it still acts on any Latin letters mixed into
+   the string, which is itself the bug, e.g. the header's "WEB
+   NOVELIST" sub-line). Reset is written once, here, as a blanket
+   :lang(ja) rule rather than touching each selector above: every
+   affected rule shares the same two properties, :lang(ja) and a
+   class selector have equal specificity, and source order (this
+   block is last) decides the tie in the reset's favor.
+   ================================================================ */
+:lang(ja) {
+  letter-spacing: normal;
+  text-transform: none;
+  /* Written out in full rather than as var(--serif) + an extra face: a
+     custom property can't safely reference its own name inside the same
+     rule that redefines it (the reference would resolve against the new
+     value, not the old one, and the two would cycle). */
+  --serif: 'Noto Serif JP', 'Fraunces Variable', 'Fraunces', Georgia, serif;
+  --sans: 'Noto Sans JP', 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'Noto Sans JP', 'IBM Plex Mono', ui-monospace, monospace;
+}
