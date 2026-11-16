@@ -1,9 +1,9 @@
-<table width="200%">
+<table width="100%">
   <tr>
     <td align="left">
       <h1>ARKfolio</h1>
     </td>
-    <td align="right">
+    <td align="right" width="70%">
       <a href="#whats-here">What's Here</a> •
       <a href="#local-development">Local Development</a> •
       <a href="#deploying-the-site">Deploying The Site</a> •
