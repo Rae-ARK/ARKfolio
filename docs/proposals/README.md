@@ -14,6 +14,7 @@ yet implemented**. Each proposal carries a status.
 | [0009](0009-reader-conversion.md) | Turning visitors into readers, incl. hero mood card (review stage 2) | Accepted (shipped, awaiting author verification) |
 | [0010](0010-accessibility-and-polish.md) | Accessibility and polish (review stage 3) | Implemented (awaiting verification; item 5 untested on desktop) |
 | [0011](0011-maintainability.md) | Content workflow and measurement (review stage 4) | Proposed |
+| [0012](0012-japanese-localization.md) | Japanese localization, staged | Proposed |
 
 Proposals 0001–0006 were implemented and have been removed from this
 folder; their outcomes are recorded in full in the
