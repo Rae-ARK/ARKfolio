@@ -3,7 +3,7 @@
     <td align="left">
       <h1>ARKfolio</h1>
     </td>
-    <td align="right" width="85%">
+    <td align="right">
       <a href="#whats-here">What's Here</a> •
       <a href="#local-development">Local Development</a> •
       <a href="#deploying-the-site">Deploying The Site</a> •
