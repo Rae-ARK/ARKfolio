@@ -9,6 +9,11 @@ const { t, tm } = useI18n()
 // locale can list its own read links / in-progress works.
 const readLinks = tm('about.readLinks') as unknown as { site: string; title: string; url: string }[]
 const currentlyWriting = tm('about.currentlyWriting') as unknown as string[]
+
+// Non-translatable: same destination in every language.
+const ARKARIUM_RELEASES_URL = 'https://github.com/Rae-ARK/ARKarium/releases/'
+const ARKARIUM_OBTAINIUM_URL =
+  'https://apps.obtainium.imranr.dev/redirect?r=obtainium%3A%2F%2Fapp%2F%257B%2522id%2522%253A%2522ARKarium%2522%252C%2522url%2522%253A%2522https%253A%252F%252Fgithub.com%252FRae-ARK%252FARKarium%2522%252C%2522author%2522%253A%2522Rae-ARK%2522%252C%2522name%2522%253A%2522ARKarium%2522%257D'
 </script>
 
 <template>
@@ -32,6 +37,17 @@ const currentlyWriting = tm('about.currentlyWriting') as unknown as string[]
         <h3>{{ t('about.why.title') }}</h3>
         <p>{{ t('about.why.p1') }}</p>
         <p>{{ t('about.why.p2') }}</p>
+
+        <div class="section-divider about-divider"><span class="asterism"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+
+        <h3>{{ t('about.app.title') }}</h3>
+        <p>{{ t('about.app.p1') }}</p>
+        <p>{{ t('about.app.p2') }}</p>
+        <p>{{ t('about.app.p3') }}</p>
+        <div class="about-app-actions">
+          <a class="btn btn-primary btn-small" :href="ARKARIUM_OBTAINIUM_URL" target="_blank" rel="noopener">{{ t('about.app.obtainium') }} ↗</a>
+          <a class="btn btn-ghost btn-small" :href="ARKARIUM_RELEASES_URL" target="_blank" rel="noopener">{{ t('about.app.github') }} ↗</a>
+        </div>
       </div>
 
       <aside class="about-side">
