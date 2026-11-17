@@ -1956,6 +1956,13 @@ section.page-body.flush {
   margin: 48px 0;
 }
 
+.about-app-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
 .about-name {
   font-size: 0.9rem;
   color: var(--ink-soft);
