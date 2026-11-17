@@ -14,6 +14,14 @@
     "p1": "Enigmatic Pathways Mystic Circuits started after an anime watch session turned into a real conversation about what family should mean beyond raw talent. Re:Zero and Mushoku Tensei both left a mark on how I think about second chances and slow, hard-won emotional growth — not power fantasies, but people learning to carry what happened to them.",
     "p2": "Summoned by Mistake, I Decided to Learn How to Live became the place for ideas that didn't fit anywhere else — something looser and more relaxing to write. The Shadow I Cast Over Two Beautiful Flowers exists for a different reason entirely: I wanted proof, mostly to myself, that I could take a story to a real, satisfying ending."
   },
+  "app": {
+    "title": "Why I built my own app",
+    "p1": "On Royal Road and Scribble Hub, I'm one story among thousands, and every one of them starts from the same place. Those sites are good at what they do, but they were never built around me or my work. So I made ARKarium: a reading app for my stories, and only my stories.",
+    "p2": "It's local-first. Chapters sync straight from my repository to your phone and then stay there, so you can read offline and keep your place. No platform sits in between.",
+    "p3": "It's still early. ARKarium is in beta, it runs on Android 14 or newer, and bugs are normal. Royal Road and Scribble Hub remain the easy way to read, but if you're curious, you're welcome to try it.",
+    "obtainium": "Get it on Obtainium",
+    "github": "Download from GitHub"
+  },
   "side": {
     "nameHeading": "The name",
     "name": "Rae ARK — 嵐久 怜.",
