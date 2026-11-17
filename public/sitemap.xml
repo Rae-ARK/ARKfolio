@@ -1,11 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/works</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/store</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/journal</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/about</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/feedback</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/privacy</loc></url>
-  <url><loc>https://rae-ark.horizonarkstudio.workers.dev/terms</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/works"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/works"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/works"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/works</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/works"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/works"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/works"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/store</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/store"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/store"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/store</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/store"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/store"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/store"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/journal</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/journal"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/journal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/journal"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/journal</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/journal"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/journal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/journal"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/about"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/about"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/about"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/feedback</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/feedback"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/feedback"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/feedback"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/feedback</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/feedback"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/feedback"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/feedback"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/privacy"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/privacy"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/privacy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/privacy"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/terms"/>
+  </url>
+  <url>
+    <loc>https://rae-ark.horizonarkstudio.workers.dev/ja/terms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://rae-ark.horizonarkstudio.workers.dev/terms"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://rae-ark.horizonarkstudio.workers.dev/ja/terms"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rae-ark.horizonarkstudio.workers.dev/terms"/>
+  </url>
 </urlset>
